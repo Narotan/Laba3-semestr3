@@ -1,0 +1,1648 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - v1/fstream</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory v1">v1</a> - fstream<span style="font-size: 80%;"> (source / <a href="fstream.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryMed">77.8&nbsp;%</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">14</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2025-11-20 09:45:27</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : // -*- C++ -*-</span>
+<span id="L2"><span class="lineNum">       2</span>              : //===----------------------------------------------------------------------===//</span>
+<span id="L3"><span class="lineNum">       3</span>              : //</span>
+<span id="L4"><span class="lineNum">       4</span>              : // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.</span>
+<span id="L5"><span class="lineNum">       5</span>              : // See https://llvm.org/LICENSE.txt for license information.</span>
+<span id="L6"><span class="lineNum">       6</span>              : // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception</span>
+<span id="L7"><span class="lineNum">       7</span>              : //</span>
+<span id="L8"><span class="lineNum">       8</span>              : //===----------------------------------------------------------------------===//</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span>              : #ifndef _LIBCPP_FSTREAM</span>
+<span id="L11"><span class="lineNum">      11</span>              : #define _LIBCPP_FSTREAM</span>
+<span id="L12"><span class="lineNum">      12</span>              : </span>
+<span id="L13"><span class="lineNum">      13</span>              : /*</span>
+<span id="L14"><span class="lineNum">      14</span>              :     fstream synopsis</span>
+<span id="L15"><span class="lineNum">      15</span>              : </span>
+<span id="L16"><span class="lineNum">      16</span>              : template &lt;class charT, class traits = char_traits&lt;charT&gt; &gt;</span>
+<span id="L17"><span class="lineNum">      17</span>              : class basic_filebuf</span>
+<span id="L18"><span class="lineNum">      18</span>              :     : public basic_streambuf&lt;charT, traits&gt;</span>
+<span id="L19"><span class="lineNum">      19</span>              : {</span>
+<span id="L20"><span class="lineNum">      20</span>              : public:</span>
+<span id="L21"><span class="lineNum">      21</span>              :     typedef charT                          char_type;</span>
+<span id="L22"><span class="lineNum">      22</span>              :     typedef traits                         traits_type;</span>
+<span id="L23"><span class="lineNum">      23</span>              :     typedef typename traits_type::int_type int_type;</span>
+<span id="L24"><span class="lineNum">      24</span>              :     typedef typename traits_type::pos_type pos_type;</span>
+<span id="L25"><span class="lineNum">      25</span>              :     typedef typename traits_type::off_type off_type;</span>
+<span id="L26"><span class="lineNum">      26</span>              : </span>
+<span id="L27"><span class="lineNum">      27</span>              :     // 27.9.1.2 Constructors/destructor:</span>
+<span id="L28"><span class="lineNum">      28</span>              :     basic_filebuf();</span>
+<span id="L29"><span class="lineNum">      29</span>              :     basic_filebuf(basic_filebuf&amp;&amp; rhs);</span>
+<span id="L30"><span class="lineNum">      30</span>              :     virtual ~basic_filebuf();</span>
+<span id="L31"><span class="lineNum">      31</span>              : </span>
+<span id="L32"><span class="lineNum">      32</span>              :     // 27.9.1.3 Assign/swap:</span>
+<span id="L33"><span class="lineNum">      33</span>              :     basic_filebuf&amp; operator=(basic_filebuf&amp;&amp; rhs);</span>
+<span id="L34"><span class="lineNum">      34</span>              :     void swap(basic_filebuf&amp; rhs);</span>
+<span id="L35"><span class="lineNum">      35</span>              : </span>
+<span id="L36"><span class="lineNum">      36</span>              :     // 27.9.1.4 Members:</span>
+<span id="L37"><span class="lineNum">      37</span>              :     bool is_open() const;</span>
+<span id="L38"><span class="lineNum">      38</span>              :     basic_filebuf* open(const char* s, ios_base::openmode mode);</span>
+<span id="L39"><span class="lineNum">      39</span>              :     basic_filebuf* open(const string&amp; s, ios_base::openmode mode);</span>
+<span id="L40"><span class="lineNum">      40</span>              :     basic_filebuf* open(const filesystem::path&amp; p, ios_base::openmode mode); // C++17</span>
+<span id="L41"><span class="lineNum">      41</span>              :     basic_filebuf* close();</span>
+<span id="L42"><span class="lineNum">      42</span>              : </span>
+<span id="L43"><span class="lineNum">      43</span>              : protected:</span>
+<span id="L44"><span class="lineNum">      44</span>              :     // 27.9.1.5 Overridden virtual functions:</span>
+<span id="L45"><span class="lineNum">      45</span>              :     virtual streamsize showmanyc();</span>
+<span id="L46"><span class="lineNum">      46</span>              :     virtual int_type underflow();</span>
+<span id="L47"><span class="lineNum">      47</span>              :     virtual int_type uflow();</span>
+<span id="L48"><span class="lineNum">      48</span>              :     virtual int_type pbackfail(int_type c = traits_type::eof());</span>
+<span id="L49"><span class="lineNum">      49</span>              :     virtual int_type overflow (int_type c = traits_type::eof());</span>
+<span id="L50"><span class="lineNum">      50</span>              :     virtual basic_streambuf&lt;char_type, traits_type&gt;* setbuf(char_type* s, streamsize n);</span>
+<span id="L51"><span class="lineNum">      51</span>              :     virtual pos_type seekoff(off_type off, ios_base::seekdir way,</span>
+<span id="L52"><span class="lineNum">      52</span>              :                              ios_base::openmode which = ios_base::in | ios_base::out);</span>
+<span id="L53"><span class="lineNum">      53</span>              :     virtual pos_type seekpos(pos_type sp,</span>
+<span id="L54"><span class="lineNum">      54</span>              :                              ios_base::openmode which = ios_base::in | ios_base::out);</span>
+<span id="L55"><span class="lineNum">      55</span>              :     virtual int sync();</span>
+<span id="L56"><span class="lineNum">      56</span>              :     virtual void imbue(const locale&amp; loc);</span>
+<span id="L57"><span class="lineNum">      57</span>              : };</span>
+<span id="L58"><span class="lineNum">      58</span>              : </span>
+<span id="L59"><span class="lineNum">      59</span>              : template &lt;class charT, class traits&gt;</span>
+<span id="L60"><span class="lineNum">      60</span>              :   void</span>
+<span id="L61"><span class="lineNum">      61</span>              :   swap(basic_filebuf&lt;charT, traits&gt;&amp; x, basic_filebuf&lt;charT, traits&gt;&amp; y);</span>
+<span id="L62"><span class="lineNum">      62</span>              : </span>
+<span id="L63"><span class="lineNum">      63</span>              : typedef basic_filebuf&lt;char&gt;    filebuf;</span>
+<span id="L64"><span class="lineNum">      64</span>              : typedef basic_filebuf&lt;wchar_t&gt; wfilebuf;</span>
+<span id="L65"><span class="lineNum">      65</span>              : </span>
+<span id="L66"><span class="lineNum">      66</span>              : template &lt;class charT, class traits = char_traits&lt;charT&gt; &gt;</span>
+<span id="L67"><span class="lineNum">      67</span>              : class basic_ifstream</span>
+<span id="L68"><span class="lineNum">      68</span>              :     : public basic_istream&lt;charT,traits&gt;</span>
+<span id="L69"><span class="lineNum">      69</span>              : {</span>
+<span id="L70"><span class="lineNum">      70</span>              : public:</span>
+<span id="L71"><span class="lineNum">      71</span>              :     typedef charT                          char_type;</span>
+<span id="L72"><span class="lineNum">      72</span>              :     typedef traits                         traits_type;</span>
+<span id="L73"><span class="lineNum">      73</span>              :     typedef typename traits_type::int_type int_type;</span>
+<span id="L74"><span class="lineNum">      74</span>              :     typedef typename traits_type::pos_type pos_type;</span>
+<span id="L75"><span class="lineNum">      75</span>              :     typedef typename traits_type::off_type off_type;</span>
+<span id="L76"><span class="lineNum">      76</span>              :     using native_handle_type = typename basic_filebuf&lt;charT, traits&gt;::native_handle_type; // Since C++26</span>
+<span id="L77"><span class="lineNum">      77</span>              : </span>
+<span id="L78"><span class="lineNum">      78</span>              :     basic_ifstream();</span>
+<span id="L79"><span class="lineNum">      79</span>              :     explicit basic_ifstream(const char* s, ios_base::openmode mode = ios_base::in);</span>
+<span id="L80"><span class="lineNum">      80</span>              :     explicit basic_ifstream(const string&amp; s, ios_base::openmode mode = ios_base::in);</span>
+<span id="L81"><span class="lineNum">      81</span>              :     template&lt;class T&gt;</span>
+<span id="L82"><span class="lineNum">      82</span>              :     explicit basic_ifstream(const T&amp; s, ios_base::openmode mode = ios_base::in); // Since C++17</span>
+<span id="L83"><span class="lineNum">      83</span>              :     basic_ifstream(basic_ifstream&amp;&amp; rhs);</span>
+<span id="L84"><span class="lineNum">      84</span>              : </span>
+<span id="L85"><span class="lineNum">      85</span>              :     basic_ifstream&amp; operator=(basic_ifstream&amp;&amp; rhs);</span>
+<span id="L86"><span class="lineNum">      86</span>              :     void swap(basic_ifstream&amp; rhs);</span>
+<span id="L87"><span class="lineNum">      87</span>              : </span>
+<span id="L88"><span class="lineNum">      88</span>              :     basic_filebuf&lt;char_type, traits_type&gt;* rdbuf() const;</span>
+<span id="L89"><span class="lineNum">      89</span>              :     native_handle_type native_handle() const noexcept; // Since C++26</span>
+<span id="L90"><span class="lineNum">      90</span>              :     bool is_open() const;</span>
+<span id="L91"><span class="lineNum">      91</span>              :     void open(const char* s, ios_base::openmode mode = ios_base::in);</span>
+<span id="L92"><span class="lineNum">      92</span>              :     void open(const string&amp; s, ios_base::openmode mode = ios_base::in);</span>
+<span id="L93"><span class="lineNum">      93</span>              :     void open(const filesystem::path&amp; s, ios_base::openmode mode = ios_base::in); // C++17</span>
+<span id="L94"><span class="lineNum">      94</span>              : </span>
+<span id="L95"><span class="lineNum">      95</span>              :     void close();</span>
+<span id="L96"><span class="lineNum">      96</span>              : };</span>
+<span id="L97"><span class="lineNum">      97</span>              : </span>
+<span id="L98"><span class="lineNum">      98</span>              : template &lt;class charT, class traits&gt;</span>
+<span id="L99"><span class="lineNum">      99</span>              :   void</span>
+<span id="L100"><span class="lineNum">     100</span>              :   swap(basic_ifstream&lt;charT, traits&gt;&amp; x, basic_ifstream&lt;charT, traits&gt;&amp; y);</span>
+<span id="L101"><span class="lineNum">     101</span>              : </span>
+<span id="L102"><span class="lineNum">     102</span>              : typedef basic_ifstream&lt;char&gt;    ifstream;</span>
+<span id="L103"><span class="lineNum">     103</span>              : typedef basic_ifstream&lt;wchar_t&gt; wifstream;</span>
+<span id="L104"><span class="lineNum">     104</span>              : </span>
+<span id="L105"><span class="lineNum">     105</span>              : template &lt;class charT, class traits = char_traits&lt;charT&gt; &gt;</span>
+<span id="L106"><span class="lineNum">     106</span>              : class basic_ofstream</span>
+<span id="L107"><span class="lineNum">     107</span>              :     : public basic_ostream&lt;charT,traits&gt;</span>
+<span id="L108"><span class="lineNum">     108</span>              : {</span>
+<span id="L109"><span class="lineNum">     109</span>              : public:</span>
+<span id="L110"><span class="lineNum">     110</span>              :     typedef charT                          char_type;</span>
+<span id="L111"><span class="lineNum">     111</span>              :     typedef traits                         traits_type;</span>
+<span id="L112"><span class="lineNum">     112</span>              :     typedef typename traits_type::int_type int_type;</span>
+<span id="L113"><span class="lineNum">     113</span>              :     typedef typename traits_type::pos_type pos_type;</span>
+<span id="L114"><span class="lineNum">     114</span>              :     typedef typename traits_type::off_type off_type;</span>
+<span id="L115"><span class="lineNum">     115</span>              :     using native_handle_type = typename basic_filebuf&lt;charT, traits&gt;::native_handle_type; // Since C++26</span>
+<span id="L116"><span class="lineNum">     116</span>              : </span>
+<span id="L117"><span class="lineNum">     117</span>              :     basic_ofstream();</span>
+<span id="L118"><span class="lineNum">     118</span>              :     explicit basic_ofstream(const char* s, ios_base::openmode mode = ios_base::out);</span>
+<span id="L119"><span class="lineNum">     119</span>              :     explicit basic_ofstream(const string&amp; s, ios_base::openmode mode = ios_base::out);</span>
+<span id="L120"><span class="lineNum">     120</span>              :     template&lt;class T&gt;</span>
+<span id="L121"><span class="lineNum">     121</span>              :     explicit basic_ofstream(const T&amp; s, ios_base::openmode mode = ios_base::out); // Since C++17</span>
+<span id="L122"><span class="lineNum">     122</span>              :     basic_ofstream(basic_ofstream&amp;&amp; rhs);</span>
+<span id="L123"><span class="lineNum">     123</span>              : </span>
+<span id="L124"><span class="lineNum">     124</span>              :     basic_ofstream&amp; operator=(basic_ofstream&amp;&amp; rhs);</span>
+<span id="L125"><span class="lineNum">     125</span>              :     void swap(basic_ofstream&amp; rhs);</span>
+<span id="L126"><span class="lineNum">     126</span>              : </span>
+<span id="L127"><span class="lineNum">     127</span>              :     basic_filebuf&lt;char_type, traits_type&gt;* rdbuf() const;</span>
+<span id="L128"><span class="lineNum">     128</span>              :     native_handle_type native_handle() const noexcept; // Since C++26</span>
+<span id="L129"><span class="lineNum">     129</span>              : </span>
+<span id="L130"><span class="lineNum">     130</span>              :     bool is_open() const;</span>
+<span id="L131"><span class="lineNum">     131</span>              :     void open(const char* s, ios_base::openmode mode = ios_base::out);</span>
+<span id="L132"><span class="lineNum">     132</span>              :     void open(const string&amp; s, ios_base::openmode mode = ios_base::out);</span>
+<span id="L133"><span class="lineNum">     133</span>              :     void open(const filesystem::path&amp; p,</span>
+<span id="L134"><span class="lineNum">     134</span>              :               ios_base::openmode mode = ios_base::out); // C++17</span>
+<span id="L135"><span class="lineNum">     135</span>              : </span>
+<span id="L136"><span class="lineNum">     136</span>              :     void close();</span>
+<span id="L137"><span class="lineNum">     137</span>              : };</span>
+<span id="L138"><span class="lineNum">     138</span>              : </span>
+<span id="L139"><span class="lineNum">     139</span>              : template &lt;class charT, class traits&gt;</span>
+<span id="L140"><span class="lineNum">     140</span>              :   void</span>
+<span id="L141"><span class="lineNum">     141</span>              :   swap(basic_ofstream&lt;charT, traits&gt;&amp; x, basic_ofstream&lt;charT, traits&gt;&amp; y);</span>
+<span id="L142"><span class="lineNum">     142</span>              : </span>
+<span id="L143"><span class="lineNum">     143</span>              : typedef basic_ofstream&lt;char&gt;    ofstream;</span>
+<span id="L144"><span class="lineNum">     144</span>              : typedef basic_ofstream&lt;wchar_t&gt; wofstream;</span>
+<span id="L145"><span class="lineNum">     145</span>              : </span>
+<span id="L146"><span class="lineNum">     146</span>              : template &lt;class charT, class traits=char_traits&lt;charT&gt; &gt;</span>
+<span id="L147"><span class="lineNum">     147</span>              : class basic_fstream</span>
+<span id="L148"><span class="lineNum">     148</span>              :     : public basic_iostream&lt;charT,traits&gt;</span>
+<span id="L149"><span class="lineNum">     149</span>              : {</span>
+<span id="L150"><span class="lineNum">     150</span>              : public:</span>
+<span id="L151"><span class="lineNum">     151</span>              :     typedef charT                          char_type;</span>
+<span id="L152"><span class="lineNum">     152</span>              :     typedef traits                         traits_type;</span>
+<span id="L153"><span class="lineNum">     153</span>              :     typedef typename traits_type::int_type int_type;</span>
+<span id="L154"><span class="lineNum">     154</span>              :     typedef typename traits_type::pos_type pos_type;</span>
+<span id="L155"><span class="lineNum">     155</span>              :     typedef typename traits_type::off_type off_type;</span>
+<span id="L156"><span class="lineNum">     156</span>              :     using native_handle_type = typename basic_filebuf&lt;charT, traits&gt;::native_handle_type; // Since C++26</span>
+<span id="L157"><span class="lineNum">     157</span>              : </span>
+<span id="L158"><span class="lineNum">     158</span>              :     basic_fstream();</span>
+<span id="L159"><span class="lineNum">     159</span>              :     explicit basic_fstream(const char* s, ios_base::openmode mode = ios_base::in|ios_base::out);</span>
+<span id="L160"><span class="lineNum">     160</span>              :     explicit basic_fstream(const string&amp; s, ios_base::openmode mode = ios_base::in|ios_base::out);</span>
+<span id="L161"><span class="lineNum">     161</span>              :     template&lt;class T&gt;</span>
+<span id="L162"><span class="lineNum">     162</span>              :     explicit basic_fstream(const T&amp; s, ios_base::openmode mode = ios_base::in | ios_base::out); // Since C++17</span>
+<span id="L163"><span class="lineNum">     163</span>              :     basic_fstream(basic_fstream&amp;&amp; rhs);</span>
+<span id="L164"><span class="lineNum">     164</span>              : </span>
+<span id="L165"><span class="lineNum">     165</span>              :     basic_fstream&amp; operator=(basic_fstream&amp;&amp; rhs);</span>
+<span id="L166"><span class="lineNum">     166</span>              :     void swap(basic_fstream&amp; rhs);</span>
+<span id="L167"><span class="lineNum">     167</span>              : </span>
+<span id="L168"><span class="lineNum">     168</span>              :     basic_filebuf&lt;char_type, traits_type&gt;* rdbuf() const;</span>
+<span id="L169"><span class="lineNum">     169</span>              :     native_handle_type native_handle() const noexcept; // Since C++26</span>
+<span id="L170"><span class="lineNum">     170</span>              :     bool is_open() const;</span>
+<span id="L171"><span class="lineNum">     171</span>              :     void open(const char* s, ios_base::openmode mode = ios_base::in|ios_base::out);</span>
+<span id="L172"><span class="lineNum">     172</span>              :     void open(const string&amp; s, ios_base::openmode mode = ios_base::in|ios_base::out);</span>
+<span id="L173"><span class="lineNum">     173</span>              :     void open(const filesystem::path&amp; s,</span>
+<span id="L174"><span class="lineNum">     174</span>              :               ios_base::openmode mode = ios_base::in|ios_base::out); // C++17</span>
+<span id="L175"><span class="lineNum">     175</span>              : </span>
+<span id="L176"><span class="lineNum">     176</span>              :     void close();</span>
+<span id="L177"><span class="lineNum">     177</span>              : };</span>
+<span id="L178"><span class="lineNum">     178</span>              : </span>
+<span id="L179"><span class="lineNum">     179</span>              : template &lt;class charT, class traits&gt;</span>
+<span id="L180"><span class="lineNum">     180</span>              :   void swap(basic_fstream&lt;charT, traits&gt;&amp; x, basic_fstream&lt;charT, traits&gt;&amp; y);</span>
+<span id="L181"><span class="lineNum">     181</span>              : </span>
+<span id="L182"><span class="lineNum">     182</span>              : typedef basic_fstream&lt;char&gt;    fstream;</span>
+<span id="L183"><span class="lineNum">     183</span>              : typedef basic_fstream&lt;wchar_t&gt; wfstream;</span>
+<span id="L184"><span class="lineNum">     184</span>              : </span>
+<span id="L185"><span class="lineNum">     185</span>              : }  // std</span>
+<span id="L186"><span class="lineNum">     186</span>              : </span>
+<span id="L187"><span class="lineNum">     187</span>              : */</span>
+<span id="L188"><span class="lineNum">     188</span>              : </span>
+<span id="L189"><span class="lineNum">     189</span>              : #include &lt;__algorithm/max.h&gt;</span>
+<span id="L190"><span class="lineNum">     190</span>              : #include &lt;__assert&gt;</span>
+<span id="L191"><span class="lineNum">     191</span>              : #include &lt;__config&gt;</span>
+<span id="L192"><span class="lineNum">     192</span>              : #include &lt;__fwd/fstream.h&gt;</span>
+<span id="L193"><span class="lineNum">     193</span>              : #include &lt;__locale&gt;</span>
+<span id="L194"><span class="lineNum">     194</span>              : #include &lt;__type_traits/enable_if.h&gt;</span>
+<span id="L195"><span class="lineNum">     195</span>              : #include &lt;__type_traits/is_same.h&gt;</span>
+<span id="L196"><span class="lineNum">     196</span>              : #include &lt;__utility/move.h&gt;</span>
+<span id="L197"><span class="lineNum">     197</span>              : #include &lt;__utility/swap.h&gt;</span>
+<span id="L198"><span class="lineNum">     198</span>              : #include &lt;__utility/unreachable.h&gt;</span>
+<span id="L199"><span class="lineNum">     199</span>              : #include &lt;cstdio&gt;</span>
+<span id="L200"><span class="lineNum">     200</span>              : #include &lt;filesystem&gt;</span>
+<span id="L201"><span class="lineNum">     201</span>              : #include &lt;istream&gt;</span>
+<span id="L202"><span class="lineNum">     202</span>              : #include &lt;ostream&gt;</span>
+<span id="L203"><span class="lineNum">     203</span>              : #include &lt;typeinfo&gt;</span>
+<span id="L204"><span class="lineNum">     204</span>              : #include &lt;version&gt;</span>
+<span id="L205"><span class="lineNum">     205</span>              : </span>
+<span id="L206"><span class="lineNum">     206</span>              : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)</span>
+<span id="L207"><span class="lineNum">     207</span>              : #  pragma GCC system_header</span>
+<span id="L208"><span class="lineNum">     208</span>              : #endif</span>
+<span id="L209"><span class="lineNum">     209</span>              : </span>
+<span id="L210"><span class="lineNum">     210</span>              : _LIBCPP_PUSH_MACROS</span>
+<span id="L211"><span class="lineNum">     211</span>              : #include &lt;__undef_macros&gt;</span>
+<span id="L212"><span class="lineNum">     212</span>              : </span>
+<span id="L213"><span class="lineNum">     213</span>              : #if defined(_LIBCPP_MSVCRT) || defined(_NEWLIB_VERSION)</span>
+<span id="L214"><span class="lineNum">     214</span>              : #  define _LIBCPP_HAS_NO_OFF_T_FUNCTIONS</span>
+<span id="L215"><span class="lineNum">     215</span>              : #endif</span>
+<span id="L216"><span class="lineNum">     216</span>              : </span>
+<span id="L217"><span class="lineNum">     217</span>              : #if !defined(_LIBCPP_HAS_NO_FILESYSTEM)</span>
+<span id="L218"><span class="lineNum">     218</span>              : </span>
+<span id="L219"><span class="lineNum">     219</span>              : _LIBCPP_BEGIN_NAMESPACE_STD</span>
+<span id="L220"><span class="lineNum">     220</span>              : </span>
+<span id="L221"><span class="lineNum">     221</span>              : #  if _LIBCPP_STD_VER &gt;= 26 &amp;&amp; defined(_LIBCPP_WIN32API)</span>
+<span id="L222"><span class="lineNum">     222</span>              : _LIBCPP_EXPORTED_FROM_ABI void* __filebuf_windows_native_handle(FILE* __file) noexcept;</span>
+<span id="L223"><span class="lineNum">     223</span>              : #  endif</span>
+<span id="L224"><span class="lineNum">     224</span>              : </span>
+<span id="L225"><span class="lineNum">     225</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L226"><span class="lineNum">     226</span>              : class _LIBCPP_TEMPLATE_VIS basic_filebuf : public basic_streambuf&lt;_CharT, _Traits&gt; {</span>
+<span id="L227"><span class="lineNum">     227</span>              : public:</span>
+<span id="L228"><span class="lineNum">     228</span>              :   typedef _CharT char_type;</span>
+<span id="L229"><span class="lineNum">     229</span>              :   typedef _Traits traits_type;</span>
+<span id="L230"><span class="lineNum">     230</span>              :   typedef typename traits_type::int_type int_type;</span>
+<span id="L231"><span class="lineNum">     231</span>              :   typedef typename traits_type::pos_type pos_type;</span>
+<span id="L232"><span class="lineNum">     232</span>              :   typedef typename traits_type::off_type off_type;</span>
+<span id="L233"><span class="lineNum">     233</span>              :   typedef typename traits_type::state_type state_type;</span>
+<span id="L234"><span class="lineNum">     234</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L235"><span class="lineNum">     235</span>              : #    if defined(_LIBCPP_WIN32API)</span>
+<span id="L236"><span class="lineNum">     236</span>              :   using native_handle_type = void*; // HANDLE</span>
+<span id="L237"><span class="lineNum">     237</span>              : #    elif __has_include(&lt;unistd.h&gt;)</span>
+<span id="L238"><span class="lineNum">     238</span>              :   using native_handle_type = int; // POSIX file descriptor</span>
+<span id="L239"><span class="lineNum">     239</span>              : #    else</span>
+<span id="L240"><span class="lineNum">     240</span>              : #      error &quot;Provide a native file handle!&quot;</span>
+<span id="L241"><span class="lineNum">     241</span>              : #    endif</span>
+<span id="L242"><span class="lineNum">     242</span>              : #  endif</span>
+<span id="L243"><span class="lineNum">     243</span>              : </span>
+<span id="L244"><span class="lineNum">     244</span>              :   // 27.9.1.2 Constructors/destructor:</span>
+<span id="L245"><span class="lineNum">     245</span>              :   basic_filebuf();</span>
+<span id="L246"><span class="lineNum">     246</span>              :   basic_filebuf(basic_filebuf&amp;&amp; __rhs);</span>
+<span id="L247"><span class="lineNum">     247</span>              :   ~basic_filebuf() override;</span>
+<span id="L248"><span class="lineNum">     248</span>              : </span>
+<span id="L249"><span class="lineNum">     249</span>              :   // 27.9.1.3 Assign/swap:</span>
+<span id="L250"><span class="lineNum">     250</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf&amp; operator=(basic_filebuf&amp;&amp; __rhs);</span>
+<span id="L251"><span class="lineNum">     251</span>              :   void swap(basic_filebuf&amp; __rhs);</span>
+<span id="L252"><span class="lineNum">     252</span>              : </span>
+<span id="L253"><span class="lineNum">     253</span>              :   // 27.9.1.4 Members:</span>
+<span id="L254"><span class="lineNum">     254</span>              :   _LIBCPP_HIDE_FROM_ABI bool is_open() const;</span>
+<span id="L255"><span class="lineNum">     255</span>              :   basic_filebuf* open(const char* __s, ios_base::openmode __mode);</span>
+<span id="L256"><span class="lineNum">     256</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L257"><span class="lineNum">     257</span>              :   basic_filebuf* open(const wchar_t* __s, ios_base::openmode __mode);</span>
+<span id="L258"><span class="lineNum">     258</span>              : #  endif</span>
+<span id="L259"><span class="lineNum">     259</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf* open(const string&amp; __s, ios_base::openmode __mode);</span>
+<span id="L260"><span class="lineNum">     260</span>              : </span>
+<span id="L261"><span class="lineNum">     261</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L262"><span class="lineNum">     262</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY _LIBCPP_HIDE_FROM_ABI basic_filebuf*</span>
+<span id="L263"><span class="lineNum">     263</span>              :   open(const filesystem::path&amp; __p, ios_base::openmode __mode) {</span>
+<span id="L264"><span class="lineNum">     264</span>              :     return open(__p.c_str(), __mode);</span>
+<span id="L265"><span class="lineNum">     265</span>              :   }</span>
+<span id="L266"><span class="lineNum">     266</span>              : #  endif</span>
+<span id="L267"><span class="lineNum">     267</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf* __open(int __fd, ios_base::openmode __mode);</span>
+<span id="L268"><span class="lineNum">     268</span>              :   basic_filebuf* close();</span>
+<span id="L269"><span class="lineNum">     269</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L270"><span class="lineNum">     270</span>              :   _LIBCPP_HIDE_FROM_ABI native_handle_type native_handle() const noexcept {</span>
+<span id="L271"><span class="lineNum">     271</span>              :     _LIBCPP_ASSERT_UNCATEGORIZED(this-&gt;is_open(), &quot;File must be opened&quot;);</span>
+<span id="L272"><span class="lineNum">     272</span>              : #    if defined(_LIBCPP_WIN32API)</span>
+<span id="L273"><span class="lineNum">     273</span>              :     return std::__filebuf_windows_native_handle(__file_);</span>
+<span id="L274"><span class="lineNum">     274</span>              : #    elif __has_include(&lt;unistd.h&gt;)</span>
+<span id="L275"><span class="lineNum">     275</span>              :     return fileno(__file_);</span>
+<span id="L276"><span class="lineNum">     276</span>              : #    else</span>
+<span id="L277"><span class="lineNum">     277</span>              : #      error &quot;Provide a way to determine the file native handle!&quot;</span>
+<span id="L278"><span class="lineNum">     278</span>              : #    endif</span>
+<span id="L279"><span class="lineNum">     279</span>              :   }</span>
+<span id="L280"><span class="lineNum">     280</span>              : #  endif //  _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L281"><span class="lineNum">     281</span>              : </span>
+<span id="L282"><span class="lineNum">     282</span>              :   _LIBCPP_HIDE_FROM_ABI inline static const char* __make_mdstring(ios_base::openmode __mode) _NOEXCEPT;</span>
+<span id="L283"><span class="lineNum">     283</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L284"><span class="lineNum">     284</span>              :   _LIBCPP_HIDE_FROM_ABI inline static const wchar_t* __make_mdwstring(ios_base::openmode __mode) _NOEXCEPT;</span>
+<span id="L285"><span class="lineNum">     285</span>              : #  endif</span>
+<span id="L286"><span class="lineNum">     286</span>              : </span>
+<span id="L287"><span class="lineNum">     287</span>              : protected:</span>
+<span id="L288"><span class="lineNum">     288</span>              :   // 27.9.1.5 Overridden virtual functions:</span>
+<span id="L289"><span class="lineNum">     289</span>              :   int_type underflow() override;</span>
+<span id="L290"><span class="lineNum">     290</span>              :   int_type pbackfail(int_type __c = traits_type::eof()) override;</span>
+<span id="L291"><span class="lineNum">     291</span>              :   int_type overflow(int_type __c = traits_type::eof()) override;</span>
+<span id="L292"><span class="lineNum">     292</span>              :   basic_streambuf&lt;char_type, traits_type&gt;* setbuf(char_type* __s, streamsize __n) override;</span>
+<span id="L293"><span class="lineNum">     293</span>              :   pos_type</span>
+<span id="L294"><span class="lineNum">     294</span>              :   seekoff(off_type __off, ios_base::seekdir __way, ios_base::openmode __wch = ios_base::in | ios_base::out) override;</span>
+<span id="L295"><span class="lineNum">     295</span>              :   pos_type seekpos(pos_type __sp, ios_base::openmode __wch = ios_base::in | ios_base::out) override;</span>
+<span id="L296"><span class="lineNum">     296</span>              :   int sync() override;</span>
+<span id="L297"><span class="lineNum">     297</span>              :   void imbue(const locale&amp; __loc) override;</span>
+<span id="L298"><span class="lineNum">     298</span>              : </span>
+<span id="L299"><span class="lineNum">     299</span>              : private:</span>
+<span id="L300"><span class="lineNum">     300</span>              :   char* __extbuf_;</span>
+<span id="L301"><span class="lineNum">     301</span>              :   const char* __extbufnext_;</span>
+<span id="L302"><span class="lineNum">     302</span>              :   const char* __extbufend_;</span>
+<span id="L303"><span class="lineNum">     303</span>              :   char __extbuf_min_[8];</span>
+<span id="L304"><span class="lineNum">     304</span>              :   size_t __ebs_;</span>
+<span id="L305"><span class="lineNum">     305</span>              :   char_type* __intbuf_;</span>
+<span id="L306"><span class="lineNum">     306</span>              :   size_t __ibs_;</span>
+<span id="L307"><span class="lineNum">     307</span>              :   FILE* __file_;</span>
+<span id="L308"><span class="lineNum">     308</span>              :   const codecvt&lt;char_type, char, state_type&gt;* __cv_;</span>
+<span id="L309"><span class="lineNum">     309</span>              :   state_type __st_;</span>
+<span id="L310"><span class="lineNum">     310</span>              :   state_type __st_last_;</span>
+<span id="L311"><span class="lineNum">     311</span>              :   ios_base::openmode __om_;</span>
+<span id="L312"><span class="lineNum">     312</span>              :   // There have been no file operations yet, which allows setting unbuffered</span>
+<span id="L313"><span class="lineNum">     313</span>              :   // I/O mode.</span>
+<span id="L314"><span class="lineNum">     314</span>              :   static const ios_base::openmode __no_io_operations = ios_base::trunc;</span>
+<span id="L315"><span class="lineNum">     315</span>              :   // Unbuffered I/O mode has been requested.</span>
+<span id="L316"><span class="lineNum">     316</span>              :   static const ios_base::openmode __use_unbuffered_io = ios_base::ate;</span>
+<span id="L317"><span class="lineNum">     317</span>              :   // Used to track the currently used mode and track whether the output should</span>
+<span id="L318"><span class="lineNum">     318</span>              :   // be unbuffered.</span>
+<span id="L319"><span class="lineNum">     319</span>              :   // [filebuf.virtuals]/12</span>
+<span id="L320"><span class="lineNum">     320</span>              :   //   If setbuf(0, 0) is called on a stream before any I/O has occurred on</span>
+<span id="L321"><span class="lineNum">     321</span>              :   //   that stream, the stream becomes unbuffered. Otherwise the results are</span>
+<span id="L322"><span class="lineNum">     322</span>              :   //   implementation-defined.</span>
+<span id="L323"><span class="lineNum">     323</span>              :   // This allows calling setbuf(0, 0)</span>
+<span id="L324"><span class="lineNum">     324</span>              :   // - before opening a file,</span>
+<span id="L325"><span class="lineNum">     325</span>              :   // - after opening a file, before</span>
+<span id="L326"><span class="lineNum">     326</span>              :   //   - a read</span>
+<span id="L327"><span class="lineNum">     327</span>              :   //   - a write</span>
+<span id="L328"><span class="lineNum">     328</span>              :   //   - a seek.</span>
+<span id="L329"><span class="lineNum">     329</span>              :   // Note that opening a file with ios_base::ate does a seek operation.</span>
+<span id="L330"><span class="lineNum">     330</span>              :   // Normally underflow, overflow, and sync change this flag to ios_base::in,</span>
+<span id="L331"><span class="lineNum">     331</span>              :   // ios_base_out, or 0.</span>
+<span id="L332"><span class="lineNum">     332</span>              :   //</span>
+<span id="L333"><span class="lineNum">     333</span>              :   // The ios_base::trunc and ios_base::ate flags are not used in __cm_. They</span>
+<span id="L334"><span class="lineNum">     334</span>              :   // are used to track the state of the unbuffered request. For readability</span>
+<span id="L335"><span class="lineNum">     335</span>              :   // they have the aliases __no_io_operations and __use_unbuffered_io</span>
+<span id="L336"><span class="lineNum">     336</span>              :   // respectively.</span>
+<span id="L337"><span class="lineNum">     337</span>              :   //</span>
+<span id="L338"><span class="lineNum">     338</span>              :   // The __no_io_operations and __use_unbuffered_io flags are used in the</span>
+<span id="L339"><span class="lineNum">     339</span>              :   // following way:</span>
+<span id="L340"><span class="lineNum">     340</span>              :   // - __no_io_operations is set upon construction to indicate the unbuffered</span>
+<span id="L341"><span class="lineNum">     341</span>              :   //   state can be set.</span>
+<span id="L342"><span class="lineNum">     342</span>              :   // - When requesting unbuffered output:</span>
+<span id="L343"><span class="lineNum">     343</span>              :   //   - If the file is open it sets the mode.</span>
+<span id="L344"><span class="lineNum">     344</span>              :   //   - Else places a request by adding the __use_unbuffered_io flag.</span>
+<span id="L345"><span class="lineNum">     345</span>              :   // - When a file is opened it checks whether both __no_io_operations and</span>
+<span id="L346"><span class="lineNum">     346</span>              :   //   __use_unbuffered_io are set. If so switches to unbuffered mode.</span>
+<span id="L347"><span class="lineNum">     347</span>              :   // - All file I/O operations change the mode effectively clearing the</span>
+<span id="L348"><span class="lineNum">     348</span>              :   //   __no_io_operations and __use_unbuffered_io flags.</span>
+<span id="L349"><span class="lineNum">     349</span>              :   ios_base::openmode __cm_;</span>
+<span id="L350"><span class="lineNum">     350</span>              :   bool __owns_eb_;</span>
+<span id="L351"><span class="lineNum">     351</span>              :   bool __owns_ib_;</span>
+<span id="L352"><span class="lineNum">     352</span>              :   bool __always_noconv_;</span>
+<span id="L353"><span class="lineNum">     353</span>              : </span>
+<span id="L354"><span class="lineNum">     354</span>              :   bool __read_mode();</span>
+<span id="L355"><span class="lineNum">     355</span>              :   void __write_mode();</span>
+<span id="L356"><span class="lineNum">     356</span>              : </span>
+<span id="L357"><span class="lineNum">     357</span>              :   _LIBCPP_EXPORTED_FROM_ABI friend FILE* __get_ostream_file(ostream&amp;);</span>
+<span id="L358"><span class="lineNum">     358</span>              : </span>
+<span id="L359"><span class="lineNum">     359</span>              :   // There are multiple (__)open function, they use different C-API open</span>
+<span id="L360"><span class="lineNum">     360</span>              :   // function. After that call these functions behave the same. This function</span>
+<span id="L361"><span class="lineNum">     361</span>              :   // does that part and determines the final return value.</span>
+<span id="L362"><span class="lineNum">     362</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf* __do_open(FILE* __file, ios_base::openmode __mode) {</span>
+<span id="L363"><span class="lineNum">     363</span>              :     __file_ = __file;</span>
+<span id="L364"><span class="lineNum">     364</span>              :     if (!__file_)</span>
+<span id="L365"><span class="lineNum">     365</span>              :       return nullptr;</span>
+<span id="L366"><span class="lineNum">     366</span>              : </span>
+<span id="L367"><span class="lineNum">     367</span>              :     __om_ = __mode;</span>
+<span id="L368"><span class="lineNum">     368</span>              :     if (__cm_ == (__no_io_operations | __use_unbuffered_io)) {</span>
+<span id="L369"><span class="lineNum">     369</span>              :       std::setbuf(__file_, nullptr);</span>
+<span id="L370"><span class="lineNum">     370</span>              :       __cm_ = 0;</span>
+<span id="L371"><span class="lineNum">     371</span>              :     }</span>
+<span id="L372"><span class="lineNum">     372</span>              : </span>
+<span id="L373"><span class="lineNum">     373</span>              :     if (__mode &amp; ios_base::ate) {</span>
+<span id="L374"><span class="lineNum">     374</span>              :       __cm_ = 0;</span>
+<span id="L375"><span class="lineNum">     375</span>              :       if (fseek(__file_, 0, SEEK_END)) {</span>
+<span id="L376"><span class="lineNum">     376</span>              :         fclose(__file_);</span>
+<span id="L377"><span class="lineNum">     377</span>              :         __file_ = nullptr;</span>
+<span id="L378"><span class="lineNum">     378</span>              :         return nullptr;</span>
+<span id="L379"><span class="lineNum">     379</span>              :       }</span>
+<span id="L380"><span class="lineNum">     380</span>              :     }</span>
+<span id="L381"><span class="lineNum">     381</span>              : </span>
+<span id="L382"><span class="lineNum">     382</span>              :     return this;</span>
+<span id="L383"><span class="lineNum">     383</span>              :   }</span>
+<span id="L384"><span class="lineNum">     384</span>              : </span>
+<span id="L385"><span class="lineNum">     385</span>              :   // If the file is already open, switch to unbuffered mode. Otherwise, record</span>
+<span id="L386"><span class="lineNum">     386</span>              :   // the request to use unbuffered mode so that we use that mode when we</span>
+<span id="L387"><span class="lineNum">     387</span>              :   // eventually open the file.</span>
+<span id="L388"><span class="lineNum">     388</span>              :   _LIBCPP_HIDE_FROM_ABI void __request_unbuffered_mode(char_type* __s, streamsize __n) {</span>
+<span id="L389"><span class="lineNum">     389</span>              :     if (__cm_ == __no_io_operations &amp;&amp; __s == nullptr &amp;&amp; __n == 0) {</span>
+<span id="L390"><span class="lineNum">     390</span>              :       if (__file_) {</span>
+<span id="L391"><span class="lineNum">     391</span>              :         std::setbuf(__file_, nullptr);</span>
+<span id="L392"><span class="lineNum">     392</span>              :         __cm_ = 0;</span>
+<span id="L393"><span class="lineNum">     393</span>              :       } else {</span>
+<span id="L394"><span class="lineNum">     394</span>              :         __cm_ = __no_io_operations | __use_unbuffered_io;</span>
+<span id="L395"><span class="lineNum">     395</span>              :       }</span>
+<span id="L396"><span class="lineNum">     396</span>              :     }</span>
+<span id="L397"><span class="lineNum">     397</span>              :   }</span>
+<span id="L398"><span class="lineNum">     398</span>              : };</span>
+<span id="L399"><span class="lineNum">     399</span>              : </span>
+<span id="L400"><span class="lineNum">     400</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L401"><span class="lineNum">     401</span>              : basic_filebuf&lt;_CharT, _Traits&gt;::basic_filebuf()</span>
+<span id="L402"><span class="lineNum">     402</span>              :     : __extbuf_(nullptr),</span>
+<span id="L403"><span class="lineNum">     403</span>              :       __extbufnext_(nullptr),</span>
+<span id="L404"><span class="lineNum">     404</span>              :       __extbufend_(nullptr),</span>
+<span id="L405"><span class="lineNum">     405</span>              :       __ebs_(0),</span>
+<span id="L406"><span class="lineNum">     406</span>              :       __intbuf_(nullptr),</span>
+<span id="L407"><span class="lineNum">     407</span>              :       __ibs_(0),</span>
+<span id="L408"><span class="lineNum">     408</span>              :       __file_(nullptr),</span>
+<span id="L409"><span class="lineNum">     409</span>              :       __cv_(nullptr),</span>
+<span id="L410"><span class="lineNum">     410</span>              :       __st_(),</span>
+<span id="L411"><span class="lineNum">     411</span>              :       __st_last_(),</span>
+<span id="L412"><span class="lineNum">     412</span>              :       __om_(0),</span>
+<span id="L413"><span class="lineNum">     413</span>              :       __cm_(__no_io_operations),</span>
+<span id="L414"><span class="lineNum">     414</span>              :       __owns_eb_(false),</span>
+<span id="L415"><span class="lineNum">     415</span>              :       __owns_ib_(false),</span>
+<span id="L416"><span class="lineNum">     416</span>              :       __always_noconv_(false) {</span>
+<span id="L417"><span class="lineNum">     417</span>              :   if (std::has_facet&lt;codecvt&lt;char_type, char, state_type&gt; &gt;(this-&gt;getloc())) {</span>
+<span id="L418"><span class="lineNum">     418</span>              :     __cv_            = &amp;std::use_facet&lt;codecvt&lt;char_type, char, state_type&gt; &gt;(this-&gt;getloc());</span>
+<span id="L419"><span class="lineNum">     419</span>              :     __always_noconv_ = __cv_-&gt;always_noconv();</span>
+<span id="L420"><span class="lineNum">     420</span>              :   }</span>
+<span id="L421"><span class="lineNum">     421</span>              :   setbuf(nullptr, 4096);</span>
+<span id="L422"><span class="lineNum">     422</span>              : }</span>
+<span id="L423"><span class="lineNum">     423</span>              : </span>
+<span id="L424"><span class="lineNum">     424</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L425"><span class="lineNum">     425</span>              : basic_filebuf&lt;_CharT, _Traits&gt;::basic_filebuf(basic_filebuf&amp;&amp; __rhs) : basic_streambuf&lt;_CharT, _Traits&gt;(__rhs) {</span>
+<span id="L426"><span class="lineNum">     426</span>              :   if (__rhs.__extbuf_ == __rhs.__extbuf_min_) {</span>
+<span id="L427"><span class="lineNum">     427</span>              :     __extbuf_     = __extbuf_min_;</span>
+<span id="L428"><span class="lineNum">     428</span>              :     __extbufnext_ = __extbuf_ + (__rhs.__extbufnext_ - __rhs.__extbuf_);</span>
+<span id="L429"><span class="lineNum">     429</span>              :     __extbufend_  = __extbuf_ + (__rhs.__extbufend_ - __rhs.__extbuf_);</span>
+<span id="L430"><span class="lineNum">     430</span>              :   } else {</span>
+<span id="L431"><span class="lineNum">     431</span>              :     __extbuf_     = __rhs.__extbuf_;</span>
+<span id="L432"><span class="lineNum">     432</span>              :     __extbufnext_ = __rhs.__extbufnext_;</span>
+<span id="L433"><span class="lineNum">     433</span>              :     __extbufend_  = __rhs.__extbufend_;</span>
+<span id="L434"><span class="lineNum">     434</span>              :   }</span>
+<span id="L435"><span class="lineNum">     435</span>              :   __ebs_           = __rhs.__ebs_;</span>
+<span id="L436"><span class="lineNum">     436</span>              :   __intbuf_        = __rhs.__intbuf_;</span>
+<span id="L437"><span class="lineNum">     437</span>              :   __ibs_           = __rhs.__ibs_;</span>
+<span id="L438"><span class="lineNum">     438</span>              :   __file_          = __rhs.__file_;</span>
+<span id="L439"><span class="lineNum">     439</span>              :   __cv_            = __rhs.__cv_;</span>
+<span id="L440"><span class="lineNum">     440</span>              :   __st_            = __rhs.__st_;</span>
+<span id="L441"><span class="lineNum">     441</span>              :   __st_last_       = __rhs.__st_last_;</span>
+<span id="L442"><span class="lineNum">     442</span>              :   __om_            = __rhs.__om_;</span>
+<span id="L443"><span class="lineNum">     443</span>              :   __cm_            = __rhs.__cm_;</span>
+<span id="L444"><span class="lineNum">     444</span>              :   __owns_eb_       = __rhs.__owns_eb_;</span>
+<span id="L445"><span class="lineNum">     445</span>              :   __owns_ib_       = __rhs.__owns_ib_;</span>
+<span id="L446"><span class="lineNum">     446</span>              :   __always_noconv_ = __rhs.__always_noconv_;</span>
+<span id="L447"><span class="lineNum">     447</span>              :   if (__rhs.pbase()) {</span>
+<span id="L448"><span class="lineNum">     448</span>              :     if (__rhs.pbase() == __rhs.__intbuf_)</span>
+<span id="L449"><span class="lineNum">     449</span>              :       this-&gt;setp(__intbuf_, __intbuf_ + (__rhs.epptr() - __rhs.pbase()));</span>
+<span id="L450"><span class="lineNum">     450</span>              :     else</span>
+<span id="L451"><span class="lineNum">     451</span>              :       this-&gt;setp((char_type*)__extbuf_, (char_type*)__extbuf_ + (__rhs.epptr() - __rhs.pbase()));</span>
+<span id="L452"><span class="lineNum">     452</span>              :     this-&gt;__pbump(__rhs.pptr() - __rhs.pbase());</span>
+<span id="L453"><span class="lineNum">     453</span>              :   } else if (__rhs.eback()) {</span>
+<span id="L454"><span class="lineNum">     454</span>              :     if (__rhs.eback() == __rhs.__intbuf_)</span>
+<span id="L455"><span class="lineNum">     455</span>              :       this-&gt;setg(__intbuf_, __intbuf_ + (__rhs.gptr() - __rhs.eback()), __intbuf_ + (__rhs.egptr() - __rhs.eback()));</span>
+<span id="L456"><span class="lineNum">     456</span>              :     else</span>
+<span id="L457"><span class="lineNum">     457</span>              :       this-&gt;setg((char_type*)__extbuf_,</span>
+<span id="L458"><span class="lineNum">     458</span>              :                  (char_type*)__extbuf_ + (__rhs.gptr() - __rhs.eback()),</span>
+<span id="L459"><span class="lineNum">     459</span>              :                  (char_type*)__extbuf_ + (__rhs.egptr() - __rhs.eback()));</span>
+<span id="L460"><span class="lineNum">     460</span>              :   }</span>
+<span id="L461"><span class="lineNum">     461</span>              :   __rhs.__extbuf_     = nullptr;</span>
+<span id="L462"><span class="lineNum">     462</span>              :   __rhs.__extbufnext_ = nullptr;</span>
+<span id="L463"><span class="lineNum">     463</span>              :   __rhs.__extbufend_  = nullptr;</span>
+<span id="L464"><span class="lineNum">     464</span>              :   __rhs.__ebs_        = 0;</span>
+<span id="L465"><span class="lineNum">     465</span>              :   __rhs.__intbuf_     = 0;</span>
+<span id="L466"><span class="lineNum">     466</span>              :   __rhs.__ibs_        = 0;</span>
+<span id="L467"><span class="lineNum">     467</span>              :   __rhs.__file_       = nullptr;</span>
+<span id="L468"><span class="lineNum">     468</span>              :   __rhs.__st_         = state_type();</span>
+<span id="L469"><span class="lineNum">     469</span>              :   __rhs.__st_last_    = state_type();</span>
+<span id="L470"><span class="lineNum">     470</span>              :   __rhs.__om_         = 0;</span>
+<span id="L471"><span class="lineNum">     471</span>              :   __rhs.__cm_         = 0;</span>
+<span id="L472"><span class="lineNum">     472</span>              :   __rhs.__owns_eb_    = false;</span>
+<span id="L473"><span class="lineNum">     473</span>              :   __rhs.__owns_ib_    = false;</span>
+<span id="L474"><span class="lineNum">     474</span>              :   __rhs.setg(0, 0, 0);</span>
+<span id="L475"><span class="lineNum">     475</span>              :   __rhs.setp(0, 0);</span>
+<span id="L476"><span class="lineNum">     476</span>              : }</span>
+<span id="L477"><span class="lineNum">     477</span>              : </span>
+<span id="L478"><span class="lineNum">     478</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L479"><span class="lineNum">     479</span>              : inline basic_filebuf&lt;_CharT, _Traits&gt;&amp; basic_filebuf&lt;_CharT, _Traits&gt;::operator=(basic_filebuf&amp;&amp; __rhs) {</span>
+<span id="L480"><span class="lineNum">     480</span>              :   close();</span>
+<span id="L481"><span class="lineNum">     481</span>              :   swap(__rhs);</span>
+<span id="L482"><span class="lineNum">     482</span>              :   return *this;</span>
+<span id="L483"><span class="lineNum">     483</span>              : }</span>
+<span id="L484"><span class="lineNum">     484</span>              : </span>
+<span id="L485"><span class="lineNum">     485</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L486"><span class="lineNum">     486</span>              : basic_filebuf&lt;_CharT, _Traits&gt;::~basic_filebuf() {</span>
+<span id="L487"><span class="lineNum">     487</span>              : #  ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L488"><span class="lineNum">     488</span>              :   try {</span>
+<span id="L489"><span class="lineNum">     489</span>              : #  endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L490"><span class="lineNum">     490</span>              :     close();</span>
+<span id="L491"><span class="lineNum">     491</span>              : #  ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L492"><span class="lineNum">     492</span>              :   } catch (...) {</span>
+<span id="L493"><span class="lineNum">     493</span>              :   }</span>
+<span id="L494"><span class="lineNum">     494</span>              : #  endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L495"><span class="lineNum">     495</span>              :   if (__owns_eb_)</span>
+<span id="L496"><span class="lineNum">     496</span>              :     delete[] __extbuf_;</span>
+<span id="L497"><span class="lineNum">     497</span>              :   if (__owns_ib_)</span>
+<span id="L498"><span class="lineNum">     498</span>              :     delete[] __intbuf_;</span>
+<span id="L499"><span class="lineNum">     499</span>              : }</span>
+<span id="L500"><span class="lineNum">     500</span>              : </span>
+<span id="L501"><span class="lineNum">     501</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L502"><span class="lineNum">     502</span>              : void basic_filebuf&lt;_CharT, _Traits&gt;::swap(basic_filebuf&amp; __rhs) {</span>
+<span id="L503"><span class="lineNum">     503</span>              :   basic_streambuf&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span id="L504"><span class="lineNum">     504</span>              :   if (__extbuf_ != __extbuf_min_ &amp;&amp; __rhs.__extbuf_ != __rhs.__extbuf_min_) {</span>
+<span id="L505"><span class="lineNum">     505</span>              :     // Neither *this nor __rhs uses the small buffer, so we can simply swap the pointers.</span>
+<span id="L506"><span class="lineNum">     506</span>              :     std::swap(__extbuf_, __rhs.__extbuf_);</span>
+<span id="L507"><span class="lineNum">     507</span>              :     std::swap(__extbufnext_, __rhs.__extbufnext_);</span>
+<span id="L508"><span class="lineNum">     508</span>              :     std::swap(__extbufend_, __rhs.__extbufend_);</span>
+<span id="L509"><span class="lineNum">     509</span>              :   } else {</span>
+<span id="L510"><span class="lineNum">     510</span>              :     ptrdiff_t __ln = __extbufnext_ ? __extbufnext_ - __extbuf_ : 0;</span>
+<span id="L511"><span class="lineNum">     511</span>              :     ptrdiff_t __le = __extbufend_ ? __extbufend_ - __extbuf_ : 0;</span>
+<span id="L512"><span class="lineNum">     512</span>              :     ptrdiff_t __rn = __rhs.__extbufnext_ ? __rhs.__extbufnext_ - __rhs.__extbuf_ : 0;</span>
+<span id="L513"><span class="lineNum">     513</span>              :     ptrdiff_t __re = __rhs.__extbufend_ ? __rhs.__extbufend_ - __rhs.__extbuf_ : 0;</span>
+<span id="L514"><span class="lineNum">     514</span>              :     if (__extbuf_ == __extbuf_min_ &amp;&amp; __rhs.__extbuf_ != __rhs.__extbuf_min_) {</span>
+<span id="L515"><span class="lineNum">     515</span>              :       // *this uses the small buffer, but __rhs doesn't.</span>
+<span id="L516"><span class="lineNum">     516</span>              :       __extbuf_       = __rhs.__extbuf_;</span>
+<span id="L517"><span class="lineNum">     517</span>              :       __rhs.__extbuf_ = __rhs.__extbuf_min_;</span>
+<span id="L518"><span class="lineNum">     518</span>              :       std::memmove(__rhs.__extbuf_min_, __extbuf_min_, sizeof(__extbuf_min_));</span>
+<span id="L519"><span class="lineNum">     519</span>              :     } else if (__extbuf_ != __extbuf_min_ &amp;&amp; __rhs.__extbuf_ == __rhs.__extbuf_min_) {</span>
+<span id="L520"><span class="lineNum">     520</span>              :       // *this doesn't use the small buffer, but __rhs does.</span>
+<span id="L521"><span class="lineNum">     521</span>              :       __rhs.__extbuf_ = __extbuf_;</span>
+<span id="L522"><span class="lineNum">     522</span>              :       __extbuf_       = __extbuf_min_;</span>
+<span id="L523"><span class="lineNum">     523</span>              :       std::memmove(__extbuf_min_, __rhs.__extbuf_min_, sizeof(__extbuf_min_));</span>
+<span id="L524"><span class="lineNum">     524</span>              :     } else {</span>
+<span id="L525"><span class="lineNum">     525</span>              :       // Both *this and __rhs use the small buffer.</span>
+<span id="L526"><span class="lineNum">     526</span>              :       char __tmp[sizeof(__extbuf_min_)];</span>
+<span id="L527"><span class="lineNum">     527</span>              :       std::memmove(__tmp, __extbuf_min_, sizeof(__extbuf_min_));</span>
+<span id="L528"><span class="lineNum">     528</span>              :       std::memmove(__extbuf_min_, __rhs.__extbuf_min_, sizeof(__extbuf_min_));</span>
+<span id="L529"><span class="lineNum">     529</span>              :       std::memmove(__rhs.__extbuf_min_, __tmp, sizeof(__extbuf_min_));</span>
+<span id="L530"><span class="lineNum">     530</span>              :     }</span>
+<span id="L531"><span class="lineNum">     531</span>              :     __extbufnext_       = __extbuf_ + __rn;</span>
+<span id="L532"><span class="lineNum">     532</span>              :     __extbufend_        = __extbuf_ + __re;</span>
+<span id="L533"><span class="lineNum">     533</span>              :     __rhs.__extbufnext_ = __rhs.__extbuf_ + __ln;</span>
+<span id="L534"><span class="lineNum">     534</span>              :     __rhs.__extbufend_  = __rhs.__extbuf_ + __le;</span>
+<span id="L535"><span class="lineNum">     535</span>              :   }</span>
+<span id="L536"><span class="lineNum">     536</span>              :   std::swap(__ebs_, __rhs.__ebs_);</span>
+<span id="L537"><span class="lineNum">     537</span>              :   std::swap(__intbuf_, __rhs.__intbuf_);</span>
+<span id="L538"><span class="lineNum">     538</span>              :   std::swap(__ibs_, __rhs.__ibs_);</span>
+<span id="L539"><span class="lineNum">     539</span>              :   std::swap(__file_, __rhs.__file_);</span>
+<span id="L540"><span class="lineNum">     540</span>              :   std::swap(__cv_, __rhs.__cv_);</span>
+<span id="L541"><span class="lineNum">     541</span>              :   std::swap(__st_, __rhs.__st_);</span>
+<span id="L542"><span class="lineNum">     542</span>              :   std::swap(__st_last_, __rhs.__st_last_);</span>
+<span id="L543"><span class="lineNum">     543</span>              :   std::swap(__om_, __rhs.__om_);</span>
+<span id="L544"><span class="lineNum">     544</span>              :   std::swap(__cm_, __rhs.__cm_);</span>
+<span id="L545"><span class="lineNum">     545</span>              :   std::swap(__owns_eb_, __rhs.__owns_eb_);</span>
+<span id="L546"><span class="lineNum">     546</span>              :   std::swap(__owns_ib_, __rhs.__owns_ib_);</span>
+<span id="L547"><span class="lineNum">     547</span>              :   std::swap(__always_noconv_, __rhs.__always_noconv_);</span>
+<span id="L548"><span class="lineNum">     548</span>              :   if (this-&gt;eback() == (char_type*)__rhs.__extbuf_min_) {</span>
+<span id="L549"><span class="lineNum">     549</span>              :     ptrdiff_t __n = this-&gt;gptr() - this-&gt;eback();</span>
+<span id="L550"><span class="lineNum">     550</span>              :     ptrdiff_t __e = this-&gt;egptr() - this-&gt;eback();</span>
+<span id="L551"><span class="lineNum">     551</span>              :     this-&gt;setg((char_type*)__extbuf_min_, (char_type*)__extbuf_min_ + __n, (char_type*)__extbuf_min_ + __e);</span>
+<span id="L552"><span class="lineNum">     552</span>              :   } else if (this-&gt;pbase() == (char_type*)__rhs.__extbuf_min_) {</span>
+<span id="L553"><span class="lineNum">     553</span>              :     ptrdiff_t __n = this-&gt;pptr() - this-&gt;pbase();</span>
+<span id="L554"><span class="lineNum">     554</span>              :     ptrdiff_t __e = this-&gt;epptr() - this-&gt;pbase();</span>
+<span id="L555"><span class="lineNum">     555</span>              :     this-&gt;setp((char_type*)__extbuf_min_, (char_type*)__extbuf_min_ + __e);</span>
+<span id="L556"><span class="lineNum">     556</span>              :     this-&gt;__pbump(__n);</span>
+<span id="L557"><span class="lineNum">     557</span>              :   }</span>
+<span id="L558"><span class="lineNum">     558</span>              :   if (__rhs.eback() == (char_type*)__extbuf_min_) {</span>
+<span id="L559"><span class="lineNum">     559</span>              :     ptrdiff_t __n = __rhs.gptr() - __rhs.eback();</span>
+<span id="L560"><span class="lineNum">     560</span>              :     ptrdiff_t __e = __rhs.egptr() - __rhs.eback();</span>
+<span id="L561"><span class="lineNum">     561</span>              :     __rhs.setg(</span>
+<span id="L562"><span class="lineNum">     562</span>              :         (char_type*)__rhs.__extbuf_min_, (char_type*)__rhs.__extbuf_min_ + __n, (char_type*)__rhs.__extbuf_min_ + __e);</span>
+<span id="L563"><span class="lineNum">     563</span>              :   } else if (__rhs.pbase() == (char_type*)__extbuf_min_) {</span>
+<span id="L564"><span class="lineNum">     564</span>              :     ptrdiff_t __n = __rhs.pptr() - __rhs.pbase();</span>
+<span id="L565"><span class="lineNum">     565</span>              :     ptrdiff_t __e = __rhs.epptr() - __rhs.pbase();</span>
+<span id="L566"><span class="lineNum">     566</span>              :     __rhs.setp((char_type*)__rhs.__extbuf_min_, (char_type*)__rhs.__extbuf_min_ + __e);</span>
+<span id="L567"><span class="lineNum">     567</span>              :     __rhs.__pbump(__n);</span>
+<span id="L568"><span class="lineNum">     568</span>              :   }</span>
+<span id="L569"><span class="lineNum">     569</span>              : }</span>
+<span id="L570"><span class="lineNum">     570</span>              : </span>
+<span id="L571"><span class="lineNum">     571</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L572"><span class="lineNum">     572</span>              : inline _LIBCPP_HIDE_FROM_ABI void swap(basic_filebuf&lt;_CharT, _Traits&gt;&amp; __x, basic_filebuf&lt;_CharT, _Traits&gt;&amp; __y) {</span>
+<span id="L573"><span class="lineNum">     573</span>              :   __x.swap(__y);</span>
+<span id="L574"><span class="lineNum">     574</span>              : }</span>
+<span id="L575"><span class="lineNum">     575</span>              : </span>
+<span id="L576"><span class="lineNum">     576</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L577"><span class="lineNum">     577</span>              : inline bool basic_filebuf&lt;_CharT, _Traits&gt;::is_open() const {</span>
+<span id="L578"><span class="lineNum">     578</span>              :   return __file_ != nullptr;</span>
+<span id="L579"><span class="lineNum">     579</span>              : }</span>
+<span id="L580"><span class="lineNum">     580</span>              : </span>
+<span id="L581"><span class="lineNum">     581</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L582"><span class="lineNum">     582</span>              : const char* basic_filebuf&lt;_CharT, _Traits&gt;::__make_mdstring(ios_base::openmode __mode) _NOEXCEPT {</span>
+<span id="L583"><span class="lineNum">     583</span>              :   switch (__mode &amp; ~ios_base::ate) {</span>
+<span id="L584"><span class="lineNum">     584</span>              :   case ios_base::out:</span>
+<span id="L585"><span class="lineNum">     585</span>              :   case ios_base::out | ios_base::trunc:</span>
+<span id="L586"><span class="lineNum">     586</span>              :     return &quot;w&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L587"><span class="lineNum">     587</span>              :   case ios_base::out | ios_base::app:</span>
+<span id="L588"><span class="lineNum">     588</span>              :   case ios_base::app:</span>
+<span id="L589"><span class="lineNum">     589</span>              :     return &quot;a&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L590"><span class="lineNum">     590</span>              :   case ios_base::in:</span>
+<span id="L591"><span class="lineNum">     591</span>              :     return &quot;r&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L592"><span class="lineNum">     592</span>              :   case ios_base::in | ios_base::out:</span>
+<span id="L593"><span class="lineNum">     593</span>              :     return &quot;r+&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L594"><span class="lineNum">     594</span>              :   case ios_base::in | ios_base::out | ios_base::trunc:</span>
+<span id="L595"><span class="lineNum">     595</span>              :     return &quot;w+&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L596"><span class="lineNum">     596</span>              :   case ios_base::in | ios_base::out | ios_base::app:</span>
+<span id="L597"><span class="lineNum">     597</span>              :   case ios_base::in | ios_base::app:</span>
+<span id="L598"><span class="lineNum">     598</span>              :     return &quot;a+&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L599"><span class="lineNum">     599</span>              :   case ios_base::out | ios_base::binary:</span>
+<span id="L600"><span class="lineNum">     600</span>              :   case ios_base::out | ios_base::trunc | ios_base::binary:</span>
+<span id="L601"><span class="lineNum">     601</span>              :     return &quot;wb&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L602"><span class="lineNum">     602</span>              :   case ios_base::out | ios_base::app | ios_base::binary:</span>
+<span id="L603"><span class="lineNum">     603</span>              :   case ios_base::app | ios_base::binary:</span>
+<span id="L604"><span class="lineNum">     604</span>              :     return &quot;ab&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L605"><span class="lineNum">     605</span>              :   case ios_base::in | ios_base::binary:</span>
+<span id="L606"><span class="lineNum">     606</span>              :     return &quot;rb&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L607"><span class="lineNum">     607</span>              :   case ios_base::in | ios_base::out | ios_base::binary:</span>
+<span id="L608"><span class="lineNum">     608</span>              :     return &quot;r+b&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L609"><span class="lineNum">     609</span>              :   case ios_base::in | ios_base::out | ios_base::trunc | ios_base::binary:</span>
+<span id="L610"><span class="lineNum">     610</span>              :     return &quot;w+b&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L611"><span class="lineNum">     611</span>              :   case ios_base::in | ios_base::out | ios_base::app | ios_base::binary:</span>
+<span id="L612"><span class="lineNum">     612</span>              :   case ios_base::in | ios_base::app | ios_base::binary:</span>
+<span id="L613"><span class="lineNum">     613</span>              :     return &quot;a+b&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L614"><span class="lineNum">     614</span>              : #  if _LIBCPP_STD_VER &gt;= 23</span>
+<span id="L615"><span class="lineNum">     615</span>              :   case ios_base::out | ios_base::noreplace:</span>
+<span id="L616"><span class="lineNum">     616</span>              :   case ios_base::out | ios_base::trunc | ios_base::noreplace:</span>
+<span id="L617"><span class="lineNum">     617</span>              :     return &quot;wx&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L618"><span class="lineNum">     618</span>              :   case ios_base::in | ios_base::out | ios_base::trunc | ios_base::noreplace:</span>
+<span id="L619"><span class="lineNum">     619</span>              :     return &quot;w+x&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L620"><span class="lineNum">     620</span>              :   case ios_base::out | ios_base::binary | ios_base::noreplace:</span>
+<span id="L621"><span class="lineNum">     621</span>              :   case ios_base::out | ios_base::trunc | ios_base::binary | ios_base::noreplace:</span>
+<span id="L622"><span class="lineNum">     622</span>              :     return &quot;wbx&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L623"><span class="lineNum">     623</span>              :   case ios_base::in | ios_base::out | ios_base::trunc | ios_base::binary | ios_base::noreplace:</span>
+<span id="L624"><span class="lineNum">     624</span>              :     return &quot;w+bx&quot; _LIBCPP_FOPEN_CLOEXEC_MODE;</span>
+<span id="L625"><span class="lineNum">     625</span>              : #  endif // _LIBCPP_STD_VER &gt;= 23</span>
+<span id="L626"><span class="lineNum">     626</span>              :   default:</span>
+<span id="L627"><span class="lineNum">     627</span>              :     return nullptr;</span>
+<span id="L628"><span class="lineNum">     628</span>              :   }</span>
+<span id="L629"><span class="lineNum">     629</span>              :   __libcpp_unreachable();</span>
+<span id="L630"><span class="lineNum">     630</span>              : }</span>
+<span id="L631"><span class="lineNum">     631</span>              : </span>
+<span id="L632"><span class="lineNum">     632</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L633"><span class="lineNum">     633</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L634"><span class="lineNum">     634</span>              : const wchar_t* basic_filebuf&lt;_CharT, _Traits&gt;::__make_mdwstring(ios_base::openmode __mode) _NOEXCEPT {</span>
+<span id="L635"><span class="lineNum">     635</span>              :   switch (__mode &amp; ~ios_base::ate) {</span>
+<span id="L636"><span class="lineNum">     636</span>              :   case ios_base::out:</span>
+<span id="L637"><span class="lineNum">     637</span>              :   case ios_base::out | ios_base::trunc:</span>
+<span id="L638"><span class="lineNum">     638</span>              :     return L&quot;w&quot;;</span>
+<span id="L639"><span class="lineNum">     639</span>              :   case ios_base::out | ios_base::app:</span>
+<span id="L640"><span class="lineNum">     640</span>              :   case ios_base::app:</span>
+<span id="L641"><span class="lineNum">     641</span>              :     return L&quot;a&quot;;</span>
+<span id="L642"><span class="lineNum">     642</span>              :   case ios_base::in:</span>
+<span id="L643"><span class="lineNum">     643</span>              :     return L&quot;r&quot;;</span>
+<span id="L644"><span class="lineNum">     644</span>              :   case ios_base::in | ios_base::out:</span>
+<span id="L645"><span class="lineNum">     645</span>              :     return L&quot;r+&quot;;</span>
+<span id="L646"><span class="lineNum">     646</span>              :   case ios_base::in | ios_base::out | ios_base::trunc:</span>
+<span id="L647"><span class="lineNum">     647</span>              :     return L&quot;w+&quot;;</span>
+<span id="L648"><span class="lineNum">     648</span>              :   case ios_base::in | ios_base::out | ios_base::app:</span>
+<span id="L649"><span class="lineNum">     649</span>              :   case ios_base::in | ios_base::app:</span>
+<span id="L650"><span class="lineNum">     650</span>              :     return L&quot;a+&quot;;</span>
+<span id="L651"><span class="lineNum">     651</span>              :   case ios_base::out | ios_base::binary:</span>
+<span id="L652"><span class="lineNum">     652</span>              :   case ios_base::out | ios_base::trunc | ios_base::binary:</span>
+<span id="L653"><span class="lineNum">     653</span>              :     return L&quot;wb&quot;;</span>
+<span id="L654"><span class="lineNum">     654</span>              :   case ios_base::out | ios_base::app | ios_base::binary:</span>
+<span id="L655"><span class="lineNum">     655</span>              :   case ios_base::app | ios_base::binary:</span>
+<span id="L656"><span class="lineNum">     656</span>              :     return L&quot;ab&quot;;</span>
+<span id="L657"><span class="lineNum">     657</span>              :   case ios_base::in | ios_base::binary:</span>
+<span id="L658"><span class="lineNum">     658</span>              :     return L&quot;rb&quot;;</span>
+<span id="L659"><span class="lineNum">     659</span>              :   case ios_base::in | ios_base::out | ios_base::binary:</span>
+<span id="L660"><span class="lineNum">     660</span>              :     return L&quot;r+b&quot;;</span>
+<span id="L661"><span class="lineNum">     661</span>              :   case ios_base::in | ios_base::out | ios_base::trunc | ios_base::binary:</span>
+<span id="L662"><span class="lineNum">     662</span>              :     return L&quot;w+b&quot;;</span>
+<span id="L663"><span class="lineNum">     663</span>              :   case ios_base::in | ios_base::out | ios_base::app | ios_base::binary:</span>
+<span id="L664"><span class="lineNum">     664</span>              :   case ios_base::in | ios_base::app | ios_base::binary:</span>
+<span id="L665"><span class="lineNum">     665</span>              :     return L&quot;a+b&quot;;</span>
+<span id="L666"><span class="lineNum">     666</span>              : #    if _LIBCPP_STD_VER &gt;= 23</span>
+<span id="L667"><span class="lineNum">     667</span>              :   case ios_base::out | ios_base::noreplace:</span>
+<span id="L668"><span class="lineNum">     668</span>              :   case ios_base::out | ios_base::trunc | ios_base::noreplace:</span>
+<span id="L669"><span class="lineNum">     669</span>              :     return L&quot;wx&quot;;</span>
+<span id="L670"><span class="lineNum">     670</span>              :   case ios_base::in | ios_base::out | ios_base::trunc | ios_base::noreplace:</span>
+<span id="L671"><span class="lineNum">     671</span>              :     return L&quot;w+x&quot;;</span>
+<span id="L672"><span class="lineNum">     672</span>              :   case ios_base::out | ios_base::binary | ios_base::noreplace:</span>
+<span id="L673"><span class="lineNum">     673</span>              :   case ios_base::out | ios_base::trunc | ios_base::binary | ios_base::noreplace:</span>
+<span id="L674"><span class="lineNum">     674</span>              :     return L&quot;wbx&quot;;</span>
+<span id="L675"><span class="lineNum">     675</span>              :   case ios_base::in | ios_base::out | ios_base::trunc | ios_base::binary | ios_base::noreplace:</span>
+<span id="L676"><span class="lineNum">     676</span>              :     return L&quot;w+bx&quot;;</span>
+<span id="L677"><span class="lineNum">     677</span>              : #    endif // _LIBCPP_STD_VER &gt;= 23</span>
+<span id="L678"><span class="lineNum">     678</span>              :   default:</span>
+<span id="L679"><span class="lineNum">     679</span>              :     return nullptr;</span>
+<span id="L680"><span class="lineNum">     680</span>              :   }</span>
+<span id="L681"><span class="lineNum">     681</span>              :   __libcpp_unreachable();</span>
+<span id="L682"><span class="lineNum">     682</span>              : }</span>
+<span id="L683"><span class="lineNum">     683</span>              : #  endif</span>
+<span id="L684"><span class="lineNum">     684</span>              : </span>
+<span id="L685"><span class="lineNum">     685</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L686"><span class="lineNum">     686</span>              : basic_filebuf&lt;_CharT, _Traits&gt;* basic_filebuf&lt;_CharT, _Traits&gt;::open(const char* __s, ios_base::openmode __mode) {</span>
+<span id="L687"><span class="lineNum">     687</span>              :   if (__file_)</span>
+<span id="L688"><span class="lineNum">     688</span>              :     return nullptr;</span>
+<span id="L689"><span class="lineNum">     689</span>              :   const char* __mdstr = __make_mdstring(__mode);</span>
+<span id="L690"><span class="lineNum">     690</span>              :   if (!__mdstr)</span>
+<span id="L691"><span class="lineNum">     691</span>              :     return nullptr;</span>
+<span id="L692"><span class="lineNum">     692</span>              : </span>
+<span id="L693"><span class="lineNum">     693</span>              :   return __do_open(fopen(__s, __mdstr), __mode);</span>
+<span id="L694"><span class="lineNum">     694</span>              : }</span>
+<span id="L695"><span class="lineNum">     695</span>              : </span>
+<span id="L696"><span class="lineNum">     696</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L697"><span class="lineNum">     697</span>              : inline basic_filebuf&lt;_CharT, _Traits&gt;* basic_filebuf&lt;_CharT, _Traits&gt;::__open(int __fd, ios_base::openmode __mode) {</span>
+<span id="L698"><span class="lineNum">     698</span>              :   if (__file_)</span>
+<span id="L699"><span class="lineNum">     699</span>              :     return nullptr;</span>
+<span id="L700"><span class="lineNum">     700</span>              :   const char* __mdstr = __make_mdstring(__mode);</span>
+<span id="L701"><span class="lineNum">     701</span>              :   if (!__mdstr)</span>
+<span id="L702"><span class="lineNum">     702</span>              :     return nullptr;</span>
+<span id="L703"><span class="lineNum">     703</span>              : </span>
+<span id="L704"><span class="lineNum">     704</span>              :   return __do_open(fdopen(__fd, __mdstr), __mode);</span>
+<span id="L705"><span class="lineNum">     705</span>              : }</span>
+<span id="L706"><span class="lineNum">     706</span>              : </span>
+<span id="L707"><span class="lineNum">     707</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L708"><span class="lineNum">     708</span>              : // This is basically the same as the char* overload except that it uses _wfopen</span>
+<span id="L709"><span class="lineNum">     709</span>              : // and long mode strings.</span>
+<span id="L710"><span class="lineNum">     710</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L711"><span class="lineNum">     711</span>              : basic_filebuf&lt;_CharT, _Traits&gt;* basic_filebuf&lt;_CharT, _Traits&gt;::open(const wchar_t* __s, ios_base::openmode __mode) {</span>
+<span id="L712"><span class="lineNum">     712</span>              :   if (__file_)</span>
+<span id="L713"><span class="lineNum">     713</span>              :     return nullptr;</span>
+<span id="L714"><span class="lineNum">     714</span>              :   const wchar_t* __mdstr = __make_mdwstring(__mode);</span>
+<span id="L715"><span class="lineNum">     715</span>              :   if (!__mdstr)</span>
+<span id="L716"><span class="lineNum">     716</span>              :     return nullptr;</span>
+<span id="L717"><span class="lineNum">     717</span>              : </span>
+<span id="L718"><span class="lineNum">     718</span>              :   return __do_open(_wfopen(__s, __mdstr), __mode);</span>
+<span id="L719"><span class="lineNum">     719</span>              : }</span>
+<span id="L720"><span class="lineNum">     720</span>              : #  endif</span>
+<span id="L721"><span class="lineNum">     721</span>              : </span>
+<span id="L722"><span class="lineNum">     722</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L723"><span class="lineNum">     723</span>              : inline basic_filebuf&lt;_CharT, _Traits&gt;*</span>
+<span id="L724"><span class="lineNum">     724</span>              : basic_filebuf&lt;_CharT, _Traits&gt;::open(const string&amp; __s, ios_base::openmode __mode) {</span>
+<span id="L725"><span class="lineNum">     725</span>              :   return open(__s.c_str(), __mode);</span>
+<span id="L726"><span class="lineNum">     726</span>              : }</span>
+<span id="L727"><span class="lineNum">     727</span>              : </span>
+<span id="L728"><span class="lineNum">     728</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L729"><span class="lineNum">     729</span>              : basic_filebuf&lt;_CharT, _Traits&gt;* basic_filebuf&lt;_CharT, _Traits&gt;::close() {</span>
+<span id="L730"><span class="lineNum">     730</span>              :   basic_filebuf&lt;_CharT, _Traits&gt;* __rt = nullptr;</span>
+<span id="L731"><span class="lineNum">     731</span>              :   if (__file_) {</span>
+<span id="L732"><span class="lineNum">     732</span>              :     __rt = this;</span>
+<span id="L733"><span class="lineNum">     733</span>              :     unique_ptr&lt;FILE, int (*)(FILE*)&gt; __h(__file_, fclose);</span>
+<span id="L734"><span class="lineNum">     734</span>              :     if (sync())</span>
+<span id="L735"><span class="lineNum">     735</span>              :       __rt = nullptr;</span>
+<span id="L736"><span class="lineNum">     736</span>              :     if (fclose(__h.release()))</span>
+<span id="L737"><span class="lineNum">     737</span>              :       __rt = nullptr;</span>
+<span id="L738"><span class="lineNum">     738</span>              :     __file_ = nullptr;</span>
+<span id="L739"><span class="lineNum">     739</span>              :     setbuf(0, 0);</span>
+<span id="L740"><span class="lineNum">     740</span>              :   }</span>
+<span id="L741"><span class="lineNum">     741</span>              :   return __rt;</span>
+<span id="L742"><span class="lineNum">     742</span>              : }</span>
+<span id="L743"><span class="lineNum">     743</span>              : </span>
+<span id="L744"><span class="lineNum">     744</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L745"><span class="lineNum">     745</span>              : typename basic_filebuf&lt;_CharT, _Traits&gt;::int_type basic_filebuf&lt;_CharT, _Traits&gt;::underflow() {</span>
+<span id="L746"><span class="lineNum">     746</span>              :   if (__file_ == nullptr)</span>
+<span id="L747"><span class="lineNum">     747</span>              :     return traits_type::eof();</span>
+<span id="L748"><span class="lineNum">     748</span>              :   bool __initial = __read_mode();</span>
+<span id="L749"><span class="lineNum">     749</span>              :   char_type __1buf;</span>
+<span id="L750"><span class="lineNum">     750</span>              :   if (this-&gt;gptr() == nullptr)</span>
+<span id="L751"><span class="lineNum">     751</span>              :     this-&gt;setg(&amp;__1buf, &amp;__1buf + 1, &amp;__1buf + 1);</span>
+<span id="L752"><span class="lineNum">     752</span>              :   const size_t __unget_sz = __initial ? 0 : std::min&lt;size_t&gt;((this-&gt;egptr() - this-&gt;eback()) / 2, 4);</span>
+<span id="L753"><span class="lineNum">     753</span>              :   int_type __c            = traits_type::eof();</span>
+<span id="L754"><span class="lineNum">     754</span>              :   if (this-&gt;gptr() == this-&gt;egptr()) {</span>
+<span id="L755"><span class="lineNum">     755</span>              :     std::memmove(this-&gt;eback(), this-&gt;egptr() - __unget_sz, __unget_sz * sizeof(char_type));</span>
+<span id="L756"><span class="lineNum">     756</span>              :     if (__always_noconv_) {</span>
+<span id="L757"><span class="lineNum">     757</span>              :       size_t __nmemb = static_cast&lt;size_t&gt;(this-&gt;egptr() - this-&gt;eback() - __unget_sz);</span>
+<span id="L758"><span class="lineNum">     758</span>              :       __nmemb        = ::fread(this-&gt;eback() + __unget_sz, 1, __nmemb, __file_);</span>
+<span id="L759"><span class="lineNum">     759</span>              :       if (__nmemb != 0) {</span>
+<span id="L760"><span class="lineNum">     760</span>              :         this-&gt;setg(this-&gt;eback(), this-&gt;eback() + __unget_sz, this-&gt;eback() + __unget_sz + __nmemb);</span>
+<span id="L761"><span class="lineNum">     761</span>              :         __c = traits_type::to_int_type(*this-&gt;gptr());</span>
+<span id="L762"><span class="lineNum">     762</span>              :       }</span>
+<span id="L763"><span class="lineNum">     763</span>              :     } else {</span>
+<span id="L764"><span class="lineNum">     764</span>              :       if (__extbufend_ != __extbufnext_) {</span>
+<span id="L765"><span class="lineNum">     765</span>              :         _LIBCPP_ASSERT_NON_NULL(__extbufnext_ != nullptr, &quot;underflow moving from nullptr&quot;);</span>
+<span id="L766"><span class="lineNum">     766</span>              :         _LIBCPP_ASSERT_NON_NULL(__extbuf_ != nullptr, &quot;underflow moving into nullptr&quot;);</span>
+<span id="L767"><span class="lineNum">     767</span>              :         std::memmove(__extbuf_, __extbufnext_, __extbufend_ - __extbufnext_);</span>
+<span id="L768"><span class="lineNum">     768</span>              :       }</span>
+<span id="L769"><span class="lineNum">     769</span>              :       __extbufnext_ = __extbuf_ + (__extbufend_ - __extbufnext_);</span>
+<span id="L770"><span class="lineNum">     770</span>              :       __extbufend_  = __extbuf_ + (__extbuf_ == __extbuf_min_ ? sizeof(__extbuf_min_) : __ebs_);</span>
+<span id="L771"><span class="lineNum">     771</span>              :       size_t __nmemb =</span>
+<span id="L772"><span class="lineNum">     772</span>              :           std::min(static_cast&lt;size_t&gt;(__ibs_ - __unget_sz), static_cast&lt;size_t&gt;(__extbufend_ - __extbufnext_));</span>
+<span id="L773"><span class="lineNum">     773</span>              :       codecvt_base::result __r;</span>
+<span id="L774"><span class="lineNum">     774</span>              :       __st_last_  = __st_;</span>
+<span id="L775"><span class="lineNum">     775</span>              :       size_t __nr = fread((void*)const_cast&lt;char*&gt;(__extbufnext_), 1, __nmemb, __file_);</span>
+<span id="L776"><span class="lineNum">     776</span>              :       if (__nr != 0) {</span>
+<span id="L777"><span class="lineNum">     777</span>              :         if (!__cv_)</span>
+<span id="L778"><span class="lineNum">     778</span>              :           __throw_bad_cast();</span>
+<span id="L779"><span class="lineNum">     779</span>              : </span>
+<span id="L780"><span class="lineNum">     780</span>              :         __extbufend_ = __extbufnext_ + __nr;</span>
+<span id="L781"><span class="lineNum">     781</span>              :         char_type* __inext;</span>
+<span id="L782"><span class="lineNum">     782</span>              :         __r = __cv_-&gt;in(</span>
+<span id="L783"><span class="lineNum">     783</span>              :             __st_, __extbuf_, __extbufend_, __extbufnext_, this-&gt;eback() + __unget_sz, this-&gt;eback() + __ibs_, __inext);</span>
+<span id="L784"><span class="lineNum">     784</span>              :         if (__r == codecvt_base::noconv) {</span>
+<span id="L785"><span class="lineNum">     785</span>              :           this-&gt;setg((char_type*)__extbuf_, (char_type*)__extbuf_, (char_type*)const_cast&lt;char*&gt;(__extbufend_));</span>
+<span id="L786"><span class="lineNum">     786</span>              :           __c = traits_type::to_int_type(*this-&gt;gptr());</span>
+<span id="L787"><span class="lineNum">     787</span>              :         } else if (__inext != this-&gt;eback() + __unget_sz) {</span>
+<span id="L788"><span class="lineNum">     788</span>              :           this-&gt;setg(this-&gt;eback(), this-&gt;eback() + __unget_sz, __inext);</span>
+<span id="L789"><span class="lineNum">     789</span>              :           __c = traits_type::to_int_type(*this-&gt;gptr());</span>
+<span id="L790"><span class="lineNum">     790</span>              :         }</span>
+<span id="L791"><span class="lineNum">     791</span>              :       }</span>
+<span id="L792"><span class="lineNum">     792</span>              :     }</span>
+<span id="L793"><span class="lineNum">     793</span>              :   } else</span>
+<span id="L794"><span class="lineNum">     794</span>              :     __c = traits_type::to_int_type(*this-&gt;gptr());</span>
+<span id="L795"><span class="lineNum">     795</span>              :   if (this-&gt;eback() == &amp;__1buf)</span>
+<span id="L796"><span class="lineNum">     796</span>              :     this-&gt;setg(nullptr, nullptr, nullptr);</span>
+<span id="L797"><span class="lineNum">     797</span>              :   return __c;</span>
+<span id="L798"><span class="lineNum">     798</span>              : }</span>
+<span id="L799"><span class="lineNum">     799</span>              : </span>
+<span id="L800"><span class="lineNum">     800</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L801"><span class="lineNum">     801</span>              : typename basic_filebuf&lt;_CharT, _Traits&gt;::int_type basic_filebuf&lt;_CharT, _Traits&gt;::pbackfail(int_type __c) {</span>
+<span id="L802"><span class="lineNum">     802</span>              :   if (__file_ &amp;&amp; this-&gt;eback() &lt; this-&gt;gptr()) {</span>
+<span id="L803"><span class="lineNum">     803</span>              :     if (traits_type::eq_int_type(__c, traits_type::eof())) {</span>
+<span id="L804"><span class="lineNum">     804</span>              :       this-&gt;gbump(-1);</span>
+<span id="L805"><span class="lineNum">     805</span>              :       return traits_type::not_eof(__c);</span>
+<span id="L806"><span class="lineNum">     806</span>              :     }</span>
+<span id="L807"><span class="lineNum">     807</span>              :     if ((__om_ &amp; ios_base::out) || traits_type::eq(traits_type::to_char_type(__c), this-&gt;gptr()[-1])) {</span>
+<span id="L808"><span class="lineNum">     808</span>              :       this-&gt;gbump(-1);</span>
+<span id="L809"><span class="lineNum">     809</span>              :       *this-&gt;gptr() = traits_type::to_char_type(__c);</span>
+<span id="L810"><span class="lineNum">     810</span>              :       return __c;</span>
+<span id="L811"><span class="lineNum">     811</span>              :     }</span>
+<span id="L812"><span class="lineNum">     812</span>              :   }</span>
+<span id="L813"><span class="lineNum">     813</span>              :   return traits_type::eof();</span>
+<span id="L814"><span class="lineNum">     814</span>              : }</span>
+<span id="L815"><span class="lineNum">     815</span>              : </span>
+<span id="L816"><span class="lineNum">     816</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L817"><span class="lineNum">     817</span>              : typename basic_filebuf&lt;_CharT, _Traits&gt;::int_type basic_filebuf&lt;_CharT, _Traits&gt;::overflow(int_type __c) {</span>
+<span id="L818"><span class="lineNum">     818</span>              :   if (__file_ == nullptr)</span>
+<span id="L819"><span class="lineNum">     819</span>              :     return traits_type::eof();</span>
+<span id="L820"><span class="lineNum">     820</span>              :   __write_mode();</span>
+<span id="L821"><span class="lineNum">     821</span>              :   char_type __1buf;</span>
+<span id="L822"><span class="lineNum">     822</span>              :   char_type* __pb_save  = this-&gt;pbase();</span>
+<span id="L823"><span class="lineNum">     823</span>              :   char_type* __epb_save = this-&gt;epptr();</span>
+<span id="L824"><span class="lineNum">     824</span>              :   if (!traits_type::eq_int_type(__c, traits_type::eof())) {</span>
+<span id="L825"><span class="lineNum">     825</span>              :     if (this-&gt;pptr() == nullptr)</span>
+<span id="L826"><span class="lineNum">     826</span>              :       this-&gt;setp(&amp;__1buf, &amp;__1buf + 1);</span>
+<span id="L827"><span class="lineNum">     827</span>              :     *this-&gt;pptr() = traits_type::to_char_type(__c);</span>
+<span id="L828"><span class="lineNum">     828</span>              :     this-&gt;pbump(1);</span>
+<span id="L829"><span class="lineNum">     829</span>              :   }</span>
+<span id="L830"><span class="lineNum">     830</span>              :   if (this-&gt;pptr() != this-&gt;pbase()) {</span>
+<span id="L831"><span class="lineNum">     831</span>              :     if (__always_noconv_) {</span>
+<span id="L832"><span class="lineNum">     832</span>              :       size_t __nmemb = static_cast&lt;size_t&gt;(this-&gt;pptr() - this-&gt;pbase());</span>
+<span id="L833"><span class="lineNum">     833</span>              :       if (std::fwrite(this-&gt;pbase(), sizeof(char_type), __nmemb, __file_) != __nmemb)</span>
+<span id="L834"><span class="lineNum">     834</span>              :         return traits_type::eof();</span>
+<span id="L835"><span class="lineNum">     835</span>              :     } else {</span>
+<span id="L836"><span class="lineNum">     836</span>              :       char* __extbe = __extbuf_;</span>
+<span id="L837"><span class="lineNum">     837</span>              :       codecvt_base::result __r;</span>
+<span id="L838"><span class="lineNum">     838</span>              :       do {</span>
+<span id="L839"><span class="lineNum">     839</span>              :         if (!__cv_)</span>
+<span id="L840"><span class="lineNum">     840</span>              :           __throw_bad_cast();</span>
+<span id="L841"><span class="lineNum">     841</span>              : </span>
+<span id="L842"><span class="lineNum">     842</span>              :         const char_type* __e;</span>
+<span id="L843"><span class="lineNum">     843</span>              :         __r = __cv_-&gt;out(__st_, this-&gt;pbase(), this-&gt;pptr(), __e, __extbuf_, __extbuf_ + __ebs_, __extbe);</span>
+<span id="L844"><span class="lineNum">     844</span>              :         if (__e == this-&gt;pbase())</span>
+<span id="L845"><span class="lineNum">     845</span>              :           return traits_type::eof();</span>
+<span id="L846"><span class="lineNum">     846</span>              :         if (__r == codecvt_base::noconv) {</span>
+<span id="L847"><span class="lineNum">     847</span>              :           size_t __nmemb = static_cast&lt;size_t&gt;(this-&gt;pptr() - this-&gt;pbase());</span>
+<span id="L848"><span class="lineNum">     848</span>              :           if (std::fwrite(this-&gt;pbase(), 1, __nmemb, __file_) != __nmemb)</span>
+<span id="L849"><span class="lineNum">     849</span>              :             return traits_type::eof();</span>
+<span id="L850"><span class="lineNum">     850</span>              :         } else if (__r == codecvt_base::ok || __r == codecvt_base::partial) {</span>
+<span id="L851"><span class="lineNum">     851</span>              :           size_t __nmemb = static_cast&lt;size_t&gt;(__extbe - __extbuf_);</span>
+<span id="L852"><span class="lineNum">     852</span>              :           if (fwrite(__extbuf_, 1, __nmemb, __file_) != __nmemb)</span>
+<span id="L853"><span class="lineNum">     853</span>              :             return traits_type::eof();</span>
+<span id="L854"><span class="lineNum">     854</span>              :           if (__r == codecvt_base::partial) {</span>
+<span id="L855"><span class="lineNum">     855</span>              :             this-&gt;setp(const_cast&lt;char_type*&gt;(__e), this-&gt;pptr());</span>
+<span id="L856"><span class="lineNum">     856</span>              :             this-&gt;__pbump(this-&gt;epptr() - this-&gt;pbase());</span>
+<span id="L857"><span class="lineNum">     857</span>              :           }</span>
+<span id="L858"><span class="lineNum">     858</span>              :         } else</span>
+<span id="L859"><span class="lineNum">     859</span>              :           return traits_type::eof();</span>
+<span id="L860"><span class="lineNum">     860</span>              :       } while (__r == codecvt_base::partial);</span>
+<span id="L861"><span class="lineNum">     861</span>              :     }</span>
+<span id="L862"><span class="lineNum">     862</span>              :     this-&gt;setp(__pb_save, __epb_save);</span>
+<span id="L863"><span class="lineNum">     863</span>              :   }</span>
+<span id="L864"><span class="lineNum">     864</span>              :   return traits_type::not_eof(__c);</span>
+<span id="L865"><span class="lineNum">     865</span>              : }</span>
+<span id="L866"><span class="lineNum">     866</span>              : </span>
+<span id="L867"><span class="lineNum">     867</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L868"><span class="lineNum">     868</span>              : basic_streambuf&lt;_CharT, _Traits&gt;* basic_filebuf&lt;_CharT, _Traits&gt;::setbuf(char_type* __s, streamsize __n) {</span>
+<span id="L869"><span class="lineNum">     869</span>              :   this-&gt;setg(nullptr, nullptr, nullptr);</span>
+<span id="L870"><span class="lineNum">     870</span>              :   this-&gt;setp(nullptr, nullptr);</span>
+<span id="L871"><span class="lineNum">     871</span>              :   __request_unbuffered_mode(__s, __n);</span>
+<span id="L872"><span class="lineNum">     872</span>              :   if (__owns_eb_)</span>
+<span id="L873"><span class="lineNum">     873</span>              :     delete[] __extbuf_;</span>
+<span id="L874"><span class="lineNum">     874</span>              :   if (__owns_ib_)</span>
+<span id="L875"><span class="lineNum">     875</span>              :     delete[] __intbuf_;</span>
+<span id="L876"><span class="lineNum">     876</span>              :   __ebs_ = __n;</span>
+<span id="L877"><span class="lineNum">     877</span>              :   if (__ebs_ &gt; sizeof(__extbuf_min_)) {</span>
+<span id="L878"><span class="lineNum">     878</span>              :     if (__always_noconv_ &amp;&amp; __s) {</span>
+<span id="L879"><span class="lineNum">     879</span>              :       __extbuf_  = (char*)__s;</span>
+<span id="L880"><span class="lineNum">     880</span>              :       __owns_eb_ = false;</span>
+<span id="L881"><span class="lineNum">     881</span>              :     } else {</span>
+<span id="L882"><span class="lineNum">     882</span>              :       __extbuf_  = new char[__ebs_];</span>
+<span id="L883"><span class="lineNum">     883</span>              :       __owns_eb_ = true;</span>
+<span id="L884"><span class="lineNum">     884</span>              :     }</span>
+<span id="L885"><span class="lineNum">     885</span>              :   } else {</span>
+<span id="L886"><span class="lineNum">     886</span>              :     __extbuf_  = __extbuf_min_;</span>
+<span id="L887"><span class="lineNum">     887</span>              :     __ebs_     = sizeof(__extbuf_min_);</span>
+<span id="L888"><span class="lineNum">     888</span>              :     __owns_eb_ = false;</span>
+<span id="L889"><span class="lineNum">     889</span>              :   }</span>
+<span id="L890"><span class="lineNum">     890</span>              :   if (!__always_noconv_) {</span>
+<span id="L891"><span class="lineNum">     891</span>              :     __ibs_ = max&lt;streamsize&gt;(__n, sizeof(__extbuf_min_));</span>
+<span id="L892"><span class="lineNum">     892</span>              :     if (__s &amp;&amp; __ibs_ &gt; sizeof(__extbuf_min_)) {</span>
+<span id="L893"><span class="lineNum">     893</span>              :       __intbuf_  = __s;</span>
+<span id="L894"><span class="lineNum">     894</span>              :       __owns_ib_ = false;</span>
+<span id="L895"><span class="lineNum">     895</span>              :     } else {</span>
+<span id="L896"><span class="lineNum">     896</span>              :       __intbuf_  = new char_type[__ibs_];</span>
+<span id="L897"><span class="lineNum">     897</span>              :       __owns_ib_ = true;</span>
+<span id="L898"><span class="lineNum">     898</span>              :     }</span>
+<span id="L899"><span class="lineNum">     899</span>              :   } else {</span>
+<span id="L900"><span class="lineNum">     900</span>              :     __ibs_     = 0;</span>
+<span id="L901"><span class="lineNum">     901</span>              :     __intbuf_  = nullptr;</span>
+<span id="L902"><span class="lineNum">     902</span>              :     __owns_ib_ = false;</span>
+<span id="L903"><span class="lineNum">     903</span>              :   }</span>
+<span id="L904"><span class="lineNum">     904</span>              :   return this;</span>
+<span id="L905"><span class="lineNum">     905</span>              : }</span>
+<span id="L906"><span class="lineNum">     906</span>              : </span>
+<span id="L907"><span class="lineNum">     907</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L908"><span class="lineNum">     908</span>              : typename basic_filebuf&lt;_CharT, _Traits&gt;::pos_type</span>
+<span id="L909"><span class="lineNum">     909</span>              : basic_filebuf&lt;_CharT, _Traits&gt;::seekoff(off_type __off, ios_base::seekdir __way, ios_base::openmode) {</span>
+<span id="L910"><span class="lineNum">     910</span>              :   if (!__cv_)</span>
+<span id="L911"><span class="lineNum">     911</span>              :     __throw_bad_cast();</span>
+<span id="L912"><span class="lineNum">     912</span>              : </span>
+<span id="L913"><span class="lineNum">     913</span>              :   int __width = __cv_-&gt;encoding();</span>
+<span id="L914"><span class="lineNum">     914</span>              :   if (__file_ == nullptr || (__width &lt;= 0 &amp;&amp; __off != 0) || sync())</span>
+<span id="L915"><span class="lineNum">     915</span>              :     return pos_type(off_type(-1));</span>
+<span id="L916"><span class="lineNum">     916</span>              :   // __width &gt; 0 || __off == 0</span>
+<span id="L917"><span class="lineNum">     917</span>              :   int __whence;</span>
+<span id="L918"><span class="lineNum">     918</span>              :   switch (__way) {</span>
+<span id="L919"><span class="lineNum">     919</span>              :   case ios_base::beg:</span>
+<span id="L920"><span class="lineNum">     920</span>              :     __whence = SEEK_SET;</span>
+<span id="L921"><span class="lineNum">     921</span>              :     break;</span>
+<span id="L922"><span class="lineNum">     922</span>              :   case ios_base::cur:</span>
+<span id="L923"><span class="lineNum">     923</span>              :     __whence = SEEK_CUR;</span>
+<span id="L924"><span class="lineNum">     924</span>              :     break;</span>
+<span id="L925"><span class="lineNum">     925</span>              :   case ios_base::end:</span>
+<span id="L926"><span class="lineNum">     926</span>              :     __whence = SEEK_END;</span>
+<span id="L927"><span class="lineNum">     927</span>              :     break;</span>
+<span id="L928"><span class="lineNum">     928</span>              :   default:</span>
+<span id="L929"><span class="lineNum">     929</span>              :     return pos_type(off_type(-1));</span>
+<span id="L930"><span class="lineNum">     930</span>              :   }</span>
+<span id="L931"><span class="lineNum">     931</span>              : #  if defined(_LIBCPP_HAS_NO_OFF_T_FUNCTIONS)</span>
+<span id="L932"><span class="lineNum">     932</span>              :   if (fseek(__file_, __width &gt; 0 ? __width * __off : 0, __whence))</span>
+<span id="L933"><span class="lineNum">     933</span>              :     return pos_type(off_type(-1));</span>
+<span id="L934"><span class="lineNum">     934</span>              :   pos_type __r = ftell(__file_);</span>
+<span id="L935"><span class="lineNum">     935</span>              : #  else</span>
+<span id="L936"><span class="lineNum">     936</span>              :   if (::fseeko(__file_, __width &gt; 0 ? __width * __off : 0, __whence))</span>
+<span id="L937"><span class="lineNum">     937</span>              :     return pos_type(off_type(-1));</span>
+<span id="L938"><span class="lineNum">     938</span>              :   pos_type __r = ftello(__file_);</span>
+<span id="L939"><span class="lineNum">     939</span>              : #  endif</span>
+<span id="L940"><span class="lineNum">     940</span>              :   __r.state(__st_);</span>
+<span id="L941"><span class="lineNum">     941</span>              :   return __r;</span>
+<span id="L942"><span class="lineNum">     942</span>              : }</span>
+<span id="L943"><span class="lineNum">     943</span>              : </span>
+<span id="L944"><span class="lineNum">     944</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L945"><span class="lineNum">     945</span>              : typename basic_filebuf&lt;_CharT, _Traits&gt;::pos_type</span>
+<span id="L946"><span class="lineNum">     946</span>              : basic_filebuf&lt;_CharT, _Traits&gt;::seekpos(pos_type __sp, ios_base::openmode) {</span>
+<span id="L947"><span class="lineNum">     947</span>              :   if (__file_ == nullptr || sync())</span>
+<span id="L948"><span class="lineNum">     948</span>              :     return pos_type(off_type(-1));</span>
+<span id="L949"><span class="lineNum">     949</span>              : #  if defined(_LIBCPP_HAS_NO_OFF_T_FUNCTIONS)</span>
+<span id="L950"><span class="lineNum">     950</span>              :   if (fseek(__file_, __sp, SEEK_SET))</span>
+<span id="L951"><span class="lineNum">     951</span>              :     return pos_type(off_type(-1));</span>
+<span id="L952"><span class="lineNum">     952</span>              : #  else</span>
+<span id="L953"><span class="lineNum">     953</span>              :   if (::fseeko(__file_, __sp, SEEK_SET))</span>
+<span id="L954"><span class="lineNum">     954</span>              :     return pos_type(off_type(-1));</span>
+<span id="L955"><span class="lineNum">     955</span>              : #  endif</span>
+<span id="L956"><span class="lineNum">     956</span>              :   __st_ = __sp.state();</span>
+<span id="L957"><span class="lineNum">     957</span>              :   return __sp;</span>
+<span id="L958"><span class="lineNum">     958</span>              : }</span>
+<span id="L959"><span class="lineNum">     959</span>              : </span>
+<span id="L960"><span class="lineNum">     960</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L961"><span class="lineNum">     961</span>              : int basic_filebuf&lt;_CharT, _Traits&gt;::sync() {</span>
+<span id="L962"><span class="lineNum">     962</span>              :   if (__file_ == nullptr)</span>
+<span id="L963"><span class="lineNum">     963</span>              :     return 0;</span>
+<span id="L964"><span class="lineNum">     964</span>              :   if (!__cv_)</span>
+<span id="L965"><span class="lineNum">     965</span>              :     __throw_bad_cast();</span>
+<span id="L966"><span class="lineNum">     966</span>              : </span>
+<span id="L967"><span class="lineNum">     967</span>              :   if (__cm_ &amp; ios_base::out) {</span>
+<span id="L968"><span class="lineNum">     968</span>              :     if (this-&gt;pptr() != this-&gt;pbase())</span>
+<span id="L969"><span class="lineNum">     969</span>              :       if (overflow() == traits_type::eof())</span>
+<span id="L970"><span class="lineNum">     970</span>              :         return -1;</span>
+<span id="L971"><span class="lineNum">     971</span>              :     codecvt_base::result __r;</span>
+<span id="L972"><span class="lineNum">     972</span>              :     do {</span>
+<span id="L973"><span class="lineNum">     973</span>              :       char* __extbe;</span>
+<span id="L974"><span class="lineNum">     974</span>              :       __r            = __cv_-&gt;unshift(__st_, __extbuf_, __extbuf_ + __ebs_, __extbe);</span>
+<span id="L975"><span class="lineNum">     975</span>              :       size_t __nmemb = static_cast&lt;size_t&gt;(__extbe - __extbuf_);</span>
+<span id="L976"><span class="lineNum">     976</span>              :       if (fwrite(__extbuf_, 1, __nmemb, __file_) != __nmemb)</span>
+<span id="L977"><span class="lineNum">     977</span>              :         return -1;</span>
+<span id="L978"><span class="lineNum">     978</span>              :     } while (__r == codecvt_base::partial);</span>
+<span id="L979"><span class="lineNum">     979</span>              :     if (__r == codecvt_base::error)</span>
+<span id="L980"><span class="lineNum">     980</span>              :       return -1;</span>
+<span id="L981"><span class="lineNum">     981</span>              :     if (fflush(__file_))</span>
+<span id="L982"><span class="lineNum">     982</span>              :       return -1;</span>
+<span id="L983"><span class="lineNum">     983</span>              :   } else if (__cm_ &amp; ios_base::in) {</span>
+<span id="L984"><span class="lineNum">     984</span>              :     off_type __c;</span>
+<span id="L985"><span class="lineNum">     985</span>              :     state_type __state = __st_last_;</span>
+<span id="L986"><span class="lineNum">     986</span>              :     bool __update_st   = false;</span>
+<span id="L987"><span class="lineNum">     987</span>              :     if (__always_noconv_)</span>
+<span id="L988"><span class="lineNum">     988</span>              :       __c = this-&gt;egptr() - this-&gt;gptr();</span>
+<span id="L989"><span class="lineNum">     989</span>              :     else {</span>
+<span id="L990"><span class="lineNum">     990</span>              :       int __width = __cv_-&gt;encoding();</span>
+<span id="L991"><span class="lineNum">     991</span>              :       __c         = __extbufend_ - __extbufnext_;</span>
+<span id="L992"><span class="lineNum">     992</span>              :       if (__width &gt; 0)</span>
+<span id="L993"><span class="lineNum">     993</span>              :         __c += __width * (this-&gt;egptr() - this-&gt;gptr());</span>
+<span id="L994"><span class="lineNum">     994</span>              :       else {</span>
+<span id="L995"><span class="lineNum">     995</span>              :         if (this-&gt;gptr() != this-&gt;egptr()) {</span>
+<span id="L996"><span class="lineNum">     996</span>              :           const int __off = __cv_-&gt;length(__state, __extbuf_, __extbufnext_, this-&gt;gptr() - this-&gt;eback());</span>
+<span id="L997"><span class="lineNum">     997</span>              :           __c += __extbufnext_ - __extbuf_ - __off;</span>
+<span id="L998"><span class="lineNum">     998</span>              :           __update_st = true;</span>
+<span id="L999"><span class="lineNum">     999</span>              :         }</span>
+<span id="L1000"><span class="lineNum">    1000</span>              :       }</span>
+<span id="L1001"><span class="lineNum">    1001</span>              :     }</span>
+<span id="L1002"><span class="lineNum">    1002</span>              : #  if defined(_LIBCPP_HAS_NO_OFF_T_FUNCTIONS)</span>
+<span id="L1003"><span class="lineNum">    1003</span>              :     if (fseek(__file_, -__c, SEEK_CUR))</span>
+<span id="L1004"><span class="lineNum">    1004</span>              :       return -1;</span>
+<span id="L1005"><span class="lineNum">    1005</span>              : #  else</span>
+<span id="L1006"><span class="lineNum">    1006</span>              :     if (::fseeko(__file_, -__c, SEEK_CUR))</span>
+<span id="L1007"><span class="lineNum">    1007</span>              :       return -1;</span>
+<span id="L1008"><span class="lineNum">    1008</span>              : #  endif</span>
+<span id="L1009"><span class="lineNum">    1009</span>              :     if (__update_st)</span>
+<span id="L1010"><span class="lineNum">    1010</span>              :       __st_ = __state;</span>
+<span id="L1011"><span class="lineNum">    1011</span>              :     __extbufnext_ = __extbufend_ = __extbuf_;</span>
+<span id="L1012"><span class="lineNum">    1012</span>              :     this-&gt;setg(nullptr, nullptr, nullptr);</span>
+<span id="L1013"><span class="lineNum">    1013</span>              :     __cm_ = 0;</span>
+<span id="L1014"><span class="lineNum">    1014</span>              :   }</span>
+<span id="L1015"><span class="lineNum">    1015</span>              :   return 0;</span>
+<span id="L1016"><span class="lineNum">    1016</span>              : }</span>
+<span id="L1017"><span class="lineNum">    1017</span>              : </span>
+<span id="L1018"><span class="lineNum">    1018</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1019"><span class="lineNum">    1019</span>              : void basic_filebuf&lt;_CharT, _Traits&gt;::imbue(const locale&amp; __loc) {</span>
+<span id="L1020"><span class="lineNum">    1020</span>              :   sync();</span>
+<span id="L1021"><span class="lineNum">    1021</span>              :   __cv_            = &amp;std::use_facet&lt;codecvt&lt;char_type, char, state_type&gt; &gt;(__loc);</span>
+<span id="L1022"><span class="lineNum">    1022</span>              :   bool __old_anc   = __always_noconv_;</span>
+<span id="L1023"><span class="lineNum">    1023</span>              :   __always_noconv_ = __cv_-&gt;always_noconv();</span>
+<span id="L1024"><span class="lineNum">    1024</span>              :   if (__old_anc != __always_noconv_) {</span>
+<span id="L1025"><span class="lineNum">    1025</span>              :     this-&gt;setg(nullptr, nullptr, nullptr);</span>
+<span id="L1026"><span class="lineNum">    1026</span>              :     this-&gt;setp(nullptr, nullptr);</span>
+<span id="L1027"><span class="lineNum">    1027</span>              :     // invariant, char_type is char, else we couldn't get here</span>
+<span id="L1028"><span class="lineNum">    1028</span>              :     if (__always_noconv_) // need to dump __intbuf_</span>
+<span id="L1029"><span class="lineNum">    1029</span>              :     {</span>
+<span id="L1030"><span class="lineNum">    1030</span>              :       if (__owns_eb_)</span>
+<span id="L1031"><span class="lineNum">    1031</span>              :         delete[] __extbuf_;</span>
+<span id="L1032"><span class="lineNum">    1032</span>              :       __owns_eb_ = __owns_ib_;</span>
+<span id="L1033"><span class="lineNum">    1033</span>              :       __ebs_     = __ibs_;</span>
+<span id="L1034"><span class="lineNum">    1034</span>              :       __extbuf_  = (char*)__intbuf_;</span>
+<span id="L1035"><span class="lineNum">    1035</span>              :       __ibs_     = 0;</span>
+<span id="L1036"><span class="lineNum">    1036</span>              :       __intbuf_  = nullptr;</span>
+<span id="L1037"><span class="lineNum">    1037</span>              :       __owns_ib_ = false;</span>
+<span id="L1038"><span class="lineNum">    1038</span>              :     } else // need to obtain an __intbuf_.</span>
+<span id="L1039"><span class="lineNum">    1039</span>              :     {      // If __extbuf_ is user-supplied, use it, else new __intbuf_</span>
+<span id="L1040"><span class="lineNum">    1040</span>              :       if (!__owns_eb_ &amp;&amp; __extbuf_ != __extbuf_min_) {</span>
+<span id="L1041"><span class="lineNum">    1041</span>              :         __ibs_     = __ebs_;</span>
+<span id="L1042"><span class="lineNum">    1042</span>              :         __intbuf_  = (char_type*)__extbuf_;</span>
+<span id="L1043"><span class="lineNum">    1043</span>              :         __owns_ib_ = false;</span>
+<span id="L1044"><span class="lineNum">    1044</span>              :         __extbuf_  = new char[__ebs_];</span>
+<span id="L1045"><span class="lineNum">    1045</span>              :         __owns_eb_ = true;</span>
+<span id="L1046"><span class="lineNum">    1046</span>              :       } else {</span>
+<span id="L1047"><span class="lineNum">    1047</span>              :         __ibs_     = __ebs_;</span>
+<span id="L1048"><span class="lineNum">    1048</span>              :         __intbuf_  = new char_type[__ibs_];</span>
+<span id="L1049"><span class="lineNum">    1049</span>              :         __owns_ib_ = true;</span>
+<span id="L1050"><span class="lineNum">    1050</span>              :       }</span>
+<span id="L1051"><span class="lineNum">    1051</span>              :     }</span>
+<span id="L1052"><span class="lineNum">    1052</span>              :   }</span>
+<span id="L1053"><span class="lineNum">    1053</span>              : }</span>
+<span id="L1054"><span class="lineNum">    1054</span>              : </span>
+<span id="L1055"><span class="lineNum">    1055</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1056"><span class="lineNum">    1056</span>              : bool basic_filebuf&lt;_CharT, _Traits&gt;::__read_mode() {</span>
+<span id="L1057"><span class="lineNum">    1057</span>              :   if (!(__cm_ &amp; ios_base::in)) {</span>
+<span id="L1058"><span class="lineNum">    1058</span>              :     this-&gt;setp(nullptr, nullptr);</span>
+<span id="L1059"><span class="lineNum">    1059</span>              :     if (__always_noconv_)</span>
+<span id="L1060"><span class="lineNum">    1060</span>              :       this-&gt;setg((char_type*)__extbuf_, (char_type*)__extbuf_ + __ebs_, (char_type*)__extbuf_ + __ebs_);</span>
+<span id="L1061"><span class="lineNum">    1061</span>              :     else</span>
+<span id="L1062"><span class="lineNum">    1062</span>              :       this-&gt;setg(__intbuf_, __intbuf_ + __ibs_, __intbuf_ + __ibs_);</span>
+<span id="L1063"><span class="lineNum">    1063</span>              :     __cm_ = ios_base::in;</span>
+<span id="L1064"><span class="lineNum">    1064</span>              :     return true;</span>
+<span id="L1065"><span class="lineNum">    1065</span>              :   }</span>
+<span id="L1066"><span class="lineNum">    1066</span>              :   return false;</span>
+<span id="L1067"><span class="lineNum">    1067</span>              : }</span>
+<span id="L1068"><span class="lineNum">    1068</span>              : </span>
+<span id="L1069"><span class="lineNum">    1069</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1070"><span class="lineNum">    1070</span>              : void basic_filebuf&lt;_CharT, _Traits&gt;::__write_mode() {</span>
+<span id="L1071"><span class="lineNum">    1071</span>              :   if (!(__cm_ &amp; ios_base::out)) {</span>
+<span id="L1072"><span class="lineNum">    1072</span>              :     this-&gt;setg(nullptr, nullptr, nullptr);</span>
+<span id="L1073"><span class="lineNum">    1073</span>              :     if (__ebs_ &gt; sizeof(__extbuf_min_)) {</span>
+<span id="L1074"><span class="lineNum">    1074</span>              :       if (__always_noconv_)</span>
+<span id="L1075"><span class="lineNum">    1075</span>              :         this-&gt;setp((char_type*)__extbuf_, (char_type*)__extbuf_ + (__ebs_ - 1));</span>
+<span id="L1076"><span class="lineNum">    1076</span>              :       else</span>
+<span id="L1077"><span class="lineNum">    1077</span>              :         this-&gt;setp(__intbuf_, __intbuf_ + (__ibs_ - 1));</span>
+<span id="L1078"><span class="lineNum">    1078</span>              :     } else</span>
+<span id="L1079"><span class="lineNum">    1079</span>              :       this-&gt;setp(nullptr, nullptr);</span>
+<span id="L1080"><span class="lineNum">    1080</span>              :     __cm_ = ios_base::out;</span>
+<span id="L1081"><span class="lineNum">    1081</span>              :   }</span>
+<span id="L1082"><span class="lineNum">    1082</span>              : }</span>
+<span id="L1083"><span class="lineNum">    1083</span>              : </span>
+<span id="L1084"><span class="lineNum">    1084</span>              : // basic_ifstream</span>
+<span id="L1085"><span class="lineNum">    1085</span>              : </span>
+<span id="L1086"><span class="lineNum">    1086</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1087"><span class="lineNum">    1087</span>              : class _LIBCPP_TEMPLATE_VIS basic_ifstream : public basic_istream&lt;_CharT, _Traits&gt; {</span>
+<span id="L1088"><span class="lineNum">    1088</span>              : public:</span>
+<span id="L1089"><span class="lineNum">    1089</span>              :   typedef _CharT char_type;</span>
+<span id="L1090"><span class="lineNum">    1090</span>              :   typedef _Traits traits_type;</span>
+<span id="L1091"><span class="lineNum">    1091</span>              :   typedef typename traits_type::int_type int_type;</span>
+<span id="L1092"><span class="lineNum">    1092</span>              :   typedef typename traits_type::pos_type pos_type;</span>
+<span id="L1093"><span class="lineNum">    1093</span>              :   typedef typename traits_type::off_type off_type;</span>
+<span id="L1094"><span class="lineNum">    1094</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L1095"><span class="lineNum">    1095</span>              :   using native_handle_type = typename basic_filebuf&lt;_CharT, _Traits&gt;::native_handle_type;</span>
+<span id="L1096"><span class="lineNum">    1096</span>              : #  endif</span>
+<span id="L1097"><span class="lineNum">    1097</span>              : </span>
+<span id="L1098"><span class="lineNum">    1098</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ifstream();</span>
+<span id="L1099"><span class="lineNum">    1099</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_ifstream(const char* __s, ios_base::openmode __mode = ios_base::in);</span>
+<span id="L1100"><span class="lineNum">    1100</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1101"><span class="lineNum">    1101</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_ifstream(const wchar_t* __s, ios_base::openmode __mode = ios_base::in);</span>
+<span id="L1102"><span class="lineNum">    1102</span>              : #  endif</span>
+<span id="L1103"><span class="lineNum">    1103</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_ifstream(const string&amp; __s, ios_base::openmode __mode = ios_base::in);</span>
+<span id="L1104"><span class="lineNum">    1104</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1105"><span class="lineNum">    1105</span>              :   template &lt;class _Tp, class = enable_if_t&lt;is_same_v&lt;_Tp, filesystem::path&gt;&gt;&gt;</span>
+<span id="L1106"><span class="lineNum">    1106</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY</span>
+<span id="L1107"><span class="lineNum">    1107</span>              :       _LIBCPP_HIDE_FROM_ABI explicit basic_ifstream(const _Tp&amp; __p, ios_base::openmode __mode = ios_base::in)</span>
+<span id="L1108"><span class="lineNum">    1108</span>              :       : basic_ifstream(__p.c_str(), __mode) {}</span>
+<span id="L1109"><span class="lineNum">    1109</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1110"><span class="lineNum">    1110</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ifstream(basic_ifstream&amp;&amp; __rhs);</span>
+<span id="L1111"><span class="lineNum">    1111</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ifstream&amp; operator=(basic_ifstream&amp;&amp; __rhs);</span>
+<span id="L1112"><span class="lineNum">    1112</span>              :   _LIBCPP_HIDE_FROM_ABI void swap(basic_ifstream&amp; __rhs);</span>
+<span id="L1113"><span class="lineNum">    1113</span>              : </span>
+<span id="L1114"><span class="lineNum">    1114</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf&lt;char_type, traits_type&gt;* rdbuf() const;</span>
+<span id="L1115"><span class="lineNum">    1115</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L1116"><span class="lineNum">    1116</span>              :   _LIBCPP_HIDE_FROM_ABI native_handle_type native_handle() const noexcept { return rdbuf()-&gt;native_handle(); }</span>
+<span id="L1117"><span class="lineNum">    1117</span>              : #  endif</span>
+<span id="L1118"><span class="lineNum">    1118</span>              :   _LIBCPP_HIDE_FROM_ABI bool is_open() const;</span>
+<span id="L1119"><span class="lineNum">    1119</span>              :   void open(const char* __s, ios_base::openmode __mode = ios_base::in);</span>
+<span id="L1120"><span class="lineNum">    1120</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1121"><span class="lineNum">    1121</span>              :   void open(const wchar_t* __s, ios_base::openmode __mode = ios_base::in);</span>
+<span id="L1122"><span class="lineNum">    1122</span>              : #  endif</span>
+<span id="L1123"><span class="lineNum">    1123</span>              :   void open(const string&amp; __s, ios_base::openmode __mode = ios_base::in);</span>
+<span id="L1124"><span class="lineNum">    1124</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1125"><span class="lineNum">    1125</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY _LIBCPP_HIDE_FROM_ABI void</span>
+<span id="L1126"><span class="lineNum">    1126</span>              :   open(const filesystem::path&amp; __p, ios_base::openmode __mode = ios_base::in) {</span>
+<span id="L1127"><span class="lineNum">    1127</span>              :     return open(__p.c_str(), __mode);</span>
+<span id="L1128"><span class="lineNum">    1128</span>              :   }</span>
+<span id="L1129"><span class="lineNum">    1129</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1130"><span class="lineNum">    1130</span>              : </span>
+<span id="L1131"><span class="lineNum">    1131</span>              :   _LIBCPP_HIDE_FROM_ABI void __open(int __fd, ios_base::openmode __mode);</span>
+<span id="L1132"><span class="lineNum">    1132</span>              :   _LIBCPP_HIDE_FROM_ABI void close();</span>
+<span id="L1133"><span class="lineNum">    1133</span>              : </span>
+<span id="L1134"><span class="lineNum">    1134</span>              : private:</span>
+<span id="L1135"><span class="lineNum">    1135</span>              :   basic_filebuf&lt;char_type, traits_type&gt; __sb_;</span>
+<span id="L1136"><span class="lineNum">    1136</span>              : };</span>
+<span id="L1137"><span class="lineNum">    1137</span>              : </span>
+<span id="L1138"><span class="lineNum">    1138</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1139"><span class="lineNum">    1139</span>              : inline basic_ifstream&lt;_CharT, _Traits&gt;::basic_ifstream() : basic_istream&lt;char_type, traits_type&gt;(&amp;__sb_) {}</span>
+<span id="L1140"><span class="lineNum">    1140</span>              : </span>
+<span id="L1141"><span class="lineNum">    1141</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1142"><span class="lineNum">    1142</span> <span class="tlaGNC">          98 : inline basic_ifstream&lt;_CharT, _Traits&gt;::basic_ifstream(const char* __s, ios_base::openmode __mode)</span></span>
+<span id="L1143"><span class="lineNum">    1143</span> <span class="tlaGNC">          98 :     : basic_istream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span></span>
+<span id="L1144"><span class="lineNum">    1144</span> <span class="tlaGNC">          49 :   if (__sb_.open(__s, __mode | ios_base::in) == nullptr)</span></span>
+<span id="L1145"><span class="lineNum">    1145</span> <span class="tlaUNC">           0 :     this-&gt;setstate(ios_base::failbit);</span></span>
+<span id="L1146"><span class="lineNum">    1146</span> <span class="tlaGNC">          49 : }</span></span>
+<span id="L1147"><span class="lineNum">    1147</span>              : </span>
+<span id="L1148"><span class="lineNum">    1148</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1149"><span class="lineNum">    1149</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1150"><span class="lineNum">    1150</span>              : inline basic_ifstream&lt;_CharT, _Traits&gt;::basic_ifstream(const wchar_t* __s, ios_base::openmode __mode)</span>
+<span id="L1151"><span class="lineNum">    1151</span>              :     : basic_istream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1152"><span class="lineNum">    1152</span>              :   if (__sb_.open(__s, __mode | ios_base::in) == nullptr)</span>
+<span id="L1153"><span class="lineNum">    1153</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1154"><span class="lineNum">    1154</span>              : }</span>
+<span id="L1155"><span class="lineNum">    1155</span>              : #  endif</span>
+<span id="L1156"><span class="lineNum">    1156</span>              : </span>
+<span id="L1157"><span class="lineNum">    1157</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1158"><span class="lineNum">    1158</span>              : inline basic_ifstream&lt;_CharT, _Traits&gt;::basic_ifstream(const string&amp; __s, ios_base::openmode __mode)</span>
+<span id="L1159"><span class="lineNum">    1159</span>              :     : basic_istream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1160"><span class="lineNum">    1160</span>              :   if (__sb_.open(__s, __mode | ios_base::in) == nullptr)</span>
+<span id="L1161"><span class="lineNum">    1161</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1162"><span class="lineNum">    1162</span>              : }</span>
+<span id="L1163"><span class="lineNum">    1163</span>              : </span>
+<span id="L1164"><span class="lineNum">    1164</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1165"><span class="lineNum">    1165</span>              : inline basic_ifstream&lt;_CharT, _Traits&gt;::basic_ifstream(basic_ifstream&amp;&amp; __rhs)</span>
+<span id="L1166"><span class="lineNum">    1166</span>              :     : basic_istream&lt;char_type, traits_type&gt;(std::move(__rhs)), __sb_(std::move(__rhs.__sb_)) {</span>
+<span id="L1167"><span class="lineNum">    1167</span>              :   this-&gt;set_rdbuf(&amp;__sb_);</span>
+<span id="L1168"><span class="lineNum">    1168</span>              : }</span>
+<span id="L1169"><span class="lineNum">    1169</span>              : </span>
+<span id="L1170"><span class="lineNum">    1170</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1171"><span class="lineNum">    1171</span>              : inline basic_ifstream&lt;_CharT, _Traits&gt;&amp; basic_ifstream&lt;_CharT, _Traits&gt;::operator=(basic_ifstream&amp;&amp; __rhs) {</span>
+<span id="L1172"><span class="lineNum">    1172</span>              :   basic_istream&lt;char_type, traits_type&gt;::operator=(std::move(__rhs));</span>
+<span id="L1173"><span class="lineNum">    1173</span>              :   __sb_ = std::move(__rhs.__sb_);</span>
+<span id="L1174"><span class="lineNum">    1174</span>              :   return *this;</span>
+<span id="L1175"><span class="lineNum">    1175</span>              : }</span>
+<span id="L1176"><span class="lineNum">    1176</span>              : </span>
+<span id="L1177"><span class="lineNum">    1177</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1178"><span class="lineNum">    1178</span>              : inline void basic_ifstream&lt;_CharT, _Traits&gt;::swap(basic_ifstream&amp; __rhs) {</span>
+<span id="L1179"><span class="lineNum">    1179</span>              :   basic_istream&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span id="L1180"><span class="lineNum">    1180</span>              :   __sb_.swap(__rhs.__sb_);</span>
+<span id="L1181"><span class="lineNum">    1181</span>              : }</span>
+<span id="L1182"><span class="lineNum">    1182</span>              : </span>
+<span id="L1183"><span class="lineNum">    1183</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1184"><span class="lineNum">    1184</span>              : inline _LIBCPP_HIDE_FROM_ABI void swap(basic_ifstream&lt;_CharT, _Traits&gt;&amp; __x, basic_ifstream&lt;_CharT, _Traits&gt;&amp; __y) {</span>
+<span id="L1185"><span class="lineNum">    1185</span>              :   __x.swap(__y);</span>
+<span id="L1186"><span class="lineNum">    1186</span>              : }</span>
+<span id="L1187"><span class="lineNum">    1187</span>              : </span>
+<span id="L1188"><span class="lineNum">    1188</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1189"><span class="lineNum">    1189</span>              : inline basic_filebuf&lt;_CharT, _Traits&gt;* basic_ifstream&lt;_CharT, _Traits&gt;::rdbuf() const {</span>
+<span id="L1190"><span class="lineNum">    1190</span>              :   return const_cast&lt;basic_filebuf&lt;char_type, traits_type&gt;*&gt;(&amp;__sb_);</span>
+<span id="L1191"><span class="lineNum">    1191</span>              : }</span>
+<span id="L1192"><span class="lineNum">    1192</span>              : </span>
+<span id="L1193"><span class="lineNum">    1193</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1194"><span class="lineNum">    1194</span>              : inline bool basic_ifstream&lt;_CharT, _Traits&gt;::is_open() const {</span>
+<span id="L1195"><span class="lineNum">    1195</span>              :   return __sb_.is_open();</span>
+<span id="L1196"><span class="lineNum">    1196</span>              : }</span>
+<span id="L1197"><span class="lineNum">    1197</span>              : </span>
+<span id="L1198"><span class="lineNum">    1198</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1199"><span class="lineNum">    1199</span>              : void basic_ifstream&lt;_CharT, _Traits&gt;::open(const char* __s, ios_base::openmode __mode) {</span>
+<span id="L1200"><span class="lineNum">    1200</span>              :   if (__sb_.open(__s, __mode | ios_base::in))</span>
+<span id="L1201"><span class="lineNum">    1201</span>              :     this-&gt;clear();</span>
+<span id="L1202"><span class="lineNum">    1202</span>              :   else</span>
+<span id="L1203"><span class="lineNum">    1203</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1204"><span class="lineNum">    1204</span>              : }</span>
+<span id="L1205"><span class="lineNum">    1205</span>              : </span>
+<span id="L1206"><span class="lineNum">    1206</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1207"><span class="lineNum">    1207</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1208"><span class="lineNum">    1208</span>              : void basic_ifstream&lt;_CharT, _Traits&gt;::open(const wchar_t* __s, ios_base::openmode __mode) {</span>
+<span id="L1209"><span class="lineNum">    1209</span>              :   if (__sb_.open(__s, __mode | ios_base::in))</span>
+<span id="L1210"><span class="lineNum">    1210</span>              :     this-&gt;clear();</span>
+<span id="L1211"><span class="lineNum">    1211</span>              :   else</span>
+<span id="L1212"><span class="lineNum">    1212</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1213"><span class="lineNum">    1213</span>              : }</span>
+<span id="L1214"><span class="lineNum">    1214</span>              : #  endif</span>
+<span id="L1215"><span class="lineNum">    1215</span>              : </span>
+<span id="L1216"><span class="lineNum">    1216</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1217"><span class="lineNum">    1217</span>              : void basic_ifstream&lt;_CharT, _Traits&gt;::open(const string&amp; __s, ios_base::openmode __mode) {</span>
+<span id="L1218"><span class="lineNum">    1218</span>              :   if (__sb_.open(__s, __mode | ios_base::in))</span>
+<span id="L1219"><span class="lineNum">    1219</span>              :     this-&gt;clear();</span>
+<span id="L1220"><span class="lineNum">    1220</span>              :   else</span>
+<span id="L1221"><span class="lineNum">    1221</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1222"><span class="lineNum">    1222</span>              : }</span>
+<span id="L1223"><span class="lineNum">    1223</span>              : </span>
+<span id="L1224"><span class="lineNum">    1224</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1225"><span class="lineNum">    1225</span>              : inline void basic_ifstream&lt;_CharT, _Traits&gt;::__open(int __fd, ios_base::openmode __mode) {</span>
+<span id="L1226"><span class="lineNum">    1226</span>              :   if (__sb_.__open(__fd, __mode | ios_base::in))</span>
+<span id="L1227"><span class="lineNum">    1227</span>              :     this-&gt;clear();</span>
+<span id="L1228"><span class="lineNum">    1228</span>              :   else</span>
+<span id="L1229"><span class="lineNum">    1229</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1230"><span class="lineNum">    1230</span>              : }</span>
+<span id="L1231"><span class="lineNum">    1231</span>              : </span>
+<span id="L1232"><span class="lineNum">    1232</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1233"><span class="lineNum">    1233</span> <span class="tlaGNC">          49 : inline void basic_ifstream&lt;_CharT, _Traits&gt;::close() {</span></span>
+<span id="L1234"><span class="lineNum">    1234</span> <span class="tlaGNC">          49 :   if (__sb_.close() == 0)</span></span>
+<span id="L1235"><span class="lineNum">    1235</span> <span class="tlaUNC">           0 :     this-&gt;setstate(ios_base::failbit);</span></span>
+<span id="L1236"><span class="lineNum">    1236</span> <span class="tlaGNC">          49 : }</span></span>
+<span id="L1237"><span class="lineNum">    1237</span>              : </span>
+<span id="L1238"><span class="lineNum">    1238</span>              : // basic_ofstream</span>
+<span id="L1239"><span class="lineNum">    1239</span>              : </span>
+<span id="L1240"><span class="lineNum">    1240</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1241"><span class="lineNum">    1241</span>              : class _LIBCPP_TEMPLATE_VIS basic_ofstream : public basic_ostream&lt;_CharT, _Traits&gt; {</span>
+<span id="L1242"><span class="lineNum">    1242</span>              : public:</span>
+<span id="L1243"><span class="lineNum">    1243</span>              :   typedef _CharT char_type;</span>
+<span id="L1244"><span class="lineNum">    1244</span>              :   typedef _Traits traits_type;</span>
+<span id="L1245"><span class="lineNum">    1245</span>              :   typedef typename traits_type::int_type int_type;</span>
+<span id="L1246"><span class="lineNum">    1246</span>              :   typedef typename traits_type::pos_type pos_type;</span>
+<span id="L1247"><span class="lineNum">    1247</span>              :   typedef typename traits_type::off_type off_type;</span>
+<span id="L1248"><span class="lineNum">    1248</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L1249"><span class="lineNum">    1249</span>              :   using native_handle_type = typename basic_filebuf&lt;_CharT, _Traits&gt;::native_handle_type;</span>
+<span id="L1250"><span class="lineNum">    1250</span>              : #  endif</span>
+<span id="L1251"><span class="lineNum">    1251</span>              : </span>
+<span id="L1252"><span class="lineNum">    1252</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ofstream();</span>
+<span id="L1253"><span class="lineNum">    1253</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_ofstream(const char* __s, ios_base::openmode __mode = ios_base::out);</span>
+<span id="L1254"><span class="lineNum">    1254</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1255"><span class="lineNum">    1255</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_ofstream(const wchar_t* __s, ios_base::openmode __mode = ios_base::out);</span>
+<span id="L1256"><span class="lineNum">    1256</span>              : #  endif</span>
+<span id="L1257"><span class="lineNum">    1257</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_ofstream(const string&amp; __s, ios_base::openmode __mode = ios_base::out);</span>
+<span id="L1258"><span class="lineNum">    1258</span>              : </span>
+<span id="L1259"><span class="lineNum">    1259</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1260"><span class="lineNum">    1260</span>              :   template &lt;class _Tp, class = enable_if_t&lt;is_same_v&lt;_Tp, filesystem::path&gt;&gt;&gt;</span>
+<span id="L1261"><span class="lineNum">    1261</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY</span>
+<span id="L1262"><span class="lineNum">    1262</span>              :       _LIBCPP_HIDE_FROM_ABI explicit basic_ofstream(const _Tp&amp; __p, ios_base::openmode __mode = ios_base::out)</span>
+<span id="L1263"><span class="lineNum">    1263</span>              :       : basic_ofstream(__p.c_str(), __mode) {}</span>
+<span id="L1264"><span class="lineNum">    1264</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1265"><span class="lineNum">    1265</span>              : </span>
+<span id="L1266"><span class="lineNum">    1266</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ofstream(basic_ofstream&amp;&amp; __rhs);</span>
+<span id="L1267"><span class="lineNum">    1267</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ofstream&amp; operator=(basic_ofstream&amp;&amp; __rhs);</span>
+<span id="L1268"><span class="lineNum">    1268</span>              :   _LIBCPP_HIDE_FROM_ABI void swap(basic_ofstream&amp; __rhs);</span>
+<span id="L1269"><span class="lineNum">    1269</span>              : </span>
+<span id="L1270"><span class="lineNum">    1270</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf&lt;char_type, traits_type&gt;* rdbuf() const;</span>
+<span id="L1271"><span class="lineNum">    1271</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L1272"><span class="lineNum">    1272</span>              :   _LIBCPP_HIDE_FROM_ABI native_handle_type native_handle() const noexcept { return rdbuf()-&gt;native_handle(); }</span>
+<span id="L1273"><span class="lineNum">    1273</span>              : #  endif</span>
+<span id="L1274"><span class="lineNum">    1274</span>              :   _LIBCPP_HIDE_FROM_ABI bool is_open() const;</span>
+<span id="L1275"><span class="lineNum">    1275</span>              :   void open(const char* __s, ios_base::openmode __mode = ios_base::out);</span>
+<span id="L1276"><span class="lineNum">    1276</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1277"><span class="lineNum">    1277</span>              :   void open(const wchar_t* __s, ios_base::openmode __mode = ios_base::out);</span>
+<span id="L1278"><span class="lineNum">    1278</span>              : #  endif</span>
+<span id="L1279"><span class="lineNum">    1279</span>              :   void open(const string&amp; __s, ios_base::openmode __mode = ios_base::out);</span>
+<span id="L1280"><span class="lineNum">    1280</span>              : </span>
+<span id="L1281"><span class="lineNum">    1281</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1282"><span class="lineNum">    1282</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY _LIBCPP_HIDE_FROM_ABI void</span>
+<span id="L1283"><span class="lineNum">    1283</span>              :   open(const filesystem::path&amp; __p, ios_base::openmode __mode = ios_base::out) {</span>
+<span id="L1284"><span class="lineNum">    1284</span>              :     return open(__p.c_str(), __mode);</span>
+<span id="L1285"><span class="lineNum">    1285</span>              :   }</span>
+<span id="L1286"><span class="lineNum">    1286</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1287"><span class="lineNum">    1287</span>              : </span>
+<span id="L1288"><span class="lineNum">    1288</span>              :   _LIBCPP_HIDE_FROM_ABI void __open(int __fd, ios_base::openmode __mode);</span>
+<span id="L1289"><span class="lineNum">    1289</span>              :   _LIBCPP_HIDE_FROM_ABI void close();</span>
+<span id="L1290"><span class="lineNum">    1290</span>              : </span>
+<span id="L1291"><span class="lineNum">    1291</span>              : private:</span>
+<span id="L1292"><span class="lineNum">    1292</span>              :   basic_filebuf&lt;char_type, traits_type&gt; __sb_;</span>
+<span id="L1293"><span class="lineNum">    1293</span>              : };</span>
+<span id="L1294"><span class="lineNum">    1294</span>              : </span>
+<span id="L1295"><span class="lineNum">    1295</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1296"><span class="lineNum">    1296</span>              : inline basic_ofstream&lt;_CharT, _Traits&gt;::basic_ofstream() : basic_ostream&lt;char_type, traits_type&gt;(&amp;__sb_) {}</span>
+<span id="L1297"><span class="lineNum">    1297</span>              : </span>
+<span id="L1298"><span class="lineNum">    1298</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1299"><span class="lineNum">    1299</span> <span class="tlaGNC">          98 : inline basic_ofstream&lt;_CharT, _Traits&gt;::basic_ofstream(const char* __s, ios_base::openmode __mode)</span></span>
+<span id="L1300"><span class="lineNum">    1300</span> <span class="tlaGNC">          98 :     : basic_ostream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span></span>
+<span id="L1301"><span class="lineNum">    1301</span> <span class="tlaGNC">          49 :   if (__sb_.open(__s, __mode | ios_base::out) == nullptr)</span></span>
+<span id="L1302"><span class="lineNum">    1302</span> <span class="tlaUNC">           0 :     this-&gt;setstate(ios_base::failbit);</span></span>
+<span id="L1303"><span class="lineNum">    1303</span> <span class="tlaGNC">          49 : }</span></span>
+<span id="L1304"><span class="lineNum">    1304</span>              : </span>
+<span id="L1305"><span class="lineNum">    1305</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1306"><span class="lineNum">    1306</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1307"><span class="lineNum">    1307</span>              : inline basic_ofstream&lt;_CharT, _Traits&gt;::basic_ofstream(const wchar_t* __s, ios_base::openmode __mode)</span>
+<span id="L1308"><span class="lineNum">    1308</span>              :     : basic_ostream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1309"><span class="lineNum">    1309</span>              :   if (__sb_.open(__s, __mode | ios_base::out) == nullptr)</span>
+<span id="L1310"><span class="lineNum">    1310</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1311"><span class="lineNum">    1311</span>              : }</span>
+<span id="L1312"><span class="lineNum">    1312</span>              : #  endif</span>
+<span id="L1313"><span class="lineNum">    1313</span>              : </span>
+<span id="L1314"><span class="lineNum">    1314</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1315"><span class="lineNum">    1315</span>              : inline basic_ofstream&lt;_CharT, _Traits&gt;::basic_ofstream(const string&amp; __s, ios_base::openmode __mode)</span>
+<span id="L1316"><span class="lineNum">    1316</span>              :     : basic_ostream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1317"><span class="lineNum">    1317</span>              :   if (__sb_.open(__s, __mode | ios_base::out) == nullptr)</span>
+<span id="L1318"><span class="lineNum">    1318</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1319"><span class="lineNum">    1319</span>              : }</span>
+<span id="L1320"><span class="lineNum">    1320</span>              : </span>
+<span id="L1321"><span class="lineNum">    1321</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1322"><span class="lineNum">    1322</span>              : inline basic_ofstream&lt;_CharT, _Traits&gt;::basic_ofstream(basic_ofstream&amp;&amp; __rhs)</span>
+<span id="L1323"><span class="lineNum">    1323</span>              :     : basic_ostream&lt;char_type, traits_type&gt;(std::move(__rhs)), __sb_(std::move(__rhs.__sb_)) {</span>
+<span id="L1324"><span class="lineNum">    1324</span>              :   this-&gt;set_rdbuf(&amp;__sb_);</span>
+<span id="L1325"><span class="lineNum">    1325</span>              : }</span>
+<span id="L1326"><span class="lineNum">    1326</span>              : </span>
+<span id="L1327"><span class="lineNum">    1327</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1328"><span class="lineNum">    1328</span>              : inline basic_ofstream&lt;_CharT, _Traits&gt;&amp; basic_ofstream&lt;_CharT, _Traits&gt;::operator=(basic_ofstream&amp;&amp; __rhs) {</span>
+<span id="L1329"><span class="lineNum">    1329</span>              :   basic_ostream&lt;char_type, traits_type&gt;::operator=(std::move(__rhs));</span>
+<span id="L1330"><span class="lineNum">    1330</span>              :   __sb_ = std::move(__rhs.__sb_);</span>
+<span id="L1331"><span class="lineNum">    1331</span>              :   return *this;</span>
+<span id="L1332"><span class="lineNum">    1332</span>              : }</span>
+<span id="L1333"><span class="lineNum">    1333</span>              : </span>
+<span id="L1334"><span class="lineNum">    1334</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1335"><span class="lineNum">    1335</span>              : inline void basic_ofstream&lt;_CharT, _Traits&gt;::swap(basic_ofstream&amp; __rhs) {</span>
+<span id="L1336"><span class="lineNum">    1336</span>              :   basic_ostream&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span id="L1337"><span class="lineNum">    1337</span>              :   __sb_.swap(__rhs.__sb_);</span>
+<span id="L1338"><span class="lineNum">    1338</span>              : }</span>
+<span id="L1339"><span class="lineNum">    1339</span>              : </span>
+<span id="L1340"><span class="lineNum">    1340</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1341"><span class="lineNum">    1341</span>              : inline _LIBCPP_HIDE_FROM_ABI void swap(basic_ofstream&lt;_CharT, _Traits&gt;&amp; __x, basic_ofstream&lt;_CharT, _Traits&gt;&amp; __y) {</span>
+<span id="L1342"><span class="lineNum">    1342</span>              :   __x.swap(__y);</span>
+<span id="L1343"><span class="lineNum">    1343</span>              : }</span>
+<span id="L1344"><span class="lineNum">    1344</span>              : </span>
+<span id="L1345"><span class="lineNum">    1345</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1346"><span class="lineNum">    1346</span>              : inline basic_filebuf&lt;_CharT, _Traits&gt;* basic_ofstream&lt;_CharT, _Traits&gt;::rdbuf() const {</span>
+<span id="L1347"><span class="lineNum">    1347</span>              :   return const_cast&lt;basic_filebuf&lt;char_type, traits_type&gt;*&gt;(&amp;__sb_);</span>
+<span id="L1348"><span class="lineNum">    1348</span>              : }</span>
+<span id="L1349"><span class="lineNum">    1349</span>              : </span>
+<span id="L1350"><span class="lineNum">    1350</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1351"><span class="lineNum">    1351</span>              : inline bool basic_ofstream&lt;_CharT, _Traits&gt;::is_open() const {</span>
+<span id="L1352"><span class="lineNum">    1352</span>              :   return __sb_.is_open();</span>
+<span id="L1353"><span class="lineNum">    1353</span>              : }</span>
+<span id="L1354"><span class="lineNum">    1354</span>              : </span>
+<span id="L1355"><span class="lineNum">    1355</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1356"><span class="lineNum">    1356</span>              : void basic_ofstream&lt;_CharT, _Traits&gt;::open(const char* __s, ios_base::openmode __mode) {</span>
+<span id="L1357"><span class="lineNum">    1357</span>              :   if (__sb_.open(__s, __mode | ios_base::out))</span>
+<span id="L1358"><span class="lineNum">    1358</span>              :     this-&gt;clear();</span>
+<span id="L1359"><span class="lineNum">    1359</span>              :   else</span>
+<span id="L1360"><span class="lineNum">    1360</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1361"><span class="lineNum">    1361</span>              : }</span>
+<span id="L1362"><span class="lineNum">    1362</span>              : </span>
+<span id="L1363"><span class="lineNum">    1363</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1364"><span class="lineNum">    1364</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1365"><span class="lineNum">    1365</span>              : void basic_ofstream&lt;_CharT, _Traits&gt;::open(const wchar_t* __s, ios_base::openmode __mode) {</span>
+<span id="L1366"><span class="lineNum">    1366</span>              :   if (__sb_.open(__s, __mode | ios_base::out))</span>
+<span id="L1367"><span class="lineNum">    1367</span>              :     this-&gt;clear();</span>
+<span id="L1368"><span class="lineNum">    1368</span>              :   else</span>
+<span id="L1369"><span class="lineNum">    1369</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1370"><span class="lineNum">    1370</span>              : }</span>
+<span id="L1371"><span class="lineNum">    1371</span>              : #  endif</span>
+<span id="L1372"><span class="lineNum">    1372</span>              : </span>
+<span id="L1373"><span class="lineNum">    1373</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1374"><span class="lineNum">    1374</span>              : void basic_ofstream&lt;_CharT, _Traits&gt;::open(const string&amp; __s, ios_base::openmode __mode) {</span>
+<span id="L1375"><span class="lineNum">    1375</span>              :   if (__sb_.open(__s, __mode | ios_base::out))</span>
+<span id="L1376"><span class="lineNum">    1376</span>              :     this-&gt;clear();</span>
+<span id="L1377"><span class="lineNum">    1377</span>              :   else</span>
+<span id="L1378"><span class="lineNum">    1378</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1379"><span class="lineNum">    1379</span>              : }</span>
+<span id="L1380"><span class="lineNum">    1380</span>              : </span>
+<span id="L1381"><span class="lineNum">    1381</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1382"><span class="lineNum">    1382</span>              : inline void basic_ofstream&lt;_CharT, _Traits&gt;::__open(int __fd, ios_base::openmode __mode) {</span>
+<span id="L1383"><span class="lineNum">    1383</span>              :   if (__sb_.__open(__fd, __mode | ios_base::out))</span>
+<span id="L1384"><span class="lineNum">    1384</span>              :     this-&gt;clear();</span>
+<span id="L1385"><span class="lineNum">    1385</span>              :   else</span>
+<span id="L1386"><span class="lineNum">    1386</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1387"><span class="lineNum">    1387</span>              : }</span>
+<span id="L1388"><span class="lineNum">    1388</span>              : </span>
+<span id="L1389"><span class="lineNum">    1389</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1390"><span class="lineNum">    1390</span> <span class="tlaGNC">          49 : inline void basic_ofstream&lt;_CharT, _Traits&gt;::close() {</span></span>
+<span id="L1391"><span class="lineNum">    1391</span> <span class="tlaGNC">          49 :   if (__sb_.close() == nullptr)</span></span>
+<span id="L1392"><span class="lineNum">    1392</span> <span class="tlaUNC">           0 :     this-&gt;setstate(ios_base::failbit);</span></span>
+<span id="L1393"><span class="lineNum">    1393</span> <span class="tlaGNC">          49 : }</span></span>
+<span id="L1394"><span class="lineNum">    1394</span>              : </span>
+<span id="L1395"><span class="lineNum">    1395</span>              : // basic_fstream</span>
+<span id="L1396"><span class="lineNum">    1396</span>              : </span>
+<span id="L1397"><span class="lineNum">    1397</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1398"><span class="lineNum">    1398</span>              : class _LIBCPP_TEMPLATE_VIS basic_fstream : public basic_iostream&lt;_CharT, _Traits&gt; {</span>
+<span id="L1399"><span class="lineNum">    1399</span>              : public:</span>
+<span id="L1400"><span class="lineNum">    1400</span>              :   typedef _CharT char_type;</span>
+<span id="L1401"><span class="lineNum">    1401</span>              :   typedef _Traits traits_type;</span>
+<span id="L1402"><span class="lineNum">    1402</span>              :   typedef typename traits_type::int_type int_type;</span>
+<span id="L1403"><span class="lineNum">    1403</span>              :   typedef typename traits_type::pos_type pos_type;</span>
+<span id="L1404"><span class="lineNum">    1404</span>              :   typedef typename traits_type::off_type off_type;</span>
+<span id="L1405"><span class="lineNum">    1405</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L1406"><span class="lineNum">    1406</span>              :   using native_handle_type = typename basic_filebuf&lt;_CharT, _Traits&gt;::native_handle_type;</span>
+<span id="L1407"><span class="lineNum">    1407</span>              : #  endif</span>
+<span id="L1408"><span class="lineNum">    1408</span>              : </span>
+<span id="L1409"><span class="lineNum">    1409</span>              :   _LIBCPP_HIDE_FROM_ABI basic_fstream();</span>
+<span id="L1410"><span class="lineNum">    1410</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_fstream(const char* __s,</span>
+<span id="L1411"><span class="lineNum">    1411</span>              :                                                ios_base::openmode __mode = ios_base::in | ios_base::out);</span>
+<span id="L1412"><span class="lineNum">    1412</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1413"><span class="lineNum">    1413</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_fstream(const wchar_t* __s,</span>
+<span id="L1414"><span class="lineNum">    1414</span>              :                                                ios_base::openmode __mode = ios_base::in | ios_base::out);</span>
+<span id="L1415"><span class="lineNum">    1415</span>              : #  endif</span>
+<span id="L1416"><span class="lineNum">    1416</span>              :   _LIBCPP_HIDE_FROM_ABI explicit basic_fstream(const string&amp; __s,</span>
+<span id="L1417"><span class="lineNum">    1417</span>              :                                                ios_base::openmode __mode = ios_base::in | ios_base::out);</span>
+<span id="L1418"><span class="lineNum">    1418</span>              : </span>
+<span id="L1419"><span class="lineNum">    1419</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1420"><span class="lineNum">    1420</span>              :   template &lt;class _Tp, class = enable_if_t&lt;is_same_v&lt;_Tp, filesystem::path&gt;&gt;&gt;</span>
+<span id="L1421"><span class="lineNum">    1421</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY _LIBCPP_HIDE_FROM_ABI explicit basic_fstream(</span>
+<span id="L1422"><span class="lineNum">    1422</span>              :       const _Tp&amp; __p, ios_base::openmode __mode = ios_base::in | ios_base::out)</span>
+<span id="L1423"><span class="lineNum">    1423</span>              :       : basic_fstream(__p.c_str(), __mode) {}</span>
+<span id="L1424"><span class="lineNum">    1424</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1425"><span class="lineNum">    1425</span>              : </span>
+<span id="L1426"><span class="lineNum">    1426</span>              :   _LIBCPP_HIDE_FROM_ABI basic_fstream(basic_fstream&amp;&amp; __rhs);</span>
+<span id="L1427"><span class="lineNum">    1427</span>              : </span>
+<span id="L1428"><span class="lineNum">    1428</span>              :   _LIBCPP_HIDE_FROM_ABI basic_fstream&amp; operator=(basic_fstream&amp;&amp; __rhs);</span>
+<span id="L1429"><span class="lineNum">    1429</span>              : </span>
+<span id="L1430"><span class="lineNum">    1430</span>              :   _LIBCPP_HIDE_FROM_ABI void swap(basic_fstream&amp; __rhs);</span>
+<span id="L1431"><span class="lineNum">    1431</span>              : </span>
+<span id="L1432"><span class="lineNum">    1432</span>              :   _LIBCPP_HIDE_FROM_ABI basic_filebuf&lt;char_type, traits_type&gt;* rdbuf() const;</span>
+<span id="L1433"><span class="lineNum">    1433</span>              : #  if _LIBCPP_STD_VER &gt;= 26</span>
+<span id="L1434"><span class="lineNum">    1434</span>              :   _LIBCPP_HIDE_FROM_ABI native_handle_type native_handle() const noexcept { return rdbuf()-&gt;native_handle(); }</span>
+<span id="L1435"><span class="lineNum">    1435</span>              : #  endif</span>
+<span id="L1436"><span class="lineNum">    1436</span>              :   _LIBCPP_HIDE_FROM_ABI bool is_open() const;</span>
+<span id="L1437"><span class="lineNum">    1437</span>              :   _LIBCPP_HIDE_FROM_ABI void open(const char* __s, ios_base::openmode __mode = ios_base::in | ios_base::out);</span>
+<span id="L1438"><span class="lineNum">    1438</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1439"><span class="lineNum">    1439</span>              :   void open(const wchar_t* __s, ios_base::openmode __mode = ios_base::in | ios_base::out);</span>
+<span id="L1440"><span class="lineNum">    1440</span>              : #  endif</span>
+<span id="L1441"><span class="lineNum">    1441</span>              :   _LIBCPP_HIDE_FROM_ABI void open(const string&amp; __s, ios_base::openmode __mode = ios_base::in | ios_base::out);</span>
+<span id="L1442"><span class="lineNum">    1442</span>              : </span>
+<span id="L1443"><span class="lineNum">    1443</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1444"><span class="lineNum">    1444</span>              :   _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY _LIBCPP_HIDE_FROM_ABI void</span>
+<span id="L1445"><span class="lineNum">    1445</span>              :   open(const filesystem::path&amp; __p, ios_base::openmode __mode = ios_base::in | ios_base::out) {</span>
+<span id="L1446"><span class="lineNum">    1446</span>              :     return open(__p.c_str(), __mode);</span>
+<span id="L1447"><span class="lineNum">    1447</span>              :   }</span>
+<span id="L1448"><span class="lineNum">    1448</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L1449"><span class="lineNum">    1449</span>              : </span>
+<span id="L1450"><span class="lineNum">    1450</span>              :   _LIBCPP_HIDE_FROM_ABI void close();</span>
+<span id="L1451"><span class="lineNum">    1451</span>              : </span>
+<span id="L1452"><span class="lineNum">    1452</span>              : private:</span>
+<span id="L1453"><span class="lineNum">    1453</span>              :   basic_filebuf&lt;char_type, traits_type&gt; __sb_;</span>
+<span id="L1454"><span class="lineNum">    1454</span>              : };</span>
+<span id="L1455"><span class="lineNum">    1455</span>              : </span>
+<span id="L1456"><span class="lineNum">    1456</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1457"><span class="lineNum">    1457</span>              : inline basic_fstream&lt;_CharT, _Traits&gt;::basic_fstream() : basic_iostream&lt;char_type, traits_type&gt;(&amp;__sb_) {}</span>
+<span id="L1458"><span class="lineNum">    1458</span>              : </span>
+<span id="L1459"><span class="lineNum">    1459</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1460"><span class="lineNum">    1460</span>              : inline basic_fstream&lt;_CharT, _Traits&gt;::basic_fstream(const char* __s, ios_base::openmode __mode)</span>
+<span id="L1461"><span class="lineNum">    1461</span>              :     : basic_iostream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1462"><span class="lineNum">    1462</span>              :   if (__sb_.open(__s, __mode) == nullptr)</span>
+<span id="L1463"><span class="lineNum">    1463</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1464"><span class="lineNum">    1464</span>              : }</span>
+<span id="L1465"><span class="lineNum">    1465</span>              : </span>
+<span id="L1466"><span class="lineNum">    1466</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1467"><span class="lineNum">    1467</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1468"><span class="lineNum">    1468</span>              : inline basic_fstream&lt;_CharT, _Traits&gt;::basic_fstream(const wchar_t* __s, ios_base::openmode __mode)</span>
+<span id="L1469"><span class="lineNum">    1469</span>              :     : basic_iostream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1470"><span class="lineNum">    1470</span>              :   if (__sb_.open(__s, __mode) == nullptr)</span>
+<span id="L1471"><span class="lineNum">    1471</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1472"><span class="lineNum">    1472</span>              : }</span>
+<span id="L1473"><span class="lineNum">    1473</span>              : #  endif</span>
+<span id="L1474"><span class="lineNum">    1474</span>              : </span>
+<span id="L1475"><span class="lineNum">    1475</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1476"><span class="lineNum">    1476</span>              : inline basic_fstream&lt;_CharT, _Traits&gt;::basic_fstream(const string&amp; __s, ios_base::openmode __mode)</span>
+<span id="L1477"><span class="lineNum">    1477</span>              :     : basic_iostream&lt;char_type, traits_type&gt;(&amp;__sb_) {</span>
+<span id="L1478"><span class="lineNum">    1478</span>              :   if (__sb_.open(__s, __mode) == nullptr)</span>
+<span id="L1479"><span class="lineNum">    1479</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1480"><span class="lineNum">    1480</span>              : }</span>
+<span id="L1481"><span class="lineNum">    1481</span>              : </span>
+<span id="L1482"><span class="lineNum">    1482</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1483"><span class="lineNum">    1483</span>              : inline basic_fstream&lt;_CharT, _Traits&gt;::basic_fstream(basic_fstream&amp;&amp; __rhs)</span>
+<span id="L1484"><span class="lineNum">    1484</span>              :     : basic_iostream&lt;char_type, traits_type&gt;(std::move(__rhs)), __sb_(std::move(__rhs.__sb_)) {</span>
+<span id="L1485"><span class="lineNum">    1485</span>              :   this-&gt;set_rdbuf(&amp;__sb_);</span>
+<span id="L1486"><span class="lineNum">    1486</span>              : }</span>
+<span id="L1487"><span class="lineNum">    1487</span>              : </span>
+<span id="L1488"><span class="lineNum">    1488</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1489"><span class="lineNum">    1489</span>              : inline basic_fstream&lt;_CharT, _Traits&gt;&amp; basic_fstream&lt;_CharT, _Traits&gt;::operator=(basic_fstream&amp;&amp; __rhs) {</span>
+<span id="L1490"><span class="lineNum">    1490</span>              :   basic_iostream&lt;char_type, traits_type&gt;::operator=(std::move(__rhs));</span>
+<span id="L1491"><span class="lineNum">    1491</span>              :   __sb_ = std::move(__rhs.__sb_);</span>
+<span id="L1492"><span class="lineNum">    1492</span>              :   return *this;</span>
+<span id="L1493"><span class="lineNum">    1493</span>              : }</span>
+<span id="L1494"><span class="lineNum">    1494</span>              : </span>
+<span id="L1495"><span class="lineNum">    1495</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1496"><span class="lineNum">    1496</span>              : inline void basic_fstream&lt;_CharT, _Traits&gt;::swap(basic_fstream&amp; __rhs) {</span>
+<span id="L1497"><span class="lineNum">    1497</span>              :   basic_iostream&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span id="L1498"><span class="lineNum">    1498</span>              :   __sb_.swap(__rhs.__sb_);</span>
+<span id="L1499"><span class="lineNum">    1499</span>              : }</span>
+<span id="L1500"><span class="lineNum">    1500</span>              : </span>
+<span id="L1501"><span class="lineNum">    1501</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1502"><span class="lineNum">    1502</span>              : inline _LIBCPP_HIDE_FROM_ABI void swap(basic_fstream&lt;_CharT, _Traits&gt;&amp; __x, basic_fstream&lt;_CharT, _Traits&gt;&amp; __y) {</span>
+<span id="L1503"><span class="lineNum">    1503</span>              :   __x.swap(__y);</span>
+<span id="L1504"><span class="lineNum">    1504</span>              : }</span>
+<span id="L1505"><span class="lineNum">    1505</span>              : </span>
+<span id="L1506"><span class="lineNum">    1506</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1507"><span class="lineNum">    1507</span>              : inline basic_filebuf&lt;_CharT, _Traits&gt;* basic_fstream&lt;_CharT, _Traits&gt;::rdbuf() const {</span>
+<span id="L1508"><span class="lineNum">    1508</span>              :   return const_cast&lt;basic_filebuf&lt;char_type, traits_type&gt;*&gt;(&amp;__sb_);</span>
+<span id="L1509"><span class="lineNum">    1509</span>              : }</span>
+<span id="L1510"><span class="lineNum">    1510</span>              : </span>
+<span id="L1511"><span class="lineNum">    1511</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1512"><span class="lineNum">    1512</span>              : inline bool basic_fstream&lt;_CharT, _Traits&gt;::is_open() const {</span>
+<span id="L1513"><span class="lineNum">    1513</span>              :   return __sb_.is_open();</span>
+<span id="L1514"><span class="lineNum">    1514</span>              : }</span>
+<span id="L1515"><span class="lineNum">    1515</span>              : </span>
+<span id="L1516"><span class="lineNum">    1516</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1517"><span class="lineNum">    1517</span>              : void basic_fstream&lt;_CharT, _Traits&gt;::open(const char* __s, ios_base::openmode __mode) {</span>
+<span id="L1518"><span class="lineNum">    1518</span>              :   if (__sb_.open(__s, __mode))</span>
+<span id="L1519"><span class="lineNum">    1519</span>              :     this-&gt;clear();</span>
+<span id="L1520"><span class="lineNum">    1520</span>              :   else</span>
+<span id="L1521"><span class="lineNum">    1521</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1522"><span class="lineNum">    1522</span>              : }</span>
+<span id="L1523"><span class="lineNum">    1523</span>              : </span>
+<span id="L1524"><span class="lineNum">    1524</span>              : #  ifdef _LIBCPP_HAS_OPEN_WITH_WCHAR</span>
+<span id="L1525"><span class="lineNum">    1525</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1526"><span class="lineNum">    1526</span>              : void basic_fstream&lt;_CharT, _Traits&gt;::open(const wchar_t* __s, ios_base::openmode __mode) {</span>
+<span id="L1527"><span class="lineNum">    1527</span>              :   if (__sb_.open(__s, __mode))</span>
+<span id="L1528"><span class="lineNum">    1528</span>              :     this-&gt;clear();</span>
+<span id="L1529"><span class="lineNum">    1529</span>              :   else</span>
+<span id="L1530"><span class="lineNum">    1530</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1531"><span class="lineNum">    1531</span>              : }</span>
+<span id="L1532"><span class="lineNum">    1532</span>              : #  endif</span>
+<span id="L1533"><span class="lineNum">    1533</span>              : </span>
+<span id="L1534"><span class="lineNum">    1534</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1535"><span class="lineNum">    1535</span>              : void basic_fstream&lt;_CharT, _Traits&gt;::open(const string&amp; __s, ios_base::openmode __mode) {</span>
+<span id="L1536"><span class="lineNum">    1536</span>              :   if (__sb_.open(__s, __mode))</span>
+<span id="L1537"><span class="lineNum">    1537</span>              :     this-&gt;clear();</span>
+<span id="L1538"><span class="lineNum">    1538</span>              :   else</span>
+<span id="L1539"><span class="lineNum">    1539</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1540"><span class="lineNum">    1540</span>              : }</span>
+<span id="L1541"><span class="lineNum">    1541</span>              : </span>
+<span id="L1542"><span class="lineNum">    1542</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L1543"><span class="lineNum">    1543</span>              : inline void basic_fstream&lt;_CharT, _Traits&gt;::close() {</span>
+<span id="L1544"><span class="lineNum">    1544</span>              :   if (__sb_.close() == nullptr)</span>
+<span id="L1545"><span class="lineNum">    1545</span>              :     this-&gt;setstate(ios_base::failbit);</span>
+<span id="L1546"><span class="lineNum">    1546</span>              : }</span>
+<span id="L1547"><span class="lineNum">    1547</span>              : </span>
+<span id="L1548"><span class="lineNum">    1548</span>              : #  if _LIBCPP_AVAILABILITY_HAS_ADDITIONAL_IOSTREAM_EXPLICIT_INSTANTIATIONS_1</span>
+<span id="L1549"><span class="lineNum">    1549</span>              : extern template class _LIBCPP_EXTERN_TEMPLATE_TYPE_VIS basic_ifstream&lt;char&gt;;</span>
+<span id="L1550"><span class="lineNum">    1550</span>              : extern template class _LIBCPP_EXTERN_TEMPLATE_TYPE_VIS basic_ofstream&lt;char&gt;;</span>
+<span id="L1551"><span class="lineNum">    1551</span>              : extern template class _LIBCPP_EXTERN_TEMPLATE_TYPE_VIS basic_filebuf&lt;char&gt;;</span>
+<span id="L1552"><span class="lineNum">    1552</span>              : #  endif</span>
+<span id="L1553"><span class="lineNum">    1553</span>              : </span>
+<span id="L1554"><span class="lineNum">    1554</span>              : _LIBCPP_END_NAMESPACE_STD</span>
+<span id="L1555"><span class="lineNum">    1555</span>              : </span>
+<span id="L1556"><span class="lineNum">    1556</span>              : #endif // _LIBCPP_HAS_NO_FILESYSTEM</span>
+<span id="L1557"><span class="lineNum">    1557</span>              : </span>
+<span id="L1558"><span class="lineNum">    1558</span>              : _LIBCPP_POP_MACROS</span>
+<span id="L1559"><span class="lineNum">    1559</span>              : </span>
+<span id="L1560"><span class="lineNum">    1560</span>              : #if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) &amp;&amp; _LIBCPP_STD_VER &lt;= 20</span>
+<span id="L1561"><span class="lineNum">    1561</span>              : #  include &lt;atomic&gt;</span>
+<span id="L1562"><span class="lineNum">    1562</span>              : #  include &lt;concepts&gt;</span>
+<span id="L1563"><span class="lineNum">    1563</span>              : #  include &lt;cstdlib&gt;</span>
+<span id="L1564"><span class="lineNum">    1564</span>              : #  include &lt;iosfwd&gt;</span>
+<span id="L1565"><span class="lineNum">    1565</span>              : #  include &lt;limits&gt;</span>
+<span id="L1566"><span class="lineNum">    1566</span>              : #  include &lt;mutex&gt;</span>
+<span id="L1567"><span class="lineNum">    1567</span>              : #  include &lt;new&gt;</span>
+<span id="L1568"><span class="lineNum">    1568</span>              : #  include &lt;stdexcept&gt;</span>
+<span id="L1569"><span class="lineNum">    1569</span>              : #  include &lt;type_traits&gt;</span>
+<span id="L1570"><span class="lineNum">    1570</span>              : #endif</span>
+<span id="L1571"><span class="lineNum">    1571</span>              : </span>
+<span id="L1572"><span class="lineNum">    1572</span>              : #endif // _LIBCPP_FSTREAM</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.3.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

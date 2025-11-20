@@ -1,0 +1,936 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - v1/__ostream/basic_ostream.h</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory v1/__ostream">v1/__ostream</a> - basic_ostream.h<span style="font-size: 80%;"> (source / <a href="basic_ostream.h.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryMed">76.0&nbsp;%</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">19</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2025-11-20 09:45:27</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : //===---------------------------------------------------------------------===//</span>
+<span id="L2"><span class="lineNum">       2</span>              : //</span>
+<span id="L3"><span class="lineNum">       3</span>              : // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.</span>
+<span id="L4"><span class="lineNum">       4</span>              : // See https://llvm.org/LICENSE.txt for license information.</span>
+<span id="L5"><span class="lineNum">       5</span>              : // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception</span>
+<span id="L6"><span class="lineNum">       6</span>              : //</span>
+<span id="L7"><span class="lineNum">       7</span>              : //===---------------------------------------------------------------------===//</span>
+<span id="L8"><span class="lineNum">       8</span>              : </span>
+<span id="L9"><span class="lineNum">       9</span>              : #ifndef _LIBCPP___OSTREAM_BASIC_OSTREAM_H</span>
+<span id="L10"><span class="lineNum">      10</span>              : #define _LIBCPP___OSTREAM_BASIC_OSTREAM_H</span>
+<span id="L11"><span class="lineNum">      11</span>              : </span>
+<span id="L12"><span class="lineNum">      12</span>              : #include &lt;__config&gt;</span>
+<span id="L13"><span class="lineNum">      13</span>              : #include &lt;__exception/operations.h&gt;</span>
+<span id="L14"><span class="lineNum">      14</span>              : #include &lt;__memory/shared_ptr.h&gt;</span>
+<span id="L15"><span class="lineNum">      15</span>              : #include &lt;__memory/unique_ptr.h&gt;</span>
+<span id="L16"><span class="lineNum">      16</span>              : #include &lt;__system_error/error_code.h&gt;</span>
+<span id="L17"><span class="lineNum">      17</span>              : #include &lt;__type_traits/conjunction.h&gt;</span>
+<span id="L18"><span class="lineNum">      18</span>              : #include &lt;__type_traits/enable_if.h&gt;</span>
+<span id="L19"><span class="lineNum">      19</span>              : #include &lt;__type_traits/is_base_of.h&gt;</span>
+<span id="L20"><span class="lineNum">      20</span>              : #include &lt;__type_traits/void_t.h&gt;</span>
+<span id="L21"><span class="lineNum">      21</span>              : #include &lt;__utility/declval.h&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>              : #include &lt;bitset&gt;</span>
+<span id="L23"><span class="lineNum">      23</span>              : #include &lt;cstddef&gt;</span>
+<span id="L24"><span class="lineNum">      24</span>              : #include &lt;ios&gt;</span>
+<span id="L25"><span class="lineNum">      25</span>              : #include &lt;locale&gt;</span>
+<span id="L26"><span class="lineNum">      26</span>              : #include &lt;new&gt; // for __throw_bad_alloc</span>
+<span id="L27"><span class="lineNum">      27</span>              : #include &lt;streambuf&gt;</span>
+<span id="L28"><span class="lineNum">      28</span>              : #include &lt;string_view&gt;</span>
+<span id="L29"><span class="lineNum">      29</span>              : </span>
+<span id="L30"><span class="lineNum">      30</span>              : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)</span>
+<span id="L31"><span class="lineNum">      31</span>              : #  pragma GCC system_header</span>
+<span id="L32"><span class="lineNum">      32</span>              : #endif</span>
+<span id="L33"><span class="lineNum">      33</span>              : </span>
+<span id="L34"><span class="lineNum">      34</span>              : _LIBCPP_PUSH_MACROS</span>
+<span id="L35"><span class="lineNum">      35</span>              : #include &lt;__undef_macros&gt;</span>
+<span id="L36"><span class="lineNum">      36</span>              : </span>
+<span id="L37"><span class="lineNum">      37</span>              : _LIBCPP_BEGIN_NAMESPACE_STD</span>
+<span id="L38"><span class="lineNum">      38</span>              : </span>
+<span id="L39"><span class="lineNum">      39</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>              : class _LIBCPP_TEMPLATE_VIS basic_ostream : virtual public basic_ios&lt;_CharT, _Traits&gt; {</span>
+<span id="L41"><span class="lineNum">      41</span>              : public:</span>
+<span id="L42"><span class="lineNum">      42</span>              :   // types (inherited from basic_ios (27.5.4)):</span>
+<span id="L43"><span class="lineNum">      43</span>              :   typedef _CharT char_type;</span>
+<span id="L44"><span class="lineNum">      44</span>              :   typedef _Traits traits_type;</span>
+<span id="L45"><span class="lineNum">      45</span>              :   typedef typename traits_type::int_type int_type;</span>
+<span id="L46"><span class="lineNum">      46</span>              :   typedef typename traits_type::pos_type pos_type;</span>
+<span id="L47"><span class="lineNum">      47</span>              :   typedef typename traits_type::off_type off_type;</span>
+<span id="L48"><span class="lineNum">      48</span>              : </span>
+<span id="L49"><span class="lineNum">      49</span>              :   // 27.7.2.2 Constructor/destructor:</span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          49 :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 explicit basic_ostream(basic_streambuf&lt;char_type, traits_type&gt;* __sb) {</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          49 :     this-&gt;init(__sb);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          49 :   }</span></span>
+<span id="L53"><span class="lineNum">      53</span>              :   ~basic_ostream() override;</span>
+<span id="L54"><span class="lineNum">      54</span>              : </span>
+<span id="L55"><span class="lineNum">      55</span>              :   basic_ostream(const basic_ostream&amp; __rhs)            = delete;</span>
+<span id="L56"><span class="lineNum">      56</span>              :   basic_ostream&amp; operator=(const basic_ostream&amp; __rhs) = delete;</span>
+<span id="L57"><span class="lineNum">      57</span>              : </span>
+<span id="L58"><span class="lineNum">      58</span>              : protected:</span>
+<span id="L59"><span class="lineNum">      59</span>              :   inline _LIBCPP_HIDE_FROM_ABI basic_ostream(basic_ostream&amp;&amp; __rhs);</span>
+<span id="L60"><span class="lineNum">      60</span>              : </span>
+<span id="L61"><span class="lineNum">      61</span>              :   // 27.7.2.3 Assign/swap</span>
+<span id="L62"><span class="lineNum">      62</span>              :   inline _LIBCPP_HIDE_FROM_ABI basic_ostream&amp; operator=(basic_ostream&amp;&amp; __rhs);</span>
+<span id="L63"><span class="lineNum">      63</span>              : </span>
+<span id="L64"><span class="lineNum">      64</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 void swap(basic_ostream&amp; __rhs) {</span>
+<span id="L65"><span class="lineNum">      65</span>              :     basic_ios&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span id="L66"><span class="lineNum">      66</span>              :   }</span>
+<span id="L67"><span class="lineNum">      67</span>              : </span>
+<span id="L68"><span class="lineNum">      68</span>              : public:</span>
+<span id="L69"><span class="lineNum">      69</span>              :   // 27.7.2.4 Prefix/suffix:</span>
+<span id="L70"><span class="lineNum">      70</span>              :   class _LIBCPP_TEMPLATE_VIS sentry;</span>
+<span id="L71"><span class="lineNum">      71</span>              : </span>
+<span id="L72"><span class="lineNum">      72</span>              :   // 27.7.2.6 Formatted output:</span>
+<span id="L73"><span class="lineNum">      73</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 basic_ostream&amp; operator&lt;&lt;(basic_ostream&amp; (*__pf)(basic_ostream&amp;)) {</span>
+<span id="L74"><span class="lineNum">      74</span>              :     return __pf(*this);</span>
+<span id="L75"><span class="lineNum">      75</span>              :   }</span>
+<span id="L76"><span class="lineNum">      76</span>              : </span>
+<span id="L77"><span class="lineNum">      77</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 basic_ostream&amp;</span>
+<span id="L78"><span class="lineNum">      78</span>              :   operator&lt;&lt;(basic_ios&lt;char_type, traits_type&gt;&amp; (*__pf)(basic_ios&lt;char_type, traits_type&gt;&amp;)) {</span>
+<span id="L79"><span class="lineNum">      79</span>              :     __pf(*this);</span>
+<span id="L80"><span class="lineNum">      80</span>              :     return *this;</span>
+<span id="L81"><span class="lineNum">      81</span>              :   }</span>
+<span id="L82"><span class="lineNum">      82</span>              : </span>
+<span id="L83"><span class="lineNum">      83</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 basic_ostream&amp; operator&lt;&lt;(ios_base&amp; (*__pf)(ios_base&amp;)) {</span>
+<span id="L84"><span class="lineNum">      84</span>              :     __pf(*this);</span>
+<span id="L85"><span class="lineNum">      85</span>              :     return *this;</span>
+<span id="L86"><span class="lineNum">      86</span>              :   }</span>
+<span id="L87"><span class="lineNum">      87</span>              : </span>
+<span id="L88"><span class="lineNum">      88</span>              :   basic_ostream&amp; operator&lt;&lt;(bool __n);</span>
+<span id="L89"><span class="lineNum">      89</span>              :   basic_ostream&amp; operator&lt;&lt;(short __n);</span>
+<span id="L90"><span class="lineNum">      90</span>              :   basic_ostream&amp; operator&lt;&lt;(unsigned short __n);</span>
+<span id="L91"><span class="lineNum">      91</span>              :   basic_ostream&amp; operator&lt;&lt;(int __n);</span>
+<span id="L92"><span class="lineNum">      92</span>              :   basic_ostream&amp; operator&lt;&lt;(unsigned int __n);</span>
+<span id="L93"><span class="lineNum">      93</span>              :   basic_ostream&amp; operator&lt;&lt;(long __n);</span>
+<span id="L94"><span class="lineNum">      94</span>              :   basic_ostream&amp; operator&lt;&lt;(unsigned long __n);</span>
+<span id="L95"><span class="lineNum">      95</span>              :   basic_ostream&amp; operator&lt;&lt;(long long __n);</span>
+<span id="L96"><span class="lineNum">      96</span>              :   basic_ostream&amp; operator&lt;&lt;(unsigned long long __n);</span>
+<span id="L97"><span class="lineNum">      97</span>              :   basic_ostream&amp; operator&lt;&lt;(float __f);</span>
+<span id="L98"><span class="lineNum">      98</span>              :   basic_ostream&amp; operator&lt;&lt;(double __f);</span>
+<span id="L99"><span class="lineNum">      99</span>              :   basic_ostream&amp; operator&lt;&lt;(long double __f);</span>
+<span id="L100"><span class="lineNum">     100</span>              :   basic_ostream&amp; operator&lt;&lt;(const void* __p);</span>
+<span id="L101"><span class="lineNum">     101</span>              : </span>
+<span id="L102"><span class="lineNum">     102</span>              : #if _LIBCPP_STD_VER &gt;= 23</span>
+<span id="L103"><span class="lineNum">     103</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ostream&amp; operator&lt;&lt;(const volatile void* __p) {</span>
+<span id="L104"><span class="lineNum">     104</span>              :     return operator&lt;&lt;(const_cast&lt;const void*&gt;(__p));</span>
+<span id="L105"><span class="lineNum">     105</span>              :   }</span>
+<span id="L106"><span class="lineNum">     106</span>              : #endif</span>
+<span id="L107"><span class="lineNum">     107</span>              : </span>
+<span id="L108"><span class="lineNum">     108</span>              :   basic_ostream&amp; operator&lt;&lt;(basic_streambuf&lt;char_type, traits_type&gt;* __sb);</span>
+<span id="L109"><span class="lineNum">     109</span>              : </span>
+<span id="L110"><span class="lineNum">     110</span>              : #if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L111"><span class="lineNum">     111</span>              :   // LWG 2221 - nullptr. This is not backported to older standards modes.</span>
+<span id="L112"><span class="lineNum">     112</span>              :   // See https://reviews.llvm.org/D127033 for more info on the rationale.</span>
+<span id="L113"><span class="lineNum">     113</span>              :   _LIBCPP_HIDE_FROM_ABI basic_ostream&amp; operator&lt;&lt;(nullptr_t) { return *this &lt;&lt; &quot;nullptr&quot;; }</span>
+<span id="L114"><span class="lineNum">     114</span>              : #endif</span>
+<span id="L115"><span class="lineNum">     115</span>              : </span>
+<span id="L116"><span class="lineNum">     116</span>              :   // 27.7.2.7 Unformatted output:</span>
+<span id="L117"><span class="lineNum">     117</span>              :   basic_ostream&amp; put(char_type __c);</span>
+<span id="L118"><span class="lineNum">     118</span>              :   basic_ostream&amp; write(const char_type* __s, streamsize __n);</span>
+<span id="L119"><span class="lineNum">     119</span>              :   basic_ostream&amp; flush();</span>
+<span id="L120"><span class="lineNum">     120</span>              : </span>
+<span id="L121"><span class="lineNum">     121</span>              :   // 27.7.2.5 seeks:</span>
+<span id="L122"><span class="lineNum">     122</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 pos_type tellp();</span>
+<span id="L123"><span class="lineNum">     123</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 basic_ostream&amp; seekp(pos_type __pos);</span>
+<span id="L124"><span class="lineNum">     124</span>              :   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 basic_ostream&amp; seekp(off_type __off, ios_base::seekdir __dir);</span>
+<span id="L125"><span class="lineNum">     125</span>              : </span>
+<span id="L126"><span class="lineNum">     126</span>              : protected:</span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         553 :   _LIBCPP_HIDE_FROM_ABI basic_ostream() {} // extension, intentially does not initialize</span></span>
+<span id="L128"><span class="lineNum">     128</span>              : };</span>
+<span id="L129"><span class="lineNum">     129</span>              : </span>
+<span id="L130"><span class="lineNum">     130</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L131"><span class="lineNum">     131</span>              : class _LIBCPP_TEMPLATE_VIS basic_ostream&lt;_CharT, _Traits&gt;::sentry {</span>
+<span id="L132"><span class="lineNum">     132</span>              :   bool __ok_;</span>
+<span id="L133"><span class="lineNum">     133</span>              :   basic_ostream&lt;_CharT, _Traits&gt;&amp; __os_;</span>
+<span id="L134"><span class="lineNum">     134</span>              : </span>
+<span id="L135"><span class="lineNum">     135</span>              : public:</span>
+<span id="L136"><span class="lineNum">     136</span>              :   explicit sentry(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os);</span>
+<span id="L137"><span class="lineNum">     137</span>              :   ~sentry();</span>
+<span id="L138"><span class="lineNum">     138</span>              :   sentry(const sentry&amp;)            = delete;</span>
+<span id="L139"><span class="lineNum">     139</span>              :   sentry&amp; operator=(const sentry&amp;) = delete;</span>
+<span id="L140"><span class="lineNum">     140</span>              : </span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">        3409 :   _LIBCPP_HIDE_FROM_ABI explicit operator bool() const { return __ok_; }</span></span>
+<span id="L142"><span class="lineNum">     142</span>              : };</span>
+<span id="L143"><span class="lineNum">     143</span>              : </span>
+<span id="L144"><span class="lineNum">     144</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L145"><span class="lineNum">     145</span>              : basic_ostream&lt;_CharT, _Traits&gt;::sentry::sentry(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os) : __ok_(false), __os_(__os) {</span>
+<span id="L146"><span class="lineNum">     146</span>              :   if (__os.good()) {</span>
+<span id="L147"><span class="lineNum">     147</span>              :     if (__os.tie())</span>
+<span id="L148"><span class="lineNum">     148</span>              :       __os.tie()-&gt;flush();</span>
+<span id="L149"><span class="lineNum">     149</span>              :     __ok_ = true;</span>
+<span id="L150"><span class="lineNum">     150</span>              :   }</span>
+<span id="L151"><span class="lineNum">     151</span>              : }</span>
+<span id="L152"><span class="lineNum">     152</span>              : </span>
+<span id="L153"><span class="lineNum">     153</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L154"><span class="lineNum">     154</span>              : basic_ostream&lt;_CharT, _Traits&gt;::sentry::~sentry() {</span>
+<span id="L155"><span class="lineNum">     155</span>              :   if (__os_.rdbuf() &amp;&amp; __os_.good() &amp;&amp; (__os_.flags() &amp; ios_base::unitbuf) &amp;&amp; !uncaught_exception()) {</span>
+<span id="L156"><span class="lineNum">     156</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L157"><span class="lineNum">     157</span>              :     try {</span>
+<span id="L158"><span class="lineNum">     158</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L159"><span class="lineNum">     159</span>              :       if (__os_.rdbuf()-&gt;pubsync() == -1)</span>
+<span id="L160"><span class="lineNum">     160</span>              :         __os_.setstate(ios_base::badbit);</span>
+<span id="L161"><span class="lineNum">     161</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L162"><span class="lineNum">     162</span>              :     } catch (...) {</span>
+<span id="L163"><span class="lineNum">     163</span>              :     }</span>
+<span id="L164"><span class="lineNum">     164</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L165"><span class="lineNum">     165</span>              :   }</span>
+<span id="L166"><span class="lineNum">     166</span>              : }</span>
+<span id="L167"><span class="lineNum">     167</span>              : </span>
+<span id="L168"><span class="lineNum">     168</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L169"><span class="lineNum">     169</span>              : basic_ostream&lt;_CharT, _Traits&gt;::basic_ostream(basic_ostream&amp;&amp; __rhs) {</span>
+<span id="L170"><span class="lineNum">     170</span>              :   this-&gt;move(__rhs);</span>
+<span id="L171"><span class="lineNum">     171</span>              : }</span>
+<span id="L172"><span class="lineNum">     172</span>              : </span>
+<span id="L173"><span class="lineNum">     173</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L174"><span class="lineNum">     174</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator=(basic_ostream&amp;&amp; __rhs) {</span>
+<span id="L175"><span class="lineNum">     175</span>              :   swap(__rhs);</span>
+<span id="L176"><span class="lineNum">     176</span>              :   return *this;</span>
+<span id="L177"><span class="lineNum">     177</span>              : }</span>
+<span id="L178"><span class="lineNum">     178</span>              : </span>
+<span id="L179"><span class="lineNum">     179</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L180"><span class="lineNum">     180</span>              : basic_ostream&lt;_CharT, _Traits&gt;::~basic_ostream() {}</span>
+<span id="L181"><span class="lineNum">     181</span>              : </span>
+<span id="L182"><span class="lineNum">     182</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L183"><span class="lineNum">     183</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L184"><span class="lineNum">     184</span>              : basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(basic_streambuf&lt;char_type, traits_type&gt;* __sb) {</span>
+<span id="L185"><span class="lineNum">     185</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L186"><span class="lineNum">     186</span>              :   try {</span>
+<span id="L187"><span class="lineNum">     187</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L188"><span class="lineNum">     188</span>              :     sentry __s(*this);</span>
+<span id="L189"><span class="lineNum">     189</span>              :     if (__s) {</span>
+<span id="L190"><span class="lineNum">     190</span>              :       if (__sb) {</span>
+<span id="L191"><span class="lineNum">     191</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L192"><span class="lineNum">     192</span>              :         try {</span>
+<span id="L193"><span class="lineNum">     193</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L194"><span class="lineNum">     194</span>              :           typedef istreambuf_iterator&lt;_CharT, _Traits&gt; _Ip;</span>
+<span id="L195"><span class="lineNum">     195</span>              :           typedef ostreambuf_iterator&lt;_CharT, _Traits&gt; _Op;</span>
+<span id="L196"><span class="lineNum">     196</span>              :           _Ip __i(__sb);</span>
+<span id="L197"><span class="lineNum">     197</span>              :           _Ip __eof;</span>
+<span id="L198"><span class="lineNum">     198</span>              :           _Op __o(*this);</span>
+<span id="L199"><span class="lineNum">     199</span>              :           size_t __c = 0;</span>
+<span id="L200"><span class="lineNum">     200</span>              :           for (; __i != __eof; ++__i, ++__o, ++__c) {</span>
+<span id="L201"><span class="lineNum">     201</span>              :             *__o = *__i;</span>
+<span id="L202"><span class="lineNum">     202</span>              :             if (__o.failed())</span>
+<span id="L203"><span class="lineNum">     203</span>              :               break;</span>
+<span id="L204"><span class="lineNum">     204</span>              :           }</span>
+<span id="L205"><span class="lineNum">     205</span>              :           if (__c == 0)</span>
+<span id="L206"><span class="lineNum">     206</span>              :             this-&gt;setstate(ios_base::failbit);</span>
+<span id="L207"><span class="lineNum">     207</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L208"><span class="lineNum">     208</span>              :         } catch (...) {</span>
+<span id="L209"><span class="lineNum">     209</span>              :           this-&gt;__set_failbit_and_consider_rethrow();</span>
+<span id="L210"><span class="lineNum">     210</span>              :         }</span>
+<span id="L211"><span class="lineNum">     211</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L212"><span class="lineNum">     212</span>              :       } else</span>
+<span id="L213"><span class="lineNum">     213</span>              :         this-&gt;setstate(ios_base::badbit);</span>
+<span id="L214"><span class="lineNum">     214</span>              :     }</span>
+<span id="L215"><span class="lineNum">     215</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L216"><span class="lineNum">     216</span>              :   } catch (...) {</span>
+<span id="L217"><span class="lineNum">     217</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L218"><span class="lineNum">     218</span>              :   }</span>
+<span id="L219"><span class="lineNum">     219</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L220"><span class="lineNum">     220</span>              :   return *this;</span>
+<span id="L221"><span class="lineNum">     221</span>              : }</span>
+<span id="L222"><span class="lineNum">     222</span>              : </span>
+<span id="L223"><span class="lineNum">     223</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L224"><span class="lineNum">     224</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(bool __n) {</span>
+<span id="L225"><span class="lineNum">     225</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L226"><span class="lineNum">     226</span>              :   try {</span>
+<span id="L227"><span class="lineNum">     227</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L228"><span class="lineNum">     228</span>              :     sentry __s(*this);</span>
+<span id="L229"><span class="lineNum">     229</span>              :     if (__s) {</span>
+<span id="L230"><span class="lineNum">     230</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L231"><span class="lineNum">     231</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L232"><span class="lineNum">     232</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L233"><span class="lineNum">     233</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L234"><span class="lineNum">     234</span>              :     }</span>
+<span id="L235"><span class="lineNum">     235</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L236"><span class="lineNum">     236</span>              :   } catch (...) {</span>
+<span id="L237"><span class="lineNum">     237</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L238"><span class="lineNum">     238</span>              :   }</span>
+<span id="L239"><span class="lineNum">     239</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L240"><span class="lineNum">     240</span>              :   return *this;</span>
+<span id="L241"><span class="lineNum">     241</span>              : }</span>
+<span id="L242"><span class="lineNum">     242</span>              : </span>
+<span id="L243"><span class="lineNum">     243</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L244"><span class="lineNum">     244</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(short __n) {</span>
+<span id="L245"><span class="lineNum">     245</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L246"><span class="lineNum">     246</span>              :   try {</span>
+<span id="L247"><span class="lineNum">     247</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L248"><span class="lineNum">     248</span>              :     sentry __s(*this);</span>
+<span id="L249"><span class="lineNum">     249</span>              :     if (__s) {</span>
+<span id="L250"><span class="lineNum">     250</span>              :       ios_base::fmtflags __flags = ios_base::flags() &amp; ios_base::basefield;</span>
+<span id="L251"><span class="lineNum">     251</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L252"><span class="lineNum">     252</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L253"><span class="lineNum">     253</span>              :       if (__f.put(*this,</span>
+<span id="L254"><span class="lineNum">     254</span>              :                   *this,</span>
+<span id="L255"><span class="lineNum">     255</span>              :                   this-&gt;fill(),</span>
+<span id="L256"><span class="lineNum">     256</span>              :                   __flags == ios_base::oct || __flags == ios_base::hex</span>
+<span id="L257"><span class="lineNum">     257</span>              :                       ? static_cast&lt;long&gt;(static_cast&lt;unsigned short&gt;(__n))</span>
+<span id="L258"><span class="lineNum">     258</span>              :                       : static_cast&lt;long&gt;(__n))</span>
+<span id="L259"><span class="lineNum">     259</span>              :               .failed())</span>
+<span id="L260"><span class="lineNum">     260</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L261"><span class="lineNum">     261</span>              :     }</span>
+<span id="L262"><span class="lineNum">     262</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L263"><span class="lineNum">     263</span>              :   } catch (...) {</span>
+<span id="L264"><span class="lineNum">     264</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L265"><span class="lineNum">     265</span>              :   }</span>
+<span id="L266"><span class="lineNum">     266</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L267"><span class="lineNum">     267</span>              :   return *this;</span>
+<span id="L268"><span class="lineNum">     268</span>              : }</span>
+<span id="L269"><span class="lineNum">     269</span>              : </span>
+<span id="L270"><span class="lineNum">     270</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L271"><span class="lineNum">     271</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(unsigned short __n) {</span>
+<span id="L272"><span class="lineNum">     272</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L273"><span class="lineNum">     273</span>              :   try {</span>
+<span id="L274"><span class="lineNum">     274</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L275"><span class="lineNum">     275</span>              :     sentry __s(*this);</span>
+<span id="L276"><span class="lineNum">     276</span>              :     if (__s) {</span>
+<span id="L277"><span class="lineNum">     277</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L278"><span class="lineNum">     278</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L279"><span class="lineNum">     279</span>              :       if (__f.put(*this, *this, this-&gt;fill(), static_cast&lt;unsigned long&gt;(__n)).failed())</span>
+<span id="L280"><span class="lineNum">     280</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L281"><span class="lineNum">     281</span>              :     }</span>
+<span id="L282"><span class="lineNum">     282</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L283"><span class="lineNum">     283</span>              :   } catch (...) {</span>
+<span id="L284"><span class="lineNum">     284</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L285"><span class="lineNum">     285</span>              :   }</span>
+<span id="L286"><span class="lineNum">     286</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L287"><span class="lineNum">     287</span>              :   return *this;</span>
+<span id="L288"><span class="lineNum">     288</span>              : }</span>
+<span id="L289"><span class="lineNum">     289</span>              : </span>
+<span id="L290"><span class="lineNum">     290</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L291"><span class="lineNum">     291</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(int __n) {</span>
+<span id="L292"><span class="lineNum">     292</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L293"><span class="lineNum">     293</span>              :   try {</span>
+<span id="L294"><span class="lineNum">     294</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L295"><span class="lineNum">     295</span>              :     sentry __s(*this);</span>
+<span id="L296"><span class="lineNum">     296</span>              :     if (__s) {</span>
+<span id="L297"><span class="lineNum">     297</span>              :       ios_base::fmtflags __flags = ios_base::flags() &amp; ios_base::basefield;</span>
+<span id="L298"><span class="lineNum">     298</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L299"><span class="lineNum">     299</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L300"><span class="lineNum">     300</span>              :       if (__f.put(*this,</span>
+<span id="L301"><span class="lineNum">     301</span>              :                   *this,</span>
+<span id="L302"><span class="lineNum">     302</span>              :                   this-&gt;fill(),</span>
+<span id="L303"><span class="lineNum">     303</span>              :                   __flags == ios_base::oct || __flags == ios_base::hex</span>
+<span id="L304"><span class="lineNum">     304</span>              :                       ? static_cast&lt;long&gt;(static_cast&lt;unsigned int&gt;(__n))</span>
+<span id="L305"><span class="lineNum">     305</span>              :                       : static_cast&lt;long&gt;(__n))</span>
+<span id="L306"><span class="lineNum">     306</span>              :               .failed())</span>
+<span id="L307"><span class="lineNum">     307</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L308"><span class="lineNum">     308</span>              :     }</span>
+<span id="L309"><span class="lineNum">     309</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L310"><span class="lineNum">     310</span>              :   } catch (...) {</span>
+<span id="L311"><span class="lineNum">     311</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L312"><span class="lineNum">     312</span>              :   }</span>
+<span id="L313"><span class="lineNum">     313</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L314"><span class="lineNum">     314</span>              :   return *this;</span>
+<span id="L315"><span class="lineNum">     315</span>              : }</span>
+<span id="L316"><span class="lineNum">     316</span>              : </span>
+<span id="L317"><span class="lineNum">     317</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L318"><span class="lineNum">     318</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(unsigned int __n) {</span>
+<span id="L319"><span class="lineNum">     319</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L320"><span class="lineNum">     320</span>              :   try {</span>
+<span id="L321"><span class="lineNum">     321</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L322"><span class="lineNum">     322</span>              :     sentry __s(*this);</span>
+<span id="L323"><span class="lineNum">     323</span>              :     if (__s) {</span>
+<span id="L324"><span class="lineNum">     324</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L325"><span class="lineNum">     325</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L326"><span class="lineNum">     326</span>              :       if (__f.put(*this, *this, this-&gt;fill(), static_cast&lt;unsigned long&gt;(__n)).failed())</span>
+<span id="L327"><span class="lineNum">     327</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L328"><span class="lineNum">     328</span>              :     }</span>
+<span id="L329"><span class="lineNum">     329</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L330"><span class="lineNum">     330</span>              :   } catch (...) {</span>
+<span id="L331"><span class="lineNum">     331</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L332"><span class="lineNum">     332</span>              :   }</span>
+<span id="L333"><span class="lineNum">     333</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L334"><span class="lineNum">     334</span>              :   return *this;</span>
+<span id="L335"><span class="lineNum">     335</span>              : }</span>
+<span id="L336"><span class="lineNum">     336</span>              : </span>
+<span id="L337"><span class="lineNum">     337</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L338"><span class="lineNum">     338</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(long __n) {</span>
+<span id="L339"><span class="lineNum">     339</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L340"><span class="lineNum">     340</span>              :   try {</span>
+<span id="L341"><span class="lineNum">     341</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L342"><span class="lineNum">     342</span>              :     sentry __s(*this);</span>
+<span id="L343"><span class="lineNum">     343</span>              :     if (__s) {</span>
+<span id="L344"><span class="lineNum">     344</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L345"><span class="lineNum">     345</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L346"><span class="lineNum">     346</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L347"><span class="lineNum">     347</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L348"><span class="lineNum">     348</span>              :     }</span>
+<span id="L349"><span class="lineNum">     349</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L350"><span class="lineNum">     350</span>              :   } catch (...) {</span>
+<span id="L351"><span class="lineNum">     351</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L352"><span class="lineNum">     352</span>              :   }</span>
+<span id="L353"><span class="lineNum">     353</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L354"><span class="lineNum">     354</span>              :   return *this;</span>
+<span id="L355"><span class="lineNum">     355</span>              : }</span>
+<span id="L356"><span class="lineNum">     356</span>              : </span>
+<span id="L357"><span class="lineNum">     357</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L358"><span class="lineNum">     358</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(unsigned long __n) {</span>
+<span id="L359"><span class="lineNum">     359</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L360"><span class="lineNum">     360</span>              :   try {</span>
+<span id="L361"><span class="lineNum">     361</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L362"><span class="lineNum">     362</span>              :     sentry __s(*this);</span>
+<span id="L363"><span class="lineNum">     363</span>              :     if (__s) {</span>
+<span id="L364"><span class="lineNum">     364</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L365"><span class="lineNum">     365</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L366"><span class="lineNum">     366</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L367"><span class="lineNum">     367</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L368"><span class="lineNum">     368</span>              :     }</span>
+<span id="L369"><span class="lineNum">     369</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L370"><span class="lineNum">     370</span>              :   } catch (...) {</span>
+<span id="L371"><span class="lineNum">     371</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L372"><span class="lineNum">     372</span>              :   }</span>
+<span id="L373"><span class="lineNum">     373</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L374"><span class="lineNum">     374</span>              :   return *this;</span>
+<span id="L375"><span class="lineNum">     375</span>              : }</span>
+<span id="L376"><span class="lineNum">     376</span>              : </span>
+<span id="L377"><span class="lineNum">     377</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L378"><span class="lineNum">     378</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(long long __n) {</span>
+<span id="L379"><span class="lineNum">     379</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L380"><span class="lineNum">     380</span>              :   try {</span>
+<span id="L381"><span class="lineNum">     381</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L382"><span class="lineNum">     382</span>              :     sentry __s(*this);</span>
+<span id="L383"><span class="lineNum">     383</span>              :     if (__s) {</span>
+<span id="L384"><span class="lineNum">     384</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L385"><span class="lineNum">     385</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L386"><span class="lineNum">     386</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L387"><span class="lineNum">     387</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L388"><span class="lineNum">     388</span>              :     }</span>
+<span id="L389"><span class="lineNum">     389</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L390"><span class="lineNum">     390</span>              :   } catch (...) {</span>
+<span id="L391"><span class="lineNum">     391</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L392"><span class="lineNum">     392</span>              :   }</span>
+<span id="L393"><span class="lineNum">     393</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L394"><span class="lineNum">     394</span>              :   return *this;</span>
+<span id="L395"><span class="lineNum">     395</span>              : }</span>
+<span id="L396"><span class="lineNum">     396</span>              : </span>
+<span id="L397"><span class="lineNum">     397</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L398"><span class="lineNum">     398</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(unsigned long long __n) {</span>
+<span id="L399"><span class="lineNum">     399</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L400"><span class="lineNum">     400</span>              :   try {</span>
+<span id="L401"><span class="lineNum">     401</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L402"><span class="lineNum">     402</span>              :     sentry __s(*this);</span>
+<span id="L403"><span class="lineNum">     403</span>              :     if (__s) {</span>
+<span id="L404"><span class="lineNum">     404</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L405"><span class="lineNum">     405</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L406"><span class="lineNum">     406</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L407"><span class="lineNum">     407</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L408"><span class="lineNum">     408</span>              :     }</span>
+<span id="L409"><span class="lineNum">     409</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L410"><span class="lineNum">     410</span>              :   } catch (...) {</span>
+<span id="L411"><span class="lineNum">     411</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L412"><span class="lineNum">     412</span>              :   }</span>
+<span id="L413"><span class="lineNum">     413</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L414"><span class="lineNum">     414</span>              :   return *this;</span>
+<span id="L415"><span class="lineNum">     415</span>              : }</span>
+<span id="L416"><span class="lineNum">     416</span>              : </span>
+<span id="L417"><span class="lineNum">     417</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L418"><span class="lineNum">     418</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(float __n) {</span>
+<span id="L419"><span class="lineNum">     419</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L420"><span class="lineNum">     420</span>              :   try {</span>
+<span id="L421"><span class="lineNum">     421</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L422"><span class="lineNum">     422</span>              :     sentry __s(*this);</span>
+<span id="L423"><span class="lineNum">     423</span>              :     if (__s) {</span>
+<span id="L424"><span class="lineNum">     424</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L425"><span class="lineNum">     425</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L426"><span class="lineNum">     426</span>              :       if (__f.put(*this, *this, this-&gt;fill(), static_cast&lt;double&gt;(__n)).failed())</span>
+<span id="L427"><span class="lineNum">     427</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L428"><span class="lineNum">     428</span>              :     }</span>
+<span id="L429"><span class="lineNum">     429</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L430"><span class="lineNum">     430</span>              :   } catch (...) {</span>
+<span id="L431"><span class="lineNum">     431</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L432"><span class="lineNum">     432</span>              :   }</span>
+<span id="L433"><span class="lineNum">     433</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L434"><span class="lineNum">     434</span>              :   return *this;</span>
+<span id="L435"><span class="lineNum">     435</span>              : }</span>
+<span id="L436"><span class="lineNum">     436</span>              : </span>
+<span id="L437"><span class="lineNum">     437</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L438"><span class="lineNum">     438</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(double __n) {</span>
+<span id="L439"><span class="lineNum">     439</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L440"><span class="lineNum">     440</span>              :   try {</span>
+<span id="L441"><span class="lineNum">     441</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L442"><span class="lineNum">     442</span>              :     sentry __s(*this);</span>
+<span id="L443"><span class="lineNum">     443</span>              :     if (__s) {</span>
+<span id="L444"><span class="lineNum">     444</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L445"><span class="lineNum">     445</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L446"><span class="lineNum">     446</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L447"><span class="lineNum">     447</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L448"><span class="lineNum">     448</span>              :     }</span>
+<span id="L449"><span class="lineNum">     449</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L450"><span class="lineNum">     450</span>              :   } catch (...) {</span>
+<span id="L451"><span class="lineNum">     451</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L452"><span class="lineNum">     452</span>              :   }</span>
+<span id="L453"><span class="lineNum">     453</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L454"><span class="lineNum">     454</span>              :   return *this;</span>
+<span id="L455"><span class="lineNum">     455</span>              : }</span>
+<span id="L456"><span class="lineNum">     456</span>              : </span>
+<span id="L457"><span class="lineNum">     457</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L458"><span class="lineNum">     458</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(long double __n) {</span>
+<span id="L459"><span class="lineNum">     459</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L460"><span class="lineNum">     460</span>              :   try {</span>
+<span id="L461"><span class="lineNum">     461</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L462"><span class="lineNum">     462</span>              :     sentry __s(*this);</span>
+<span id="L463"><span class="lineNum">     463</span>              :     if (__s) {</span>
+<span id="L464"><span class="lineNum">     464</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L465"><span class="lineNum">     465</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L466"><span class="lineNum">     466</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L467"><span class="lineNum">     467</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L468"><span class="lineNum">     468</span>              :     }</span>
+<span id="L469"><span class="lineNum">     469</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L470"><span class="lineNum">     470</span>              :   } catch (...) {</span>
+<span id="L471"><span class="lineNum">     471</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L472"><span class="lineNum">     472</span>              :   }</span>
+<span id="L473"><span class="lineNum">     473</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L474"><span class="lineNum">     474</span>              :   return *this;</span>
+<span id="L475"><span class="lineNum">     475</span>              : }</span>
+<span id="L476"><span class="lineNum">     476</span>              : </span>
+<span id="L477"><span class="lineNum">     477</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L478"><span class="lineNum">     478</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::operator&lt;&lt;(const void* __n) {</span>
+<span id="L479"><span class="lineNum">     479</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L480"><span class="lineNum">     480</span>              :   try {</span>
+<span id="L481"><span class="lineNum">     481</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L482"><span class="lineNum">     482</span>              :     sentry __s(*this);</span>
+<span id="L483"><span class="lineNum">     483</span>              :     if (__s) {</span>
+<span id="L484"><span class="lineNum">     484</span>              :       typedef num_put&lt;char_type, ostreambuf_iterator&lt;char_type, traits_type&gt; &gt; _Fp;</span>
+<span id="L485"><span class="lineNum">     485</span>              :       const _Fp&amp; __f = std::use_facet&lt;_Fp&gt;(this-&gt;getloc());</span>
+<span id="L486"><span class="lineNum">     486</span>              :       if (__f.put(*this, *this, this-&gt;fill(), __n).failed())</span>
+<span id="L487"><span class="lineNum">     487</span>              :         this-&gt;setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L488"><span class="lineNum">     488</span>              :     }</span>
+<span id="L489"><span class="lineNum">     489</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L490"><span class="lineNum">     490</span>              :   } catch (...) {</span>
+<span id="L491"><span class="lineNum">     491</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L492"><span class="lineNum">     492</span>              :   }</span>
+<span id="L493"><span class="lineNum">     493</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L494"><span class="lineNum">     494</span>              :   return *this;</span>
+<span id="L495"><span class="lineNum">     495</span>              : }</span>
+<span id="L496"><span class="lineNum">     496</span>              : </span>
+<span id="L497"><span class="lineNum">     497</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L498"><span class="lineNum">     498</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L499"><span class="lineNum">     499</span> <span class="tlaGNC">        3409 : __put_character_sequence(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, const _CharT* __str, size_t __len) {</span></span>
+<span id="L500"><span class="lineNum">     500</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L501"><span class="lineNum">     501</span>              :   try {</span>
+<span id="L502"><span class="lineNum">     502</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L503"><span class="lineNum">     503</span> <span class="tlaGNC">        3409 :     typename basic_ostream&lt;_CharT, _Traits&gt;::sentry __s(__os);</span></span>
+<span id="L504"><span class="lineNum">     504</span> <span class="tlaGNC">        3409 :     if (__s) {</span></span>
+<span id="L505"><span class="lineNum">     505</span>              :       typedef ostreambuf_iterator&lt;_CharT, _Traits&gt; _Ip;</span>
+<span id="L506"><span class="lineNum">     506</span> <span class="tlaGNC">        3409 :       if (std::__pad_and_output(</span></span>
+<span id="L507"><span class="lineNum">     507</span> <span class="tlaGNC">        3409 :               _Ip(__os),</span></span>
+<span id="L508"><span class="lineNum">     508</span> <span class="tlaGNC">        3409 :               __str,</span></span>
+<span id="L509"><span class="lineNum">     509</span> <span class="tlaGNC">        3409 :               (__os.flags() &amp; ios_base::adjustfield) == ios_base::left ? __str + __len : __str,</span></span>
+<span id="L510"><span class="lineNum">     510</span> <span class="tlaGNC">        3409 :               __str + __len,</span></span>
+<span id="L511"><span class="lineNum">     511</span> <span class="tlaGNC">        3409 :               __os,</span></span>
+<span id="L512"><span class="lineNum">     512</span> <span class="tlaGNC">        3409 :               __os.fill())</span></span>
+<span id="L513"><span class="lineNum">     513</span> <span class="tlaGNC">        3409 :               .failed())</span></span>
+<span id="L514"><span class="lineNum">     514</span> <span class="tlaUNC">           0 :         __os.setstate(ios_base::badbit | ios_base::failbit);</span></span>
+<span id="L515"><span class="lineNum">     515</span> <span class="tlaGNC">        3409 :     }</span></span>
+<span id="L516"><span class="lineNum">     516</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L517"><span class="lineNum">     517</span> <span class="tlaGNC">        3409 :   } catch (...) {</span></span>
+<span id="L518"><span class="lineNum">     518</span> <span class="tlaUNC">           0 :     __os.__set_badbit_and_consider_rethrow();</span></span>
+<span id="L519"><span class="lineNum">     519</span> <span class="tlaUNC">           0 :   }</span></span>
+<span id="L520"><span class="lineNum">     520</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L521"><span class="lineNum">     521</span> <span class="tlaGNC">        3409 :   return __os;</span></span>
+<span id="L522"><span class="lineNum">     522</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L523"><span class="lineNum">     523</span>              : </span>
+<span id="L524"><span class="lineNum">     524</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L525"><span class="lineNum">     525</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, _CharT __c) {</span>
+<span id="L526"><span class="lineNum">     526</span>              :   return std::__put_character_sequence(__os, &amp;__c, 1);</span>
+<span id="L527"><span class="lineNum">     527</span>              : }</span>
+<span id="L528"><span class="lineNum">     528</span>              : </span>
+<span id="L529"><span class="lineNum">     529</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L530"><span class="lineNum">     530</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, char __cn) {</span>
+<span id="L531"><span class="lineNum">     531</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L532"><span class="lineNum">     532</span>              :   try {</span>
+<span id="L533"><span class="lineNum">     533</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L534"><span class="lineNum">     534</span>              :     typename basic_ostream&lt;_CharT, _Traits&gt;::sentry __s(__os);</span>
+<span id="L535"><span class="lineNum">     535</span>              :     if (__s) {</span>
+<span id="L536"><span class="lineNum">     536</span>              :       _CharT __c = __os.widen(__cn);</span>
+<span id="L537"><span class="lineNum">     537</span>              :       typedef ostreambuf_iterator&lt;_CharT, _Traits&gt; _Ip;</span>
+<span id="L538"><span class="lineNum">     538</span>              :       if (std::__pad_and_output(</span>
+<span id="L539"><span class="lineNum">     539</span>              :               _Ip(__os),</span>
+<span id="L540"><span class="lineNum">     540</span>              :               &amp;__c,</span>
+<span id="L541"><span class="lineNum">     541</span>              :               (__os.flags() &amp; ios_base::adjustfield) == ios_base::left ? &amp;__c + 1 : &amp;__c,</span>
+<span id="L542"><span class="lineNum">     542</span>              :               &amp;__c + 1,</span>
+<span id="L543"><span class="lineNum">     543</span>              :               __os,</span>
+<span id="L544"><span class="lineNum">     544</span>              :               __os.fill())</span>
+<span id="L545"><span class="lineNum">     545</span>              :               .failed())</span>
+<span id="L546"><span class="lineNum">     546</span>              :         __os.setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L547"><span class="lineNum">     547</span>              :     }</span>
+<span id="L548"><span class="lineNum">     548</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L549"><span class="lineNum">     549</span>              :   } catch (...) {</span>
+<span id="L550"><span class="lineNum">     550</span>              :     __os.__set_badbit_and_consider_rethrow();</span>
+<span id="L551"><span class="lineNum">     551</span>              :   }</span>
+<span id="L552"><span class="lineNum">     552</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L553"><span class="lineNum">     553</span>              :   return __os;</span>
+<span id="L554"><span class="lineNum">     554</span>              : }</span>
+<span id="L555"><span class="lineNum">     555</span>              : </span>
+<span id="L556"><span class="lineNum">     556</span>              : template &lt;class _Traits&gt;</span>
+<span id="L557"><span class="lineNum">     557</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp; __os, char __c) {</span>
+<span id="L558"><span class="lineNum">     558</span>              :   return std::__put_character_sequence(__os, &amp;__c, 1);</span>
+<span id="L559"><span class="lineNum">     559</span>              : }</span>
+<span id="L560"><span class="lineNum">     560</span>              : </span>
+<span id="L561"><span class="lineNum">     561</span>              : template &lt;class _Traits&gt;</span>
+<span id="L562"><span class="lineNum">     562</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp; __os, signed char __c) {</span>
+<span id="L563"><span class="lineNum">     563</span>              :   return std::__put_character_sequence(__os, (char*)&amp;__c, 1);</span>
+<span id="L564"><span class="lineNum">     564</span>              : }</span>
+<span id="L565"><span class="lineNum">     565</span>              : </span>
+<span id="L566"><span class="lineNum">     566</span>              : template &lt;class _Traits&gt;</span>
+<span id="L567"><span class="lineNum">     567</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp; __os, unsigned char __c) {</span>
+<span id="L568"><span class="lineNum">     568</span>              :   return std::__put_character_sequence(__os, (char*)&amp;__c, 1);</span>
+<span id="L569"><span class="lineNum">     569</span>              : }</span>
+<span id="L570"><span class="lineNum">     570</span>              : </span>
+<span id="L571"><span class="lineNum">     571</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L572"><span class="lineNum">     572</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L573"><span class="lineNum">     573</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, const _CharT* __str) {</span>
+<span id="L574"><span class="lineNum">     574</span>              :   return std::__put_character_sequence(__os, __str, _Traits::length(__str));</span>
+<span id="L575"><span class="lineNum">     575</span>              : }</span>
+<span id="L576"><span class="lineNum">     576</span>              : </span>
+<span id="L577"><span class="lineNum">     577</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L578"><span class="lineNum">     578</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L579"><span class="lineNum">     579</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, const char* __strn) {</span>
+<span id="L580"><span class="lineNum">     580</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L581"><span class="lineNum">     581</span>              :   try {</span>
+<span id="L582"><span class="lineNum">     582</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L583"><span class="lineNum">     583</span>              :     typename basic_ostream&lt;_CharT, _Traits&gt;::sentry __s(__os);</span>
+<span id="L584"><span class="lineNum">     584</span>              :     if (__s) {</span>
+<span id="L585"><span class="lineNum">     585</span>              :       typedef ostreambuf_iterator&lt;_CharT, _Traits&gt; _Ip;</span>
+<span id="L586"><span class="lineNum">     586</span>              :       size_t __len   = char_traits&lt;char&gt;::length(__strn);</span>
+<span id="L587"><span class="lineNum">     587</span>              :       const int __bs = 100;</span>
+<span id="L588"><span class="lineNum">     588</span>              :       _CharT __wbb[__bs];</span>
+<span id="L589"><span class="lineNum">     589</span>              :       _CharT* __wb = __wbb;</span>
+<span id="L590"><span class="lineNum">     590</span>              :       unique_ptr&lt;_CharT, void (*)(void*)&gt; __h(0, free);</span>
+<span id="L591"><span class="lineNum">     591</span>              :       if (__len &gt; __bs) {</span>
+<span id="L592"><span class="lineNum">     592</span>              :         __wb = (_CharT*)malloc(__len * sizeof(_CharT));</span>
+<span id="L593"><span class="lineNum">     593</span>              :         if (__wb == 0)</span>
+<span id="L594"><span class="lineNum">     594</span>              :           __throw_bad_alloc();</span>
+<span id="L595"><span class="lineNum">     595</span>              :         __h.reset(__wb);</span>
+<span id="L596"><span class="lineNum">     596</span>              :       }</span>
+<span id="L597"><span class="lineNum">     597</span>              :       for (_CharT* __p = __wb; *__strn != '\0'; ++__strn, ++__p)</span>
+<span id="L598"><span class="lineNum">     598</span>              :         *__p = __os.widen(*__strn);</span>
+<span id="L599"><span class="lineNum">     599</span>              :       if (std::__pad_and_output(</span>
+<span id="L600"><span class="lineNum">     600</span>              :               _Ip(__os),</span>
+<span id="L601"><span class="lineNum">     601</span>              :               __wb,</span>
+<span id="L602"><span class="lineNum">     602</span>              :               (__os.flags() &amp; ios_base::adjustfield) == ios_base::left ? __wb + __len : __wb,</span>
+<span id="L603"><span class="lineNum">     603</span>              :               __wb + __len,</span>
+<span id="L604"><span class="lineNum">     604</span>              :               __os,</span>
+<span id="L605"><span class="lineNum">     605</span>              :               __os.fill())</span>
+<span id="L606"><span class="lineNum">     606</span>              :               .failed())</span>
+<span id="L607"><span class="lineNum">     607</span>              :         __os.setstate(ios_base::badbit | ios_base::failbit);</span>
+<span id="L608"><span class="lineNum">     608</span>              :     }</span>
+<span id="L609"><span class="lineNum">     609</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L610"><span class="lineNum">     610</span>              :   } catch (...) {</span>
+<span id="L611"><span class="lineNum">     611</span>              :     __os.__set_badbit_and_consider_rethrow();</span>
+<span id="L612"><span class="lineNum">     612</span>              :   }</span>
+<span id="L613"><span class="lineNum">     613</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L614"><span class="lineNum">     614</span>              :   return __os;</span>
+<span id="L615"><span class="lineNum">     615</span>              : }</span>
+<span id="L616"><span class="lineNum">     616</span>              : </span>
+<span id="L617"><span class="lineNum">     617</span>              : template &lt;class _Traits&gt;</span>
+<span id="L618"><span class="lineNum">     618</span> <span class="tlaUNC">           0 : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp; __os, const char* __str) {</span></span>
+<span id="L619"><span class="lineNum">     619</span> <span class="tlaUNC">           0 :   return std::__put_character_sequence(__os, __str, _Traits::length(__str));</span></span>
+<span id="L620"><span class="lineNum">     620</span>              : }</span>
+<span id="L621"><span class="lineNum">     621</span>              : </span>
+<span id="L622"><span class="lineNum">     622</span>              : template &lt;class _Traits&gt;</span>
+<span id="L623"><span class="lineNum">     623</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;char, _Traits&gt;&amp;</span>
+<span id="L624"><span class="lineNum">     624</span>              : operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp; __os, const signed char* __str) {</span>
+<span id="L625"><span class="lineNum">     625</span>              :   const char* __s = (const char*)__str;</span>
+<span id="L626"><span class="lineNum">     626</span>              :   return std::__put_character_sequence(__os, __s, _Traits::length(__s));</span>
+<span id="L627"><span class="lineNum">     627</span>              : }</span>
+<span id="L628"><span class="lineNum">     628</span>              : </span>
+<span id="L629"><span class="lineNum">     629</span>              : template &lt;class _Traits&gt;</span>
+<span id="L630"><span class="lineNum">     630</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;char, _Traits&gt;&amp;</span>
+<span id="L631"><span class="lineNum">     631</span>              : operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp; __os, const unsigned char* __str) {</span>
+<span id="L632"><span class="lineNum">     632</span>              :   const char* __s = (const char*)__str;</span>
+<span id="L633"><span class="lineNum">     633</span>              :   return std::__put_character_sequence(__os, __s, _Traits::length(__s));</span>
+<span id="L634"><span class="lineNum">     634</span>              : }</span>
+<span id="L635"><span class="lineNum">     635</span>              : </span>
+<span id="L636"><span class="lineNum">     636</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L637"><span class="lineNum">     637</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::put(char_type __c) {</span>
+<span id="L638"><span class="lineNum">     638</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L639"><span class="lineNum">     639</span>              :   try {</span>
+<span id="L640"><span class="lineNum">     640</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L641"><span class="lineNum">     641</span>              :     sentry __s(*this);</span>
+<span id="L642"><span class="lineNum">     642</span>              :     if (__s) {</span>
+<span id="L643"><span class="lineNum">     643</span>              :       typedef ostreambuf_iterator&lt;_CharT, _Traits&gt; _Op;</span>
+<span id="L644"><span class="lineNum">     644</span>              :       _Op __o(*this);</span>
+<span id="L645"><span class="lineNum">     645</span>              :       *__o = __c;</span>
+<span id="L646"><span class="lineNum">     646</span>              :       if (__o.failed())</span>
+<span id="L647"><span class="lineNum">     647</span>              :         this-&gt;setstate(ios_base::badbit);</span>
+<span id="L648"><span class="lineNum">     648</span>              :     }</span>
+<span id="L649"><span class="lineNum">     649</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L650"><span class="lineNum">     650</span>              :   } catch (...) {</span>
+<span id="L651"><span class="lineNum">     651</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L652"><span class="lineNum">     652</span>              :   }</span>
+<span id="L653"><span class="lineNum">     653</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L654"><span class="lineNum">     654</span>              :   return *this;</span>
+<span id="L655"><span class="lineNum">     655</span>              : }</span>
+<span id="L656"><span class="lineNum">     656</span>              : </span>
+<span id="L657"><span class="lineNum">     657</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L658"><span class="lineNum">     658</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::write(const char_type* __s, streamsize __n) {</span>
+<span id="L659"><span class="lineNum">     659</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L660"><span class="lineNum">     660</span>              :   try {</span>
+<span id="L661"><span class="lineNum">     661</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L662"><span class="lineNum">     662</span>              :     sentry __sen(*this);</span>
+<span id="L663"><span class="lineNum">     663</span>              :     if (__sen &amp;&amp; __n) {</span>
+<span id="L664"><span class="lineNum">     664</span>              :       if (this-&gt;rdbuf()-&gt;sputn(__s, __n) != __n)</span>
+<span id="L665"><span class="lineNum">     665</span>              :         this-&gt;setstate(ios_base::badbit);</span>
+<span id="L666"><span class="lineNum">     666</span>              :     }</span>
+<span id="L667"><span class="lineNum">     667</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L668"><span class="lineNum">     668</span>              :   } catch (...) {</span>
+<span id="L669"><span class="lineNum">     669</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L670"><span class="lineNum">     670</span>              :   }</span>
+<span id="L671"><span class="lineNum">     671</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L672"><span class="lineNum">     672</span>              :   return *this;</span>
+<span id="L673"><span class="lineNum">     673</span>              : }</span>
+<span id="L674"><span class="lineNum">     674</span>              : </span>
+<span id="L675"><span class="lineNum">     675</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L676"><span class="lineNum">     676</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::flush() {</span>
+<span id="L677"><span class="lineNum">     677</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L678"><span class="lineNum">     678</span>              :   try {</span>
+<span id="L679"><span class="lineNum">     679</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L680"><span class="lineNum">     680</span>              :     if (this-&gt;rdbuf()) {</span>
+<span id="L681"><span class="lineNum">     681</span>              :       sentry __s(*this);</span>
+<span id="L682"><span class="lineNum">     682</span>              :       if (__s) {</span>
+<span id="L683"><span class="lineNum">     683</span>              :         if (this-&gt;rdbuf()-&gt;pubsync() == -1)</span>
+<span id="L684"><span class="lineNum">     684</span>              :           this-&gt;setstate(ios_base::badbit);</span>
+<span id="L685"><span class="lineNum">     685</span>              :       }</span>
+<span id="L686"><span class="lineNum">     686</span>              :     }</span>
+<span id="L687"><span class="lineNum">     687</span>              : #ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L688"><span class="lineNum">     688</span>              :   } catch (...) {</span>
+<span id="L689"><span class="lineNum">     689</span>              :     this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span id="L690"><span class="lineNum">     690</span>              :   }</span>
+<span id="L691"><span class="lineNum">     691</span>              : #endif // _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L692"><span class="lineNum">     692</span>              :   return *this;</span>
+<span id="L693"><span class="lineNum">     693</span>              : }</span>
+<span id="L694"><span class="lineNum">     694</span>              : </span>
+<span id="L695"><span class="lineNum">     695</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L696"><span class="lineNum">     696</span>              : typename basic_ostream&lt;_CharT, _Traits&gt;::pos_type basic_ostream&lt;_CharT, _Traits&gt;::tellp() {</span>
+<span id="L697"><span class="lineNum">     697</span>              :   if (this-&gt;fail())</span>
+<span id="L698"><span class="lineNum">     698</span>              :     return pos_type(-1);</span>
+<span id="L699"><span class="lineNum">     699</span>              :   return this-&gt;rdbuf()-&gt;pubseekoff(0, ios_base::cur, ios_base::out);</span>
+<span id="L700"><span class="lineNum">     700</span>              : }</span>
+<span id="L701"><span class="lineNum">     701</span>              : </span>
+<span id="L702"><span class="lineNum">     702</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L703"><span class="lineNum">     703</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::seekp(pos_type __pos) {</span>
+<span id="L704"><span class="lineNum">     704</span>              :   sentry __s(*this);</span>
+<span id="L705"><span class="lineNum">     705</span>              :   if (!this-&gt;fail()) {</span>
+<span id="L706"><span class="lineNum">     706</span>              :     if (this-&gt;rdbuf()-&gt;pubseekpos(__pos, ios_base::out) == pos_type(-1))</span>
+<span id="L707"><span class="lineNum">     707</span>              :       this-&gt;setstate(ios_base::failbit);</span>
+<span id="L708"><span class="lineNum">     708</span>              :   }</span>
+<span id="L709"><span class="lineNum">     709</span>              :   return *this;</span>
+<span id="L710"><span class="lineNum">     710</span>              : }</span>
+<span id="L711"><span class="lineNum">     711</span>              : </span>
+<span id="L712"><span class="lineNum">     712</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L713"><span class="lineNum">     713</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp; basic_ostream&lt;_CharT, _Traits&gt;::seekp(off_type __off, ios_base::seekdir __dir) {</span>
+<span id="L714"><span class="lineNum">     714</span>              :   sentry __s(*this);</span>
+<span id="L715"><span class="lineNum">     715</span>              :   if (!this-&gt;fail()) {</span>
+<span id="L716"><span class="lineNum">     716</span>              :     if (this-&gt;rdbuf()-&gt;pubseekoff(__off, __dir, ios_base::out) == pos_type(-1))</span>
+<span id="L717"><span class="lineNum">     717</span>              :       this-&gt;setstate(ios_base::failbit);</span>
+<span id="L718"><span class="lineNum">     718</span>              :   }</span>
+<span id="L719"><span class="lineNum">     719</span>              :   return *this;</span>
+<span id="L720"><span class="lineNum">     720</span>              : }</span>
+<span id="L721"><span class="lineNum">     721</span>              : </span>
+<span id="L722"><span class="lineNum">     722</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L723"><span class="lineNum">     723</span>              : _LIBCPP_HIDE_FROM_ABI inline basic_ostream&lt;_CharT, _Traits&gt;&amp; endl(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os) {</span>
+<span id="L724"><span class="lineNum">     724</span>              :   __os.put(__os.widen('\n'));</span>
+<span id="L725"><span class="lineNum">     725</span>              :   __os.flush();</span>
+<span id="L726"><span class="lineNum">     726</span>              :   return __os;</span>
+<span id="L727"><span class="lineNum">     727</span>              : }</span>
+<span id="L728"><span class="lineNum">     728</span>              : </span>
+<span id="L729"><span class="lineNum">     729</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L730"><span class="lineNum">     730</span>              : _LIBCPP_HIDE_FROM_ABI inline basic_ostream&lt;_CharT, _Traits&gt;&amp; ends(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os) {</span>
+<span id="L731"><span class="lineNum">     731</span>              :   __os.put(_CharT());</span>
+<span id="L732"><span class="lineNum">     732</span>              :   return __os;</span>
+<span id="L733"><span class="lineNum">     733</span>              : }</span>
+<span id="L734"><span class="lineNum">     734</span>              : </span>
+<span id="L735"><span class="lineNum">     735</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L736"><span class="lineNum">     736</span>              : _LIBCPP_HIDE_FROM_ABI inline basic_ostream&lt;_CharT, _Traits&gt;&amp; flush(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os) {</span>
+<span id="L737"><span class="lineNum">     737</span>              :   __os.flush();</span>
+<span id="L738"><span class="lineNum">     738</span>              :   return __os;</span>
+<span id="L739"><span class="lineNum">     739</span>              : }</span>
+<span id="L740"><span class="lineNum">     740</span>              : </span>
+<span id="L741"><span class="lineNum">     741</span>              : template &lt;class _Stream, class _Tp, class = void&gt;</span>
+<span id="L742"><span class="lineNum">     742</span>              : struct __is_ostreamable : false_type {};</span>
+<span id="L743"><span class="lineNum">     743</span>              : </span>
+<span id="L744"><span class="lineNum">     744</span>              : template &lt;class _Stream, class _Tp&gt;</span>
+<span id="L745"><span class="lineNum">     745</span>              : struct __is_ostreamable&lt;_Stream, _Tp, decltype(std::declval&lt;_Stream&gt;() &lt;&lt; std::declval&lt;_Tp&gt;(), void())&gt; : true_type {};</span>
+<span id="L746"><span class="lineNum">     746</span>              : </span>
+<span id="L747"><span class="lineNum">     747</span>              : template &lt;class _Stream,</span>
+<span id="L748"><span class="lineNum">     748</span>              :           class _Tp,</span>
+<span id="L749"><span class="lineNum">     749</span>              :           __enable_if_t&lt;_And&lt;is_base_of&lt;ios_base, _Stream&gt;, __is_ostreamable&lt;_Stream&amp;, const _Tp&amp;&gt; &gt;::value, int&gt; = 0&gt;</span>
+<span id="L750"><span class="lineNum">     750</span>              : _LIBCPP_HIDE_FROM_ABI _Stream&amp;&amp; operator&lt;&lt;(_Stream&amp;&amp; __os, const _Tp&amp; __x) {</span>
+<span id="L751"><span class="lineNum">     751</span>              :   __os &lt;&lt; __x;</span>
+<span id="L752"><span class="lineNum">     752</span>              :   return std::move(__os);</span>
+<span id="L753"><span class="lineNum">     753</span>              : }</span>
+<span id="L754"><span class="lineNum">     754</span>              : </span>
+<span id="L755"><span class="lineNum">     755</span>              : template &lt;class _CharT, class _Traits, class _Allocator&gt;</span>
+<span id="L756"><span class="lineNum">     756</span>              : basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L757"><span class="lineNum">     757</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, const basic_string&lt;_CharT, _Traits, _Allocator&gt;&amp; __str) {</span>
+<span id="L758"><span class="lineNum">     758</span>              :   return std::__put_character_sequence(__os, __str.data(), __str.size());</span>
+<span id="L759"><span class="lineNum">     759</span>              : }</span>
+<span id="L760"><span class="lineNum">     760</span>              : </span>
+<span id="L761"><span class="lineNum">     761</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L762"><span class="lineNum">     762</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L763"><span class="lineNum">     763</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, basic_string_view&lt;_CharT, _Traits&gt; __sv) {</span>
+<span id="L764"><span class="lineNum">     764</span>              :   return std::__put_character_sequence(__os, __sv.data(), __sv.size());</span>
+<span id="L765"><span class="lineNum">     765</span>              : }</span>
+<span id="L766"><span class="lineNum">     766</span>              : </span>
+<span id="L767"><span class="lineNum">     767</span>              : template &lt;class _CharT, class _Traits&gt;</span>
+<span id="L768"><span class="lineNum">     768</span>              : inline _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L769"><span class="lineNum">     769</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, const error_code&amp; __ec) {</span>
+<span id="L770"><span class="lineNum">     770</span>              :   return __os &lt;&lt; __ec.category().name() &lt;&lt; ':' &lt;&lt; __ec.value();</span>
+<span id="L771"><span class="lineNum">     771</span>              : }</span>
+<span id="L772"><span class="lineNum">     772</span>              : </span>
+<span id="L773"><span class="lineNum">     773</span>              : template &lt;class _CharT, class _Traits, class _Yp&gt;</span>
+<span id="L774"><span class="lineNum">     774</span>              : inline _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L775"><span class="lineNum">     775</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, shared_ptr&lt;_Yp&gt; const&amp; __p) {</span>
+<span id="L776"><span class="lineNum">     776</span>              :   return __os &lt;&lt; __p.get();</span>
+<span id="L777"><span class="lineNum">     777</span>              : }</span>
+<span id="L778"><span class="lineNum">     778</span>              : </span>
+<span id="L779"><span class="lineNum">     779</span>              : template &lt;</span>
+<span id="L780"><span class="lineNum">     780</span>              :     class _CharT,</span>
+<span id="L781"><span class="lineNum">     781</span>              :     class _Traits,</span>
+<span id="L782"><span class="lineNum">     782</span>              :     class _Yp,</span>
+<span id="L783"><span class="lineNum">     783</span>              :     class _Dp,</span>
+<span id="L784"><span class="lineNum">     784</span>              :     __enable_if_t&lt;is_same&lt;void,</span>
+<span id="L785"><span class="lineNum">     785</span>              :                           __void_t&lt;decltype((std::declval&lt;basic_ostream&lt;_CharT, _Traits&gt;&amp;&gt;()</span>
+<span id="L786"><span class="lineNum">     786</span>              :                                              &lt;&lt; std::declval&lt;typename unique_ptr&lt;_Yp, _Dp&gt;::pointer&gt;()))&gt; &gt;::value,</span>
+<span id="L787"><span class="lineNum">     787</span>              :                   int&gt; = 0&gt;</span>
+<span id="L788"><span class="lineNum">     788</span>              : inline _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L789"><span class="lineNum">     789</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, unique_ptr&lt;_Yp, _Dp&gt; const&amp; __p) {</span>
+<span id="L790"><span class="lineNum">     790</span>              :   return __os &lt;&lt; __p.get();</span>
+<span id="L791"><span class="lineNum">     791</span>              : }</span>
+<span id="L792"><span class="lineNum">     792</span>              : </span>
+<span id="L793"><span class="lineNum">     793</span>              : template &lt;class _CharT, class _Traits, size_t _Size&gt;</span>
+<span id="L794"><span class="lineNum">     794</span>              : _LIBCPP_HIDE_FROM_ABI basic_ostream&lt;_CharT, _Traits&gt;&amp;</span>
+<span id="L795"><span class="lineNum">     795</span>              : operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, const bitset&lt;_Size&gt;&amp; __x) {</span>
+<span id="L796"><span class="lineNum">     796</span>              :   return __os &lt;&lt; __x.template to_string&lt;_CharT, _Traits&gt;(std::use_facet&lt;ctype&lt;_CharT&gt; &gt;(__os.getloc()).widen('0'),</span>
+<span id="L797"><span class="lineNum">     797</span>              :                                                          std::use_facet&lt;ctype&lt;_CharT&gt; &gt;(__os.getloc()).widen('1'));</span>
+<span id="L798"><span class="lineNum">     798</span>              : }</span>
+<span id="L799"><span class="lineNum">     799</span>              : </span>
+<span id="L800"><span class="lineNum">     800</span>              : #if _LIBCPP_STD_VER &gt;= 20</span>
+<span id="L801"><span class="lineNum">     801</span>              : </span>
+<span id="L802"><span class="lineNum">     802</span>              : #  ifndef _LIBCPP_HAS_NO_WIDE_CHARACTERS</span>
+<span id="L803"><span class="lineNum">     803</span>              : template &lt;class _Traits&gt;</span>
+<span id="L804"><span class="lineNum">     804</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, wchar_t) = delete;</span>
+<span id="L805"><span class="lineNum">     805</span>              : </span>
+<span id="L806"><span class="lineNum">     806</span>              : template &lt;class _Traits&gt;</span>
+<span id="L807"><span class="lineNum">     807</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, const wchar_t*) = delete;</span>
+<span id="L808"><span class="lineNum">     808</span>              : </span>
+<span id="L809"><span class="lineNum">     809</span>              : template &lt;class _Traits&gt;</span>
+<span id="L810"><span class="lineNum">     810</span>              : basic_ostream&lt;wchar_t, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;wchar_t, _Traits&gt;&amp;, char16_t) = delete;</span>
+<span id="L811"><span class="lineNum">     811</span>              : </span>
+<span id="L812"><span class="lineNum">     812</span>              : template &lt;class _Traits&gt;</span>
+<span id="L813"><span class="lineNum">     813</span>              : basic_ostream&lt;wchar_t, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;wchar_t, _Traits&gt;&amp;, char32_t) = delete;</span>
+<span id="L814"><span class="lineNum">     814</span>              : </span>
+<span id="L815"><span class="lineNum">     815</span>              : template &lt;class _Traits&gt;</span>
+<span id="L816"><span class="lineNum">     816</span>              : basic_ostream&lt;wchar_t, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;wchar_t, _Traits&gt;&amp;, const char16_t*) = delete;</span>
+<span id="L817"><span class="lineNum">     817</span>              : </span>
+<span id="L818"><span class="lineNum">     818</span>              : template &lt;class _Traits&gt;</span>
+<span id="L819"><span class="lineNum">     819</span>              : basic_ostream&lt;wchar_t, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;wchar_t, _Traits&gt;&amp;, const char32_t*) = delete;</span>
+<span id="L820"><span class="lineNum">     820</span>              : </span>
+<span id="L821"><span class="lineNum">     821</span>              : #  endif // _LIBCPP_HAS_NO_WIDE_CHARACTERS</span>
+<span id="L822"><span class="lineNum">     822</span>              : </span>
+<span id="L823"><span class="lineNum">     823</span>              : #  ifndef _LIBCPP_HAS_NO_CHAR8_T</span>
+<span id="L824"><span class="lineNum">     824</span>              : template &lt;class _Traits&gt;</span>
+<span id="L825"><span class="lineNum">     825</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, char8_t) = delete;</span>
+<span id="L826"><span class="lineNum">     826</span>              : </span>
+<span id="L827"><span class="lineNum">     827</span>              : template &lt;class _Traits&gt;</span>
+<span id="L828"><span class="lineNum">     828</span>              : basic_ostream&lt;wchar_t, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;wchar_t, _Traits&gt;&amp;, char8_t) = delete;</span>
+<span id="L829"><span class="lineNum">     829</span>              : </span>
+<span id="L830"><span class="lineNum">     830</span>              : template &lt;class _Traits&gt;</span>
+<span id="L831"><span class="lineNum">     831</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, const char8_t*) = delete;</span>
+<span id="L832"><span class="lineNum">     832</span>              : </span>
+<span id="L833"><span class="lineNum">     833</span>              : template &lt;class _Traits&gt;</span>
+<span id="L834"><span class="lineNum">     834</span>              : basic_ostream&lt;wchar_t, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;wchar_t, _Traits&gt;&amp;, const char8_t*) = delete;</span>
+<span id="L835"><span class="lineNum">     835</span>              : #  endif</span>
+<span id="L836"><span class="lineNum">     836</span>              : </span>
+<span id="L837"><span class="lineNum">     837</span>              : template &lt;class _Traits&gt;</span>
+<span id="L838"><span class="lineNum">     838</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, char16_t) = delete;</span>
+<span id="L839"><span class="lineNum">     839</span>              : </span>
+<span id="L840"><span class="lineNum">     840</span>              : template &lt;class _Traits&gt;</span>
+<span id="L841"><span class="lineNum">     841</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, char32_t) = delete;</span>
+<span id="L842"><span class="lineNum">     842</span>              : </span>
+<span id="L843"><span class="lineNum">     843</span>              : template &lt;class _Traits&gt;</span>
+<span id="L844"><span class="lineNum">     844</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, const char16_t*) = delete;</span>
+<span id="L845"><span class="lineNum">     845</span>              : </span>
+<span id="L846"><span class="lineNum">     846</span>              : template &lt;class _Traits&gt;</span>
+<span id="L847"><span class="lineNum">     847</span>              : basic_ostream&lt;char, _Traits&gt;&amp; operator&lt;&lt;(basic_ostream&lt;char, _Traits&gt;&amp;, const char32_t*) = delete;</span>
+<span id="L848"><span class="lineNum">     848</span>              : </span>
+<span id="L849"><span class="lineNum">     849</span>              : #endif // _LIBCPP_STD_VER &gt;= 20</span>
+<span id="L850"><span class="lineNum">     850</span>              : </span>
+<span id="L851"><span class="lineNum">     851</span>              : extern template class _LIBCPP_EXTERN_TEMPLATE_TYPE_VIS basic_ostream&lt;char&gt;;</span>
+<span id="L852"><span class="lineNum">     852</span>              : #ifndef _LIBCPP_HAS_NO_WIDE_CHARACTERS</span>
+<span id="L853"><span class="lineNum">     853</span>              : extern template class _LIBCPP_EXTERN_TEMPLATE_TYPE_VIS basic_ostream&lt;wchar_t&gt;;</span>
+<span id="L854"><span class="lineNum">     854</span>              : #endif</span>
+<span id="L855"><span class="lineNum">     855</span>              : </span>
+<span id="L856"><span class="lineNum">     856</span>              : _LIBCPP_END_NAMESPACE_STD</span>
+<span id="L857"><span class="lineNum">     857</span>              : </span>
+<span id="L858"><span class="lineNum">     858</span>              : _LIBCPP_POP_MACROS</span>
+<span id="L859"><span class="lineNum">     859</span>              : </span>
+<span id="L860"><span class="lineNum">     860</span>              : #endif // _LIBCPP___OSTREAM_BASIC_OSTREAM_H</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.3.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

@@ -1,0 +1,1124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - v1/__functional/function.h</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory v1/__functional">v1/__functional</a> - function.h<span style="font-size: 80%;"> (source / <a href="function.h.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">46.4&nbsp;%</td>
+            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntry">32</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2025-11-20 09:45:27</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">43.8&nbsp;%</td>
+            <td class="headerCovTableEntry">48</td>
+            <td class="headerCovTableEntry">21</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : // -*- C++ -*-</span>
+<span id="L2"><span class="lineNum">       2</span>              : //===----------------------------------------------------------------------===//</span>
+<span id="L3"><span class="lineNum">       3</span>              : //</span>
+<span id="L4"><span class="lineNum">       4</span>              : // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.</span>
+<span id="L5"><span class="lineNum">       5</span>              : // See https://llvm.org/LICENSE.txt for license information.</span>
+<span id="L6"><span class="lineNum">       6</span>              : // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception</span>
+<span id="L7"><span class="lineNum">       7</span>              : //</span>
+<span id="L8"><span class="lineNum">       8</span>              : //===----------------------------------------------------------------------===//</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span>              : #ifndef _LIBCPP___FUNCTIONAL_FUNCTION_H</span>
+<span id="L11"><span class="lineNum">      11</span>              : #define _LIBCPP___FUNCTIONAL_FUNCTION_H</span>
+<span id="L12"><span class="lineNum">      12</span>              : </span>
+<span id="L13"><span class="lineNum">      13</span>              : #include &lt;__assert&gt;</span>
+<span id="L14"><span class="lineNum">      14</span>              : #include &lt;__config&gt;</span>
+<span id="L15"><span class="lineNum">      15</span>              : #include &lt;__exception/exception.h&gt;</span>
+<span id="L16"><span class="lineNum">      16</span>              : #include &lt;__functional/binary_function.h&gt;</span>
+<span id="L17"><span class="lineNum">      17</span>              : #include &lt;__functional/invoke.h&gt;</span>
+<span id="L18"><span class="lineNum">      18</span>              : #include &lt;__functional/unary_function.h&gt;</span>
+<span id="L19"><span class="lineNum">      19</span>              : #include &lt;__iterator/iterator_traits.h&gt;</span>
+<span id="L20"><span class="lineNum">      20</span>              : #include &lt;__memory/addressof.h&gt;</span>
+<span id="L21"><span class="lineNum">      21</span>              : #include &lt;__memory/allocator.h&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>              : #include &lt;__memory/allocator_destructor.h&gt;</span>
+<span id="L23"><span class="lineNum">      23</span>              : #include &lt;__memory/allocator_traits.h&gt;</span>
+<span id="L24"><span class="lineNum">      24</span>              : #include &lt;__memory/builtin_new_allocator.h&gt;</span>
+<span id="L25"><span class="lineNum">      25</span>              : #include &lt;__memory/compressed_pair.h&gt;</span>
+<span id="L26"><span class="lineNum">      26</span>              : #include &lt;__memory/unique_ptr.h&gt;</span>
+<span id="L27"><span class="lineNum">      27</span>              : #include &lt;__type_traits/aligned_storage.h&gt;</span>
+<span id="L28"><span class="lineNum">      28</span>              : #include &lt;__type_traits/decay.h&gt;</span>
+<span id="L29"><span class="lineNum">      29</span>              : #include &lt;__type_traits/is_core_convertible.h&gt;</span>
+<span id="L30"><span class="lineNum">      30</span>              : #include &lt;__type_traits/is_scalar.h&gt;</span>
+<span id="L31"><span class="lineNum">      31</span>              : #include &lt;__type_traits/is_trivially_constructible.h&gt;</span>
+<span id="L32"><span class="lineNum">      32</span>              : #include &lt;__type_traits/is_trivially_destructible.h&gt;</span>
+<span id="L33"><span class="lineNum">      33</span>              : #include &lt;__type_traits/is_void.h&gt;</span>
+<span id="L34"><span class="lineNum">      34</span>              : #include &lt;__type_traits/strip_signature.h&gt;</span>
+<span id="L35"><span class="lineNum">      35</span>              : #include &lt;__utility/forward.h&gt;</span>
+<span id="L36"><span class="lineNum">      36</span>              : #include &lt;__utility/move.h&gt;</span>
+<span id="L37"><span class="lineNum">      37</span>              : #include &lt;__utility/piecewise_construct.h&gt;</span>
+<span id="L38"><span class="lineNum">      38</span>              : #include &lt;__utility/swap.h&gt;</span>
+<span id="L39"><span class="lineNum">      39</span>              : #include &lt;__verbose_abort&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>              : #include &lt;new&gt;</span>
+<span id="L41"><span class="lineNum">      41</span>              : #include &lt;tuple&gt;</span>
+<span id="L42"><span class="lineNum">      42</span>              : #include &lt;typeinfo&gt;</span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span>              : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)</span>
+<span id="L45"><span class="lineNum">      45</span>              : #  pragma GCC system_header</span>
+<span id="L46"><span class="lineNum">      46</span>              : #endif</span>
+<span id="L47"><span class="lineNum">      47</span>              : </span>
+<span id="L48"><span class="lineNum">      48</span>              : _LIBCPP_PUSH_MACROS</span>
+<span id="L49"><span class="lineNum">      49</span>              : #include &lt;__undef_macros&gt;</span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span>              : #ifndef _LIBCPP_CXX03_LANG</span>
+<span id="L52"><span class="lineNum">      52</span>              : </span>
+<span id="L53"><span class="lineNum">      53</span>              : _LIBCPP_BEGIN_NAMESPACE_STD</span>
+<span id="L54"><span class="lineNum">      54</span>              : </span>
+<span id="L55"><span class="lineNum">      55</span>              : // bad_function_call</span>
+<span id="L56"><span class="lineNum">      56</span>              : </span>
+<span id="L57"><span class="lineNum">      57</span>              : _LIBCPP_DIAGNOSTIC_PUSH</span>
+<span id="L58"><span class="lineNum">      58</span>              : #  if !_LIBCPP_AVAILABILITY_HAS_BAD_FUNCTION_CALL_KEY_FUNCTION</span>
+<span id="L59"><span class="lineNum">      59</span>              : _LIBCPP_CLANG_DIAGNOSTIC_IGNORED(&quot;-Wweak-vtables&quot;)</span>
+<span id="L60"><span class="lineNum">      60</span>              : #  endif</span>
+<span id="L61"><span class="lineNum">      61</span>              : class _LIBCPP_EXPORTED_FROM_ABI bad_function_call : public exception {</span>
+<span id="L62"><span class="lineNum">      62</span>              : public:</span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI bad_function_call() _NOEXCEPT                                    = default;</span></span>
+<span id="L64"><span class="lineNum">      64</span>              :   _LIBCPP_HIDE_FROM_ABI bad_function_call(const bad_function_call&amp;) _NOEXCEPT            = default;</span>
+<span id="L65"><span class="lineNum">      65</span>              :   _LIBCPP_HIDE_FROM_ABI bad_function_call&amp; operator=(const bad_function_call&amp;) _NOEXCEPT = default;</span>
+<span id="L66"><span class="lineNum">      66</span>              : // Note that when a key function is not used, every translation unit that uses</span>
+<span id="L67"><span class="lineNum">      67</span>              : // bad_function_call will end up containing a weak definition of the vtable and</span>
+<span id="L68"><span class="lineNum">      68</span>              : // typeinfo.</span>
+<span id="L69"><span class="lineNum">      69</span>              : #  if _LIBCPP_AVAILABILITY_HAS_BAD_FUNCTION_CALL_KEY_FUNCTION</span>
+<span id="L70"><span class="lineNum">      70</span>              :   ~bad_function_call() _NOEXCEPT override;</span>
+<span id="L71"><span class="lineNum">      71</span>              : #  else</span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL ~bad_function_call() _NOEXCEPT override {}</span></span>
+<span id="L73"><span class="lineNum">      73</span>              : #  endif</span>
+<span id="L74"><span class="lineNum">      74</span>              : </span>
+<span id="L75"><span class="lineNum">      75</span>              : #  ifdef _LIBCPP_ABI_BAD_FUNCTION_CALL_GOOD_WHAT_MESSAGE</span>
+<span id="L76"><span class="lineNum">      76</span>              :   const char* what() const _NOEXCEPT override;</span>
+<span id="L77"><span class="lineNum">      77</span>              : #  endif</span>
+<span id="L78"><span class="lineNum">      78</span>              : };</span>
+<span id="L79"><span class="lineNum">      79</span>              : _LIBCPP_DIAGNOSTIC_POP</span>
+<span id="L80"><span class="lineNum">      80</span>              : </span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC">           0 : _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_bad_function_call() {</span></span>
+<span id="L82"><span class="lineNum">      82</span>              : #  ifndef _LIBCPP_HAS_NO_EXCEPTIONS</span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaUNC">           0 :   throw bad_function_call();</span></span>
+<span id="L84"><span class="lineNum">      84</span>              : #  else</span>
+<span id="L85"><span class="lineNum">      85</span>              :   _LIBCPP_VERBOSE_ABORT(&quot;bad_function_call was thrown in -fno-exceptions mode&quot;);</span>
+<span id="L86"><span class="lineNum">      86</span>              : #  endif</span>
+<span id="L87"><span class="lineNum">      87</span>              : }</span>
+<span id="L88"><span class="lineNum">      88</span>              : </span>
+<span id="L89"><span class="lineNum">      89</span>              : template &lt;class _Fp&gt;</span>
+<span id="L90"><span class="lineNum">      90</span>              : class _LIBCPP_TEMPLATE_VIS function; // undefined</span>
+<span id="L91"><span class="lineNum">      91</span>              : </span>
+<span id="L92"><span class="lineNum">      92</span>              : namespace __function {</span>
+<span id="L93"><span class="lineNum">      93</span>              : </span>
+<span id="L94"><span class="lineNum">      94</span>              : template &lt;class _Rp&gt;</span>
+<span id="L95"><span class="lineNum">      95</span>              : struct __maybe_derive_from_unary_function {};</span>
+<span id="L96"><span class="lineNum">      96</span>              : </span>
+<span id="L97"><span class="lineNum">      97</span>              : template &lt;class _Rp, class _A1&gt;</span>
+<span id="L98"><span class="lineNum">      98</span>              : struct __maybe_derive_from_unary_function&lt;_Rp(_A1)&gt; : public __unary_function&lt;_A1, _Rp&gt; {};</span>
+<span id="L99"><span class="lineNum">      99</span>              : </span>
+<span id="L100"><span class="lineNum">     100</span>              : template &lt;class _Rp&gt;</span>
+<span id="L101"><span class="lineNum">     101</span>              : struct __maybe_derive_from_binary_function {};</span>
+<span id="L102"><span class="lineNum">     102</span>              : </span>
+<span id="L103"><span class="lineNum">     103</span>              : template &lt;class _Rp, class _A1, class _A2&gt;</span>
+<span id="L104"><span class="lineNum">     104</span>              : struct __maybe_derive_from_binary_function&lt;_Rp(_A1, _A2)&gt; : public __binary_function&lt;_A1, _A2, _Rp&gt; {};</span>
+<span id="L105"><span class="lineNum">     105</span>              : </span>
+<span id="L106"><span class="lineNum">     106</span>              : template &lt;class _Fp&gt;</span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">           7 : _LIBCPP_HIDE_FROM_ABI bool __not_null(_Fp const&amp;) {</span></span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">           7 :   return true;</span></span>
+<span id="L109"><span class="lineNum">     109</span>              : }</span>
+<span id="L110"><span class="lineNum">     110</span>              : </span>
+<span id="L111"><span class="lineNum">     111</span>              : template &lt;class _Fp&gt;</span>
+<span id="L112"><span class="lineNum">     112</span>              : _LIBCPP_HIDE_FROM_ABI bool __not_null(_Fp* __ptr) {</span>
+<span id="L113"><span class="lineNum">     113</span>              :   return __ptr;</span>
+<span id="L114"><span class="lineNum">     114</span>              : }</span>
+<span id="L115"><span class="lineNum">     115</span>              : </span>
+<span id="L116"><span class="lineNum">     116</span>              : template &lt;class _Ret, class _Class&gt;</span>
+<span id="L117"><span class="lineNum">     117</span>              : _LIBCPP_HIDE_FROM_ABI bool __not_null(_Ret _Class::*__ptr) {</span>
+<span id="L118"><span class="lineNum">     118</span>              :   return __ptr;</span>
+<span id="L119"><span class="lineNum">     119</span>              : }</span>
+<span id="L120"><span class="lineNum">     120</span>              : </span>
+<span id="L121"><span class="lineNum">     121</span>              : template &lt;class _Fp&gt;</span>
+<span id="L122"><span class="lineNum">     122</span>              : _LIBCPP_HIDE_FROM_ABI bool __not_null(function&lt;_Fp&gt; const&amp; __f) {</span>
+<span id="L123"><span class="lineNum">     123</span>              :   return !!__f;</span>
+<span id="L124"><span class="lineNum">     124</span>              : }</span>
+<span id="L125"><span class="lineNum">     125</span>              : </span>
+<span id="L126"><span class="lineNum">     126</span>              : #  ifdef _LIBCPP_HAS_EXTENSION_BLOCKS</span>
+<span id="L127"><span class="lineNum">     127</span>              : template &lt;class _Rp, class... _Args&gt;</span>
+<span id="L128"><span class="lineNum">     128</span>              : _LIBCPP_HIDE_FROM_ABI bool __not_null(_Rp (^__p)(_Args...)) {</span>
+<span id="L129"><span class="lineNum">     129</span>              :   return __p;</span>
+<span id="L130"><span class="lineNum">     130</span>              : }</span>
+<span id="L131"><span class="lineNum">     131</span>              : #  endif</span>
+<span id="L132"><span class="lineNum">     132</span>              : </span>
+<span id="L133"><span class="lineNum">     133</span>              : } // namespace __function</span>
+<span id="L134"><span class="lineNum">     134</span>              : </span>
+<span id="L135"><span class="lineNum">     135</span>              : namespace __function {</span>
+<span id="L136"><span class="lineNum">     136</span>              : </span>
+<span id="L137"><span class="lineNum">     137</span>              : // __alloc_func holds a functor and an allocator.</span>
+<span id="L138"><span class="lineNum">     138</span>              : </span>
+<span id="L139"><span class="lineNum">     139</span>              : template &lt;class _Fp, class _Ap, class _FB&gt;</span>
+<span id="L140"><span class="lineNum">     140</span>              : class __alloc_func;</span>
+<span id="L141"><span class="lineNum">     141</span>              : template &lt;class _Fp, class _FB&gt;</span>
+<span id="L142"><span class="lineNum">     142</span>              : class __default_alloc_func;</span>
+<span id="L143"><span class="lineNum">     143</span>              : </span>
+<span id="L144"><span class="lineNum">     144</span>              : template &lt;class _Fp, class _Ap, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L145"><span class="lineNum">     145</span>              : class __alloc_func&lt;_Fp, _Ap, _Rp(_ArgTypes...)&gt; {</span>
+<span id="L146"><span class="lineNum">     146</span>              :   __compressed_pair&lt;_Fp, _Ap&gt; __f_;</span>
+<span id="L147"><span class="lineNum">     147</span>              : </span>
+<span id="L148"><span class="lineNum">     148</span>              : public:</span>
+<span id="L149"><span class="lineNum">     149</span>              :   typedef _LIBCPP_NODEBUG _Fp _Target;</span>
+<span id="L150"><span class="lineNum">     150</span>              :   typedef _LIBCPP_NODEBUG _Ap _Alloc;</span>
+<span id="L151"><span class="lineNum">     151</span>              : </span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI const _Target&amp; __target() const { return __f_.first(); }</span></span>
+<span id="L153"><span class="lineNum">     153</span>              : </span>
+<span id="L154"><span class="lineNum">     154</span>              :   // WIN32 APIs may define __allocator, so use __get_allocator instead.</span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI const _Alloc&amp; __get_allocator() const { return __f_.second(); }</span></span>
+<span id="L156"><span class="lineNum">     156</span>              : </span>
+<span id="L157"><span class="lineNum">     157</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __alloc_func(_Target&amp;&amp; __f)</span>
+<span id="L158"><span class="lineNum">     158</span>              :       : __f_(piecewise_construct, std::forward_as_tuple(std::move(__f)), std::forward_as_tuple()) {}</span>
+<span id="L159"><span class="lineNum">     159</span>              : </span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI explicit __alloc_func(const _Target&amp; __f, const _Alloc&amp; __a)</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaUNC">           0 :       : __f_(piecewise_construct, std::forward_as_tuple(__f), std::forward_as_tuple(__a)) {}</span></span>
+<span id="L162"><span class="lineNum">     162</span>              : </span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI explicit __alloc_func(const _Target&amp; __f, _Alloc&amp;&amp; __a)</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC">           0 :       : __f_(piecewise_construct, std::forward_as_tuple(__f), std::forward_as_tuple(std::move(__a))) {}</span></span>
+<span id="L165"><span class="lineNum">     165</span>              : </span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">          14 :   _LIBCPP_HIDE_FROM_ABI explicit __alloc_func(_Target&amp;&amp; __f, _Alloc&amp;&amp; __a)</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          14 :       : __f_(piecewise_construct, std::forward_as_tuple(std::move(__f)), std::forward_as_tuple(std::move(__a))) {}</span></span>
+<span id="L168"><span class="lineNum">     168</span>              : </span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">         119 :   _LIBCPP_HIDE_FROM_ABI _Rp operator()(_ArgTypes&amp;&amp;... __arg) {</span></span>
+<span id="L170"><span class="lineNum">     170</span>              :     typedef __invoke_void_return_wrapper&lt;_Rp&gt; _Invoker;</span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         119 :     return _Invoker::__call(__f_.first(), std::forward&lt;_ArgTypes&gt;(__arg)...);</span></span>
+<span id="L172"><span class="lineNum">     172</span>              :   }</span>
+<span id="L173"><span class="lineNum">     173</span>              : </span>
+<span id="L174"><span class="lineNum">     174</span>              :   _LIBCPP_HIDE_FROM_ABI __alloc_func* __clone() const {</span>
+<span id="L175"><span class="lineNum">     175</span>              :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;</span>
+<span id="L176"><span class="lineNum">     176</span>              :     typedef __rebind_alloc&lt;__alloc_traits, __alloc_func&gt; _AA;</span>
+<span id="L177"><span class="lineNum">     177</span>              :     _AA __a(__f_.second());</span>
+<span id="L178"><span class="lineNum">     178</span>              :     typedef __allocator_destructor&lt;_AA&gt; _Dp;</span>
+<span id="L179"><span class="lineNum">     179</span>              :     unique_ptr&lt;__alloc_func, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));</span>
+<span id="L180"><span class="lineNum">     180</span>              :     ::new ((void*)__hold.get()) __alloc_func(__f_.first(), _Alloc(__a));</span>
+<span id="L181"><span class="lineNum">     181</span>              :     return __hold.release();</span>
+<span id="L182"><span class="lineNum">     182</span>              :   }</span>
+<span id="L183"><span class="lineNum">     183</span>              : </span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           7 :   _LIBCPP_HIDE_FROM_ABI void destroy() _NOEXCEPT { __f_.~__compressed_pair&lt;_Target, _Alloc&gt;(); }</span></span>
+<span id="L185"><span class="lineNum">     185</span>              : </span>
+<span id="L186"><span class="lineNum">     186</span>              :   _LIBCPP_HIDE_FROM_ABI static void __destroy_and_delete(__alloc_func* __f) {</span>
+<span id="L187"><span class="lineNum">     187</span>              :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;</span>
+<span id="L188"><span class="lineNum">     188</span>              :     typedef __rebind_alloc&lt;__alloc_traits, __alloc_func&gt; _FunAlloc;</span>
+<span id="L189"><span class="lineNum">     189</span>              :     _FunAlloc __a(__f-&gt;__get_allocator());</span>
+<span id="L190"><span class="lineNum">     190</span>              :     __f-&gt;destroy();</span>
+<span id="L191"><span class="lineNum">     191</span>              :     __a.deallocate(__f, 1);</span>
+<span id="L192"><span class="lineNum">     192</span>              :   }</span>
+<span id="L193"><span class="lineNum">     193</span>              : };</span>
+<span id="L194"><span class="lineNum">     194</span>              : </span>
+<span id="L195"><span class="lineNum">     195</span>              : template &lt;class _Fp, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L196"><span class="lineNum">     196</span>              : class __default_alloc_func&lt;_Fp, _Rp(_ArgTypes...)&gt; {</span>
+<span id="L197"><span class="lineNum">     197</span>              :   _Fp __f_;</span>
+<span id="L198"><span class="lineNum">     198</span>              : </span>
+<span id="L199"><span class="lineNum">     199</span>              : public:</span>
+<span id="L200"><span class="lineNum">     200</span>              :   typedef _LIBCPP_NODEBUG _Fp _Target;</span>
+<span id="L201"><span class="lineNum">     201</span>              : </span>
+<span id="L202"><span class="lineNum">     202</span>              :   _LIBCPP_HIDE_FROM_ABI const _Target&amp; __target() const { return __f_; }</span>
+<span id="L203"><span class="lineNum">     203</span>              : </span>
+<span id="L204"><span class="lineNum">     204</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __default_alloc_func(_Target&amp;&amp; __f) : __f_(std::move(__f)) {}</span>
+<span id="L205"><span class="lineNum">     205</span>              : </span>
+<span id="L206"><span class="lineNum">     206</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __default_alloc_func(const _Target&amp; __f) : __f_(__f) {}</span>
+<span id="L207"><span class="lineNum">     207</span>              : </span>
+<span id="L208"><span class="lineNum">     208</span>              :   _LIBCPP_HIDE_FROM_ABI _Rp operator()(_ArgTypes&amp;&amp;... __arg) {</span>
+<span id="L209"><span class="lineNum">     209</span>              :     typedef __invoke_void_return_wrapper&lt;_Rp&gt; _Invoker;</span>
+<span id="L210"><span class="lineNum">     210</span>              :     return _Invoker::__call(__f_, std::forward&lt;_ArgTypes&gt;(__arg)...);</span>
+<span id="L211"><span class="lineNum">     211</span>              :   }</span>
+<span id="L212"><span class="lineNum">     212</span>              : </span>
+<span id="L213"><span class="lineNum">     213</span>              :   _LIBCPP_HIDE_FROM_ABI __default_alloc_func* __clone() const {</span>
+<span id="L214"><span class="lineNum">     214</span>              :     __builtin_new_allocator::__holder_t __hold = __builtin_new_allocator::__allocate_type&lt;__default_alloc_func&gt;(1);</span>
+<span id="L215"><span class="lineNum">     215</span>              :     __default_alloc_func* __res                = ::new ((void*)__hold.get()) __default_alloc_func(__f_);</span>
+<span id="L216"><span class="lineNum">     216</span>              :     (void)__hold.release();</span>
+<span id="L217"><span class="lineNum">     217</span>              :     return __res;</span>
+<span id="L218"><span class="lineNum">     218</span>              :   }</span>
+<span id="L219"><span class="lineNum">     219</span>              : </span>
+<span id="L220"><span class="lineNum">     220</span>              :   _LIBCPP_HIDE_FROM_ABI void destroy() _NOEXCEPT { __f_.~_Target(); }</span>
+<span id="L221"><span class="lineNum">     221</span>              : </span>
+<span id="L222"><span class="lineNum">     222</span>              :   _LIBCPP_HIDE_FROM_ABI static void __destroy_and_delete(__default_alloc_func* __f) {</span>
+<span id="L223"><span class="lineNum">     223</span>              :     __f-&gt;destroy();</span>
+<span id="L224"><span class="lineNum">     224</span>              :     __builtin_new_allocator::__deallocate_type&lt;__default_alloc_func&gt;(__f, 1);</span>
+<span id="L225"><span class="lineNum">     225</span>              :   }</span>
+<span id="L226"><span class="lineNum">     226</span>              : };</span>
+<span id="L227"><span class="lineNum">     227</span>              : </span>
+<span id="L228"><span class="lineNum">     228</span>              : // __base provides an abstract interface for copyable functors.</span>
+<span id="L229"><span class="lineNum">     229</span>              : </span>
+<span id="L230"><span class="lineNum">     230</span>              : template &lt;class _Fp&gt;</span>
+<span id="L231"><span class="lineNum">     231</span>              : class _LIBCPP_TEMPLATE_VIS __base;</span>
+<span id="L232"><span class="lineNum">     232</span>              : </span>
+<span id="L233"><span class="lineNum">     233</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L234"><span class="lineNum">     234</span>              : class __base&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L235"><span class="lineNum">     235</span>              : public:</span>
+<span id="L236"><span class="lineNum">     236</span>              :   __base(const __base&amp;)            = delete;</span>
+<span id="L237"><span class="lineNum">     237</span>              :   __base&amp; operator=(const __base&amp;) = delete;</span>
+<span id="L238"><span class="lineNum">     238</span>              : </span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           7 :   _LIBCPP_HIDE_FROM_ABI __base() {}</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual ~__base() {}</span></span>
+<span id="L241"><span class="lineNum">     241</span>              :   virtual __base* __clone() const             = 0;</span>
+<span id="L242"><span class="lineNum">     242</span>              :   virtual void __clone(__base*) const         = 0;</span>
+<span id="L243"><span class="lineNum">     243</span>              :   virtual void destroy() _NOEXCEPT            = 0;</span>
+<span id="L244"><span class="lineNum">     244</span>              :   virtual void destroy_deallocate() _NOEXCEPT = 0;</span>
+<span id="L245"><span class="lineNum">     245</span>              :   virtual _Rp operator()(_ArgTypes&amp;&amp;...)      = 0;</span>
+<span id="L246"><span class="lineNum">     246</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L247"><span class="lineNum">     247</span>              :   virtual const void* target(const type_info&amp;) const _NOEXCEPT = 0;</span>
+<span id="L248"><span class="lineNum">     248</span>              :   virtual const std::type_info&amp; target_type() const _NOEXCEPT  = 0;</span>
+<span id="L249"><span class="lineNum">     249</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L250"><span class="lineNum">     250</span>              : };</span>
+<span id="L251"><span class="lineNum">     251</span>              : </span>
+<span id="L252"><span class="lineNum">     252</span>              : // __func implements __base for a given functor type.</span>
+<span id="L253"><span class="lineNum">     253</span>              : </span>
+<span id="L254"><span class="lineNum">     254</span>              : template &lt;class _FD, class _Alloc, class _FB&gt;</span>
+<span id="L255"><span class="lineNum">     255</span>              : class __func;</span>
+<span id="L256"><span class="lineNum">     256</span>              : </span>
+<span id="L257"><span class="lineNum">     257</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L258"><span class="lineNum">     258</span>              : class __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt; : public __base&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L259"><span class="lineNum">     259</span>              :   __alloc_func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt; __f_;</span>
+<span id="L260"><span class="lineNum">     260</span>              : </span>
+<span id="L261"><span class="lineNum">     261</span>              : public:</span>
+<span id="L262"><span class="lineNum">     262</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __func(_Fp&amp;&amp; __f) : __f_(std::move(__f)) {}</span>
+<span id="L263"><span class="lineNum">     263</span>              : </span>
+<span id="L264"><span class="lineNum">     264</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI explicit __func(const _Fp&amp; __f, const _Alloc&amp; __a) : __f_(__f, __a) {}</span></span>
+<span id="L265"><span class="lineNum">     265</span>              : </span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaUNC">           0 :   _LIBCPP_HIDE_FROM_ABI explicit __func(const _Fp&amp; __f, _Alloc&amp;&amp; __a) : __f_(__f, std::move(__a)) {}</span></span>
+<span id="L267"><span class="lineNum">     267</span>              : </span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          14 :   _LIBCPP_HIDE_FROM_ABI explicit __func(_Fp&amp;&amp; __f, _Alloc&amp;&amp; __a) : __f_(std::move(__f), std::move(__a)) {}</span></span>
+<span id="L269"><span class="lineNum">     269</span>              : </span>
+<span id="L270"><span class="lineNum">     270</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual __base&lt;_Rp(_ArgTypes...)&gt;* __clone() const;</span>
+<span id="L271"><span class="lineNum">     271</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void __clone(__base&lt;_Rp(_ArgTypes...)&gt;*) const;</span>
+<span id="L272"><span class="lineNum">     272</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void destroy() _NOEXCEPT;</span>
+<span id="L273"><span class="lineNum">     273</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void destroy_deallocate() _NOEXCEPT;</span>
+<span id="L274"><span class="lineNum">     274</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual _Rp operator()(_ArgTypes&amp;&amp;... __arg);</span>
+<span id="L275"><span class="lineNum">     275</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L276"><span class="lineNum">     276</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual const void* target(const type_info&amp;) const _NOEXCEPT;</span>
+<span id="L277"><span class="lineNum">     277</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual const std::type_info&amp; target_type() const _NOEXCEPT;</span>
+<span id="L278"><span class="lineNum">     278</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L279"><span class="lineNum">     279</span>              : };</span>
+<span id="L280"><span class="lineNum">     280</span>              : </span>
+<span id="L281"><span class="lineNum">     281</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaUNC">           0 : __base&lt;_Rp(_ArgTypes...)&gt;* __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::__clone() const {</span></span>
+<span id="L283"><span class="lineNum">     283</span>              :   typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;</span>
+<span id="L284"><span class="lineNum">     284</span>              :   typedef __rebind_alloc&lt;__alloc_traits, __func&gt; _Ap;</span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaUNC">           0 :   _Ap __a(__f_.__get_allocator());</span></span>
+<span id="L286"><span class="lineNum">     286</span>              :   typedef __allocator_destructor&lt;_Ap&gt; _Dp;</span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaUNC">           0 :   unique_ptr&lt;__func, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaUNC">           0 :   ::new ((void*)__hold.get()) __func(__f_.__target(), _Alloc(__a));</span></span>
+<span id="L289"><span class="lineNum">     289</span> <span class="tlaUNC">           0 :   return __hold.release();</span></span>
+<span id="L290"><span class="lineNum">     290</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L291"><span class="lineNum">     291</span>              : </span>
+<span id="L292"><span class="lineNum">     292</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaUNC">           0 : void __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::__clone(__base&lt;_Rp(_ArgTypes...)&gt;* __p) const {</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaUNC">           0 :   ::new ((void*)__p) __func(__f_.__target(), __f_.__get_allocator());</span></span>
+<span id="L295"><span class="lineNum">     295</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L296"><span class="lineNum">     296</span>              : </span>
+<span id="L297"><span class="lineNum">     297</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">           7 : void __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::destroy() _NOEXCEPT {</span></span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">           7 :   __f_.destroy();</span></span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           7 : }</span></span>
+<span id="L301"><span class="lineNum">     301</span>              : </span>
+<span id="L302"><span class="lineNum">     302</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaUNC">           0 : void __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::destroy_deallocate() _NOEXCEPT {</span></span>
+<span id="L304"><span class="lineNum">     304</span>              :   typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;</span>
+<span id="L305"><span class="lineNum">     305</span>              :   typedef __rebind_alloc&lt;__alloc_traits, __func&gt; _Ap;</span>
+<span id="L306"><span class="lineNum">     306</span> <span class="tlaUNC">           0 :   _Ap __a(__f_.__get_allocator());</span></span>
+<span id="L307"><span class="lineNum">     307</span> <span class="tlaUNC">           0 :   __f_.destroy();</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC">           0 :   __a.deallocate(this, 1);</span></span>
+<span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L310"><span class="lineNum">     310</span>              : </span>
+<span id="L311"><span class="lineNum">     311</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">         119 : _Rp __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::operator()(_ArgTypes&amp;&amp;... __arg) {</span></span>
+<span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">         119 :   return __f_(std::forward&lt;_ArgTypes&gt;(__arg)...);</span></span>
+<span id="L314"><span class="lineNum">     314</span>              : }</span>
+<span id="L315"><span class="lineNum">     315</span>              : </span>
+<span id="L316"><span class="lineNum">     316</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L317"><span class="lineNum">     317</span>              : </span>
+<span id="L318"><span class="lineNum">     318</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L319"><span class="lineNum">     319</span> <span class="tlaUNC">           0 : const void* __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::target(const type_info&amp; __ti) const _NOEXCEPT {</span></span>
+<span id="L320"><span class="lineNum">     320</span> <span class="tlaUNC">           0 :   if (__ti == typeid(_Fp))</span></span>
+<span id="L321"><span class="lineNum">     321</span> <span class="tlaUNC">           0 :     return std::addressof(__f_.__target());</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :   return nullptr;</span></span>
+<span id="L323"><span class="lineNum">     323</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L324"><span class="lineNum">     324</span>              : </span>
+<span id="L325"><span class="lineNum">     325</span>              : template &lt;class _Fp, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L326"><span class="lineNum">     326</span> <span class="tlaUNC">           0 : const std::type_info&amp; __func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt;::target_type() const _NOEXCEPT {</span></span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC">           0 :   return typeid(_Fp);</span></span>
+<span id="L328"><span class="lineNum">     328</span>              : }</span>
+<span id="L329"><span class="lineNum">     329</span>              : </span>
+<span id="L330"><span class="lineNum">     330</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L331"><span class="lineNum">     331</span>              : </span>
+<span id="L332"><span class="lineNum">     332</span>              : // __value_func creates a value-type from a __func.</span>
+<span id="L333"><span class="lineNum">     333</span>              : </span>
+<span id="L334"><span class="lineNum">     334</span>              : template &lt;class _Fp&gt;</span>
+<span id="L335"><span class="lineNum">     335</span>              : class __value_func;</span>
+<span id="L336"><span class="lineNum">     336</span>              : </span>
+<span id="L337"><span class="lineNum">     337</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L338"><span class="lineNum">     338</span>              : class __value_func&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L339"><span class="lineNum">     339</span>              :   _LIBCPP_SUPPRESS_DEPRECATED_PUSH</span>
+<span id="L340"><span class="lineNum">     340</span>              :   typename aligned_storage&lt;3 * sizeof(void*)&gt;::type __buf_;</span>
+<span id="L341"><span class="lineNum">     341</span>              :   _LIBCPP_SUPPRESS_DEPRECATED_POP</span>
+<span id="L342"><span class="lineNum">     342</span>              : </span>
+<span id="L343"><span class="lineNum">     343</span>              :   typedef __base&lt;_Rp(_ArgTypes...)&gt; __func;</span>
+<span id="L344"><span class="lineNum">     344</span>              :   __func* __f_;</span>
+<span id="L345"><span class="lineNum">     345</span>              : </span>
+<span id="L346"><span class="lineNum">     346</span>              :   _LIBCPP_HIDE_FROM_ABI _LIBCPP_NO_CFI static __func* __as_base(void* __p) { return reinterpret_cast&lt;__func*&gt;(__p); }</span>
+<span id="L347"><span class="lineNum">     347</span>              : </span>
+<span id="L348"><span class="lineNum">     348</span>              : public:</span>
+<span id="L349"><span class="lineNum">     349</span>              :   _LIBCPP_HIDE_FROM_ABI __value_func() _NOEXCEPT : __f_(nullptr) {}</span>
+<span id="L350"><span class="lineNum">     350</span>              : </span>
+<span id="L351"><span class="lineNum">     351</span>              :   template &lt;class _Fp, class _Alloc&gt;</span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">          14 :   _LIBCPP_HIDE_FROM_ABI __value_func(_Fp&amp;&amp; __f, const _Alloc&amp; __a) : __f_(nullptr) {</span></span>
+<span id="L353"><span class="lineNum">     353</span>              :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;</span>
+<span id="L354"><span class="lineNum">     354</span>              :     typedef __function::__func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt; _Fun;</span>
+<span id="L355"><span class="lineNum">     355</span>              :     typedef __rebind_alloc&lt;__alloc_traits, _Fun&gt; _FunAlloc;</span>
+<span id="L356"><span class="lineNum">     356</span>              : </span>
+<span id="L357"><span class="lineNum">     357</span> <span class="tlaGNC">           7 :     if (__function::__not_null(__f)) {</span></span>
+<span id="L358"><span class="lineNum">     358</span> <span class="tlaGNC">           7 :       _FunAlloc __af(__a);</span></span>
+<span id="L359"><span class="lineNum">     359</span>              :       if (sizeof(_Fun) &lt;= sizeof(__buf_) &amp;&amp; is_nothrow_copy_constructible&lt;_Fp&gt;::value &amp;&amp;</span>
+<span id="L360"><span class="lineNum">     360</span>              :           is_nothrow_copy_constructible&lt;_FunAlloc&gt;::value) {</span>
+<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">           7 :         __f_ = ::new ((void*)&amp;__buf_) _Fun(std::move(__f), _Alloc(__af));</span></span>
+<span id="L362"><span class="lineNum">     362</span>              :       } else {</span>
+<span id="L363"><span class="lineNum">     363</span>              :         typedef __allocator_destructor&lt;_FunAlloc&gt; _Dp;</span>
+<span id="L364"><span class="lineNum">     364</span>              :         unique_ptr&lt;__func, _Dp&gt; __hold(__af.allocate(1), _Dp(__af, 1));</span>
+<span id="L365"><span class="lineNum">     365</span>              :         ::new ((void*)__hold.get()) _Fun(std::move(__f), _Alloc(__a));</span>
+<span id="L366"><span class="lineNum">     366</span>              :         __f_ = __hold.release();</span>
+<span id="L367"><span class="lineNum">     367</span>              :       }</span>
+<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">           7 :     }</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">          14 :   }</span></span>
+<span id="L370"><span class="lineNum">     370</span>              : </span>
+<span id="L371"><span class="lineNum">     371</span>              :   template &lt;class _Fp, __enable_if_t&lt;!is_same&lt;__decay_t&lt;_Fp&gt;, __value_func&gt;::value, int&gt; = 0&gt;</span>
+<span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">           7 :   _LIBCPP_HIDE_FROM_ABI explicit __value_func(_Fp&amp;&amp; __f) : __value_func(std::forward&lt;_Fp&gt;(__f), allocator&lt;_Fp&gt;()) {}</span></span>
+<span id="L373"><span class="lineNum">     373</span>              : </span>
+<span id="L374"><span class="lineNum">     374</span>              :   _LIBCPP_HIDE_FROM_ABI __value_func(const __value_func&amp; __f) {</span>
+<span id="L375"><span class="lineNum">     375</span>              :     if (__f.__f_ == nullptr)</span>
+<span id="L376"><span class="lineNum">     376</span>              :       __f_ = nullptr;</span>
+<span id="L377"><span class="lineNum">     377</span>              :     else if ((void*)__f.__f_ == &amp;__f.__buf_) {</span>
+<span id="L378"><span class="lineNum">     378</span>              :       __f_ = __as_base(&amp;__buf_);</span>
+<span id="L379"><span class="lineNum">     379</span>              :       __f.__f_-&gt;__clone(__f_);</span>
+<span id="L380"><span class="lineNum">     380</span>              :     } else</span>
+<span id="L381"><span class="lineNum">     381</span>              :       __f_ = __f.__f_-&gt;__clone();</span>
+<span id="L382"><span class="lineNum">     382</span>              :   }</span>
+<span id="L383"><span class="lineNum">     383</span>              : </span>
+<span id="L384"><span class="lineNum">     384</span>              :   _LIBCPP_HIDE_FROM_ABI __value_func(__value_func&amp;&amp; __f) _NOEXCEPT {</span>
+<span id="L385"><span class="lineNum">     385</span>              :     if (__f.__f_ == nullptr)</span>
+<span id="L386"><span class="lineNum">     386</span>              :       __f_ = nullptr;</span>
+<span id="L387"><span class="lineNum">     387</span>              :     else if ((void*)__f.__f_ == &amp;__f.__buf_) {</span>
+<span id="L388"><span class="lineNum">     388</span>              :       __f_ = __as_base(&amp;__buf_);</span>
+<span id="L389"><span class="lineNum">     389</span>              :       __f.__f_-&gt;__clone(__f_);</span>
+<span id="L390"><span class="lineNum">     390</span>              :     } else {</span>
+<span id="L391"><span class="lineNum">     391</span>              :       __f_     = __f.__f_;</span>
+<span id="L392"><span class="lineNum">     392</span>              :       __f.__f_ = nullptr;</span>
+<span id="L393"><span class="lineNum">     393</span>              :     }</span>
+<span id="L394"><span class="lineNum">     394</span>              :   }</span>
+<span id="L395"><span class="lineNum">     395</span>              : </span>
+<span id="L396"><span class="lineNum">     396</span> <span class="tlaGNC">          14 :   _LIBCPP_HIDE_FROM_ABI ~__value_func() {</span></span>
+<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">           7 :     if ((void*)__f_ == &amp;__buf_)</span></span>
+<span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">           7 :       __f_-&gt;destroy();</span></span>
+<span id="L399"><span class="lineNum">     399</span> <span class="tlaUNC">           0 :     else if (__f_)</span></span>
+<span id="L400"><span class="lineNum">     400</span> <span class="tlaUNC">           0 :       __f_-&gt;destroy_deallocate();</span></span>
+<span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC">          14 :   }</span></span>
+<span id="L402"><span class="lineNum">     402</span>              : </span>
+<span id="L403"><span class="lineNum">     403</span>              :   _LIBCPP_HIDE_FROM_ABI __value_func&amp; operator=(__value_func&amp;&amp; __f) {</span>
+<span id="L404"><span class="lineNum">     404</span>              :     *this = nullptr;</span>
+<span id="L405"><span class="lineNum">     405</span>              :     if (__f.__f_ == nullptr)</span>
+<span id="L406"><span class="lineNum">     406</span>              :       __f_ = nullptr;</span>
+<span id="L407"><span class="lineNum">     407</span>              :     else if ((void*)__f.__f_ == &amp;__f.__buf_) {</span>
+<span id="L408"><span class="lineNum">     408</span>              :       __f_ = __as_base(&amp;__buf_);</span>
+<span id="L409"><span class="lineNum">     409</span>              :       __f.__f_-&gt;__clone(__f_);</span>
+<span id="L410"><span class="lineNum">     410</span>              :     } else {</span>
+<span id="L411"><span class="lineNum">     411</span>              :       __f_     = __f.__f_;</span>
+<span id="L412"><span class="lineNum">     412</span>              :       __f.__f_ = nullptr;</span>
+<span id="L413"><span class="lineNum">     413</span>              :     }</span>
+<span id="L414"><span class="lineNum">     414</span>              :     return *this;</span>
+<span id="L415"><span class="lineNum">     415</span>              :   }</span>
+<span id="L416"><span class="lineNum">     416</span>              : </span>
+<span id="L417"><span class="lineNum">     417</span>              :   _LIBCPP_HIDE_FROM_ABI __value_func&amp; operator=(nullptr_t) {</span>
+<span id="L418"><span class="lineNum">     418</span>              :     __func* __f = __f_;</span>
+<span id="L419"><span class="lineNum">     419</span>              :     __f_        = nullptr;</span>
+<span id="L420"><span class="lineNum">     420</span>              :     if ((void*)__f == &amp;__buf_)</span>
+<span id="L421"><span class="lineNum">     421</span>              :       __f-&gt;destroy();</span>
+<span id="L422"><span class="lineNum">     422</span>              :     else if (__f)</span>
+<span id="L423"><span class="lineNum">     423</span>              :       __f-&gt;destroy_deallocate();</span>
+<span id="L424"><span class="lineNum">     424</span>              :     return *this;</span>
+<span id="L425"><span class="lineNum">     425</span>              :   }</span>
+<span id="L426"><span class="lineNum">     426</span>              : </span>
+<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">         119 :   _LIBCPP_HIDE_FROM_ABI _Rp operator()(_ArgTypes&amp;&amp;... __args) const {</span></span>
+<span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">         119 :     if (__f_ == nullptr)</span></span>
+<span id="L429"><span class="lineNum">     429</span> <span class="tlaUNC">           0 :       __throw_bad_function_call();</span></span>
+<span id="L430"><span class="lineNum">     430</span> <span class="tlaGNC">         119 :     return (*__f_)(std::forward&lt;_ArgTypes&gt;(__args)...);</span></span>
+<span id="L431"><span class="lineNum">     431</span>              :   }</span>
+<span id="L432"><span class="lineNum">     432</span>              : </span>
+<span id="L433"><span class="lineNum">     433</span>              :   _LIBCPP_HIDE_FROM_ABI void swap(__value_func&amp; __f) _NOEXCEPT {</span>
+<span id="L434"><span class="lineNum">     434</span>              :     if (&amp;__f == this)</span>
+<span id="L435"><span class="lineNum">     435</span>              :       return;</span>
+<span id="L436"><span class="lineNum">     436</span>              :     if ((void*)__f_ == &amp;__buf_ &amp;&amp; (void*)__f.__f_ == &amp;__f.__buf_) {</span>
+<span id="L437"><span class="lineNum">     437</span>              :       _LIBCPP_SUPPRESS_DEPRECATED_PUSH</span>
+<span id="L438"><span class="lineNum">     438</span>              :       typename aligned_storage&lt;sizeof(__buf_)&gt;::type __tempbuf;</span>
+<span id="L439"><span class="lineNum">     439</span>              :       _LIBCPP_SUPPRESS_DEPRECATED_POP</span>
+<span id="L440"><span class="lineNum">     440</span>              :       __func* __t = __as_base(&amp;__tempbuf);</span>
+<span id="L441"><span class="lineNum">     441</span>              :       __f_-&gt;__clone(__t);</span>
+<span id="L442"><span class="lineNum">     442</span>              :       __f_-&gt;destroy();</span>
+<span id="L443"><span class="lineNum">     443</span>              :       __f_ = nullptr;</span>
+<span id="L444"><span class="lineNum">     444</span>              :       __f.__f_-&gt;__clone(__as_base(&amp;__buf_));</span>
+<span id="L445"><span class="lineNum">     445</span>              :       __f.__f_-&gt;destroy();</span>
+<span id="L446"><span class="lineNum">     446</span>              :       __f.__f_ = nullptr;</span>
+<span id="L447"><span class="lineNum">     447</span>              :       __f_     = __as_base(&amp;__buf_);</span>
+<span id="L448"><span class="lineNum">     448</span>              :       __t-&gt;__clone(__as_base(&amp;__f.__buf_));</span>
+<span id="L449"><span class="lineNum">     449</span>              :       __t-&gt;destroy();</span>
+<span id="L450"><span class="lineNum">     450</span>              :       __f.__f_ = __as_base(&amp;__f.__buf_);</span>
+<span id="L451"><span class="lineNum">     451</span>              :     } else if ((void*)__f_ == &amp;__buf_) {</span>
+<span id="L452"><span class="lineNum">     452</span>              :       __f_-&gt;__clone(__as_base(&amp;__f.__buf_));</span>
+<span id="L453"><span class="lineNum">     453</span>              :       __f_-&gt;destroy();</span>
+<span id="L454"><span class="lineNum">     454</span>              :       __f_     = __f.__f_;</span>
+<span id="L455"><span class="lineNum">     455</span>              :       __f.__f_ = __as_base(&amp;__f.__buf_);</span>
+<span id="L456"><span class="lineNum">     456</span>              :     } else if ((void*)__f.__f_ == &amp;__f.__buf_) {</span>
+<span id="L457"><span class="lineNum">     457</span>              :       __f.__f_-&gt;__clone(__as_base(&amp;__buf_));</span>
+<span id="L458"><span class="lineNum">     458</span>              :       __f.__f_-&gt;destroy();</span>
+<span id="L459"><span class="lineNum">     459</span>              :       __f.__f_ = __f_;</span>
+<span id="L460"><span class="lineNum">     460</span>              :       __f_     = __as_base(&amp;__buf_);</span>
+<span id="L461"><span class="lineNum">     461</span>              :     } else</span>
+<span id="L462"><span class="lineNum">     462</span>              :       std::swap(__f_, __f.__f_);</span>
+<span id="L463"><span class="lineNum">     463</span>              :   }</span>
+<span id="L464"><span class="lineNum">     464</span>              : </span>
+<span id="L465"><span class="lineNum">     465</span>              :   _LIBCPP_HIDE_FROM_ABI explicit operator bool() const _NOEXCEPT { return __f_ != nullptr; }</span>
+<span id="L466"><span class="lineNum">     466</span>              : </span>
+<span id="L467"><span class="lineNum">     467</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L468"><span class="lineNum">     468</span>              :   _LIBCPP_HIDE_FROM_ABI const std::type_info&amp; target_type() const _NOEXCEPT {</span>
+<span id="L469"><span class="lineNum">     469</span>              :     if (__f_ == nullptr)</span>
+<span id="L470"><span class="lineNum">     470</span>              :       return typeid(void);</span>
+<span id="L471"><span class="lineNum">     471</span>              :     return __f_-&gt;target_type();</span>
+<span id="L472"><span class="lineNum">     472</span>              :   }</span>
+<span id="L473"><span class="lineNum">     473</span>              : </span>
+<span id="L474"><span class="lineNum">     474</span>              :   template &lt;typename _Tp&gt;</span>
+<span id="L475"><span class="lineNum">     475</span>              :   _LIBCPP_HIDE_FROM_ABI const _Tp* target() const _NOEXCEPT {</span>
+<span id="L476"><span class="lineNum">     476</span>              :     if (__f_ == nullptr)</span>
+<span id="L477"><span class="lineNum">     477</span>              :       return nullptr;</span>
+<span id="L478"><span class="lineNum">     478</span>              :     return (const _Tp*)__f_-&gt;target(typeid(_Tp));</span>
+<span id="L479"><span class="lineNum">     479</span>              :   }</span>
+<span id="L480"><span class="lineNum">     480</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L481"><span class="lineNum">     481</span>              : };</span>
+<span id="L482"><span class="lineNum">     482</span>              : </span>
+<span id="L483"><span class="lineNum">     483</span>              : // Storage for a functor object, to be used with __policy to manage copy and</span>
+<span id="L484"><span class="lineNum">     484</span>              : // destruction.</span>
+<span id="L485"><span class="lineNum">     485</span>              : union __policy_storage {</span>
+<span id="L486"><span class="lineNum">     486</span>              :   mutable char __small[sizeof(void*) * 2];</span>
+<span id="L487"><span class="lineNum">     487</span>              :   void* __large;</span>
+<span id="L488"><span class="lineNum">     488</span>              : };</span>
+<span id="L489"><span class="lineNum">     489</span>              : </span>
+<span id="L490"><span class="lineNum">     490</span>              : // True if _Fun can safely be held in __policy_storage.__small.</span>
+<span id="L491"><span class="lineNum">     491</span>              : template &lt;typename _Fun&gt;</span>
+<span id="L492"><span class="lineNum">     492</span>              : struct __use_small_storage</span>
+<span id="L493"><span class="lineNum">     493</span>              :     : public integral_constant&lt;</span>
+<span id="L494"><span class="lineNum">     494</span>              :           bool,</span>
+<span id="L495"><span class="lineNum">     495</span>              :           sizeof(_Fun) &lt;= sizeof(__policy_storage)&amp;&amp; _LIBCPP_ALIGNOF(_Fun) &lt;= _LIBCPP_ALIGNOF(__policy_storage) &amp;&amp;</span>
+<span id="L496"><span class="lineNum">     496</span>              :               is_trivially_copy_constructible&lt;_Fun&gt;::value &amp;&amp; is_trivially_destructible&lt;_Fun&gt;::value&gt; {};</span>
+<span id="L497"><span class="lineNum">     497</span>              : </span>
+<span id="L498"><span class="lineNum">     498</span>              : // Policy contains information about how to copy, destroy, and move the</span>
+<span id="L499"><span class="lineNum">     499</span>              : // underlying functor. You can think of it as a vtable of sorts.</span>
+<span id="L500"><span class="lineNum">     500</span>              : struct __policy {</span>
+<span id="L501"><span class="lineNum">     501</span>              :   // Used to copy or destroy __large values. null for trivial objects.</span>
+<span id="L502"><span class="lineNum">     502</span>              :   void* (*const __clone)(const void*);</span>
+<span id="L503"><span class="lineNum">     503</span>              :   void (*const __destroy)(void*);</span>
+<span id="L504"><span class="lineNum">     504</span>              : </span>
+<span id="L505"><span class="lineNum">     505</span>              :   // True if this is the null policy (no value).</span>
+<span id="L506"><span class="lineNum">     506</span>              :   const bool __is_null;</span>
+<span id="L507"><span class="lineNum">     507</span>              : </span>
+<span id="L508"><span class="lineNum">     508</span>              :   // The target type. May be null if RTTI is disabled.</span>
+<span id="L509"><span class="lineNum">     509</span>              :   const std::type_info* const __type_info;</span>
+<span id="L510"><span class="lineNum">     510</span>              : </span>
+<span id="L511"><span class="lineNum">     511</span>              :   // Returns a pointer to a static policy object suitable for the functor</span>
+<span id="L512"><span class="lineNum">     512</span>              :   // type.</span>
+<span id="L513"><span class="lineNum">     513</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L514"><span class="lineNum">     514</span>              :   _LIBCPP_HIDE_FROM_ABI static const __policy* __create() {</span>
+<span id="L515"><span class="lineNum">     515</span>              :     return __choose_policy&lt;_Fun&gt;(__use_small_storage&lt;_Fun&gt;());</span>
+<span id="L516"><span class="lineNum">     516</span>              :   }</span>
+<span id="L517"><span class="lineNum">     517</span>              : </span>
+<span id="L518"><span class="lineNum">     518</span>              :   _LIBCPP_HIDE_FROM_ABI static const __policy* __create_empty() {</span>
+<span id="L519"><span class="lineNum">     519</span>              :     static constexpr __policy __policy = {</span>
+<span id="L520"><span class="lineNum">     520</span>              :         nullptr,</span>
+<span id="L521"><span class="lineNum">     521</span>              :         nullptr,</span>
+<span id="L522"><span class="lineNum">     522</span>              :         true,</span>
+<span id="L523"><span class="lineNum">     523</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L524"><span class="lineNum">     524</span>              :         &amp;typeid(void)</span>
+<span id="L525"><span class="lineNum">     525</span>              : #  else</span>
+<span id="L526"><span class="lineNum">     526</span>              :         nullptr</span>
+<span id="L527"><span class="lineNum">     527</span>              : #  endif</span>
+<span id="L528"><span class="lineNum">     528</span>              :     };</span>
+<span id="L529"><span class="lineNum">     529</span>              :     return &amp;__policy;</span>
+<span id="L530"><span class="lineNum">     530</span>              :   }</span>
+<span id="L531"><span class="lineNum">     531</span>              : </span>
+<span id="L532"><span class="lineNum">     532</span>              : private:</span>
+<span id="L533"><span class="lineNum">     533</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L534"><span class="lineNum">     534</span>              :   _LIBCPP_HIDE_FROM_ABI static void* __large_clone(const void* __s) {</span>
+<span id="L535"><span class="lineNum">     535</span>              :     const _Fun* __f = static_cast&lt;const _Fun*&gt;(__s);</span>
+<span id="L536"><span class="lineNum">     536</span>              :     return __f-&gt;__clone();</span>
+<span id="L537"><span class="lineNum">     537</span>              :   }</span>
+<span id="L538"><span class="lineNum">     538</span>              : </span>
+<span id="L539"><span class="lineNum">     539</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L540"><span class="lineNum">     540</span>              :   _LIBCPP_HIDE_FROM_ABI static void __large_destroy(void* __s) {</span>
+<span id="L541"><span class="lineNum">     541</span>              :     _Fun::__destroy_and_delete(static_cast&lt;_Fun*&gt;(__s));</span>
+<span id="L542"><span class="lineNum">     542</span>              :   }</span>
+<span id="L543"><span class="lineNum">     543</span>              : </span>
+<span id="L544"><span class="lineNum">     544</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L545"><span class="lineNum">     545</span>              :   _LIBCPP_HIDE_FROM_ABI static const __policy* __choose_policy(/* is_small = */ false_type) {</span>
+<span id="L546"><span class="lineNum">     546</span>              :     static constexpr __policy __policy = {</span>
+<span id="L547"><span class="lineNum">     547</span>              :         &amp;__large_clone&lt;_Fun&gt;,</span>
+<span id="L548"><span class="lineNum">     548</span>              :         &amp;__large_destroy&lt;_Fun&gt;,</span>
+<span id="L549"><span class="lineNum">     549</span>              :         false,</span>
+<span id="L550"><span class="lineNum">     550</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L551"><span class="lineNum">     551</span>              :         &amp;typeid(typename _Fun::_Target)</span>
+<span id="L552"><span class="lineNum">     552</span>              : #  else</span>
+<span id="L553"><span class="lineNum">     553</span>              :         nullptr</span>
+<span id="L554"><span class="lineNum">     554</span>              : #  endif</span>
+<span id="L555"><span class="lineNum">     555</span>              :     };</span>
+<span id="L556"><span class="lineNum">     556</span>              :     return &amp;__policy;</span>
+<span id="L557"><span class="lineNum">     557</span>              :   }</span>
+<span id="L558"><span class="lineNum">     558</span>              : </span>
+<span id="L559"><span class="lineNum">     559</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L560"><span class="lineNum">     560</span>              :   _LIBCPP_HIDE_FROM_ABI static const __policy* __choose_policy(/* is_small = */ true_type) {</span>
+<span id="L561"><span class="lineNum">     561</span>              :     static constexpr __policy __policy = {</span>
+<span id="L562"><span class="lineNum">     562</span>              :         nullptr,</span>
+<span id="L563"><span class="lineNum">     563</span>              :         nullptr,</span>
+<span id="L564"><span class="lineNum">     564</span>              :         false,</span>
+<span id="L565"><span class="lineNum">     565</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L566"><span class="lineNum">     566</span>              :         &amp;typeid(typename _Fun::_Target)</span>
+<span id="L567"><span class="lineNum">     567</span>              : #  else</span>
+<span id="L568"><span class="lineNum">     568</span>              :         nullptr</span>
+<span id="L569"><span class="lineNum">     569</span>              : #  endif</span>
+<span id="L570"><span class="lineNum">     570</span>              :     };</span>
+<span id="L571"><span class="lineNum">     571</span>              :     return &amp;__policy;</span>
+<span id="L572"><span class="lineNum">     572</span>              :   }</span>
+<span id="L573"><span class="lineNum">     573</span>              : };</span>
+<span id="L574"><span class="lineNum">     574</span>              : </span>
+<span id="L575"><span class="lineNum">     575</span>              : // Used to choose between perfect forwarding or pass-by-value. Pass-by-value is</span>
+<span id="L576"><span class="lineNum">     576</span>              : // faster for types that can be passed in registers.</span>
+<span id="L577"><span class="lineNum">     577</span>              : template &lt;typename _Tp&gt;</span>
+<span id="L578"><span class="lineNum">     578</span>              : using __fast_forward = __conditional_t&lt;is_scalar&lt;_Tp&gt;::value, _Tp, _Tp&amp;&amp;&gt;;</span>
+<span id="L579"><span class="lineNum">     579</span>              : </span>
+<span id="L580"><span class="lineNum">     580</span>              : // __policy_invoker calls an instance of __alloc_func held in __policy_storage.</span>
+<span id="L581"><span class="lineNum">     581</span>              : </span>
+<span id="L582"><span class="lineNum">     582</span>              : template &lt;class _Fp&gt;</span>
+<span id="L583"><span class="lineNum">     583</span>              : struct __policy_invoker;</span>
+<span id="L584"><span class="lineNum">     584</span>              : </span>
+<span id="L585"><span class="lineNum">     585</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L586"><span class="lineNum">     586</span>              : struct __policy_invoker&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L587"><span class="lineNum">     587</span>              :   typedef _Rp (*__Call)(const __policy_storage*, __fast_forward&lt;_ArgTypes&gt;...);</span>
+<span id="L588"><span class="lineNum">     588</span>              : </span>
+<span id="L589"><span class="lineNum">     589</span>              :   __Call __call_;</span>
+<span id="L590"><span class="lineNum">     590</span>              : </span>
+<span id="L591"><span class="lineNum">     591</span>              :   // Creates an invoker that throws bad_function_call.</span>
+<span id="L592"><span class="lineNum">     592</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_invoker() : __call_(&amp;__call_empty) {}</span>
+<span id="L593"><span class="lineNum">     593</span>              : </span>
+<span id="L594"><span class="lineNum">     594</span>              :   // Creates an invoker that calls the given instance of __func.</span>
+<span id="L595"><span class="lineNum">     595</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L596"><span class="lineNum">     596</span>              :   _LIBCPP_HIDE_FROM_ABI static __policy_invoker __create() {</span>
+<span id="L597"><span class="lineNum">     597</span>              :     return __policy_invoker(&amp;__call_impl&lt;_Fun&gt;);</span>
+<span id="L598"><span class="lineNum">     598</span>              :   }</span>
+<span id="L599"><span class="lineNum">     599</span>              : </span>
+<span id="L600"><span class="lineNum">     600</span>              : private:</span>
+<span id="L601"><span class="lineNum">     601</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __policy_invoker(__Call __c) : __call_(__c) {}</span>
+<span id="L602"><span class="lineNum">     602</span>              : </span>
+<span id="L603"><span class="lineNum">     603</span>              :   _LIBCPP_HIDE_FROM_ABI static _Rp __call_empty(const __policy_storage*, __fast_forward&lt;_ArgTypes&gt;...) {</span>
+<span id="L604"><span class="lineNum">     604</span>              :     __throw_bad_function_call();</span>
+<span id="L605"><span class="lineNum">     605</span>              :   }</span>
+<span id="L606"><span class="lineNum">     606</span>              : </span>
+<span id="L607"><span class="lineNum">     607</span>              :   template &lt;typename _Fun&gt;</span>
+<span id="L608"><span class="lineNum">     608</span>              :   _LIBCPP_HIDE_FROM_ABI static _Rp __call_impl(const __policy_storage* __buf, __fast_forward&lt;_ArgTypes&gt;... __args) {</span>
+<span id="L609"><span class="lineNum">     609</span>              :     _Fun* __f = reinterpret_cast&lt;_Fun*&gt;(__use_small_storage&lt;_Fun&gt;::value ? &amp;__buf-&gt;__small : __buf-&gt;__large);</span>
+<span id="L610"><span class="lineNum">     610</span>              :     return (*__f)(std::forward&lt;_ArgTypes&gt;(__args)...);</span>
+<span id="L611"><span class="lineNum">     611</span>              :   }</span>
+<span id="L612"><span class="lineNum">     612</span>              : };</span>
+<span id="L613"><span class="lineNum">     613</span>              : </span>
+<span id="L614"><span class="lineNum">     614</span>              : // __policy_func uses a __policy and __policy_invoker to create a type-erased,</span>
+<span id="L615"><span class="lineNum">     615</span>              : // copyable functor.</span>
+<span id="L616"><span class="lineNum">     616</span>              : </span>
+<span id="L617"><span class="lineNum">     617</span>              : template &lt;class _Fp&gt;</span>
+<span id="L618"><span class="lineNum">     618</span>              : class __policy_func;</span>
+<span id="L619"><span class="lineNum">     619</span>              : </span>
+<span id="L620"><span class="lineNum">     620</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L621"><span class="lineNum">     621</span>              : class __policy_func&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L622"><span class="lineNum">     622</span>              :   // Inline storage for small objects.</span>
+<span id="L623"><span class="lineNum">     623</span>              :   __policy_storage __buf_;</span>
+<span id="L624"><span class="lineNum">     624</span>              : </span>
+<span id="L625"><span class="lineNum">     625</span>              :   // Calls the value stored in __buf_. This could technically be part of</span>
+<span id="L626"><span class="lineNum">     626</span>              :   // policy, but storing it here eliminates a level of indirection inside</span>
+<span id="L627"><span class="lineNum">     627</span>              :   // operator().</span>
+<span id="L628"><span class="lineNum">     628</span>              :   typedef __function::__policy_invoker&lt;_Rp(_ArgTypes...)&gt; __invoker;</span>
+<span id="L629"><span class="lineNum">     629</span>              :   __invoker __invoker_;</span>
+<span id="L630"><span class="lineNum">     630</span>              : </span>
+<span id="L631"><span class="lineNum">     631</span>              :   // The policy that describes how to move / copy / destroy __buf_. Never</span>
+<span id="L632"><span class="lineNum">     632</span>              :   // null, even if the function is empty.</span>
+<span id="L633"><span class="lineNum">     633</span>              :   const __policy* __policy_;</span>
+<span id="L634"><span class="lineNum">     634</span>              : </span>
+<span id="L635"><span class="lineNum">     635</span>              : public:</span>
+<span id="L636"><span class="lineNum">     636</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_func() : __policy_(__policy::__create_empty()) {}</span>
+<span id="L637"><span class="lineNum">     637</span>              : </span>
+<span id="L638"><span class="lineNum">     638</span>              :   template &lt;class _Fp, class _Alloc&gt;</span>
+<span id="L639"><span class="lineNum">     639</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_func(_Fp&amp;&amp; __f, const _Alloc&amp; __a) : __policy_(__policy::__create_empty()) {</span>
+<span id="L640"><span class="lineNum">     640</span>              :     typedef __alloc_func&lt;_Fp, _Alloc, _Rp(_ArgTypes...)&gt; _Fun;</span>
+<span id="L641"><span class="lineNum">     641</span>              :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;</span>
+<span id="L642"><span class="lineNum">     642</span>              :     typedef __rebind_alloc&lt;__alloc_traits, _Fun&gt; _FunAlloc;</span>
+<span id="L643"><span class="lineNum">     643</span>              : </span>
+<span id="L644"><span class="lineNum">     644</span>              :     if (__function::__not_null(__f)) {</span>
+<span id="L645"><span class="lineNum">     645</span>              :       __invoker_ = __invoker::template __create&lt;_Fun&gt;();</span>
+<span id="L646"><span class="lineNum">     646</span>              :       __policy_  = __policy::__create&lt;_Fun&gt;();</span>
+<span id="L647"><span class="lineNum">     647</span>              : </span>
+<span id="L648"><span class="lineNum">     648</span>              :       _FunAlloc __af(__a);</span>
+<span id="L649"><span class="lineNum">     649</span>              :       if (__use_small_storage&lt;_Fun&gt;()) {</span>
+<span id="L650"><span class="lineNum">     650</span>              :         ::new ((void*)&amp;__buf_.__small) _Fun(std::move(__f), _Alloc(__af));</span>
+<span id="L651"><span class="lineNum">     651</span>              :       } else {</span>
+<span id="L652"><span class="lineNum">     652</span>              :         typedef __allocator_destructor&lt;_FunAlloc&gt; _Dp;</span>
+<span id="L653"><span class="lineNum">     653</span>              :         unique_ptr&lt;_Fun, _Dp&gt; __hold(__af.allocate(1), _Dp(__af, 1));</span>
+<span id="L654"><span class="lineNum">     654</span>              :         ::new ((void*)__hold.get()) _Fun(std::move(__f), _Alloc(__af));</span>
+<span id="L655"><span class="lineNum">     655</span>              :         __buf_.__large = __hold.release();</span>
+<span id="L656"><span class="lineNum">     656</span>              :       }</span>
+<span id="L657"><span class="lineNum">     657</span>              :     }</span>
+<span id="L658"><span class="lineNum">     658</span>              :   }</span>
+<span id="L659"><span class="lineNum">     659</span>              : </span>
+<span id="L660"><span class="lineNum">     660</span>              :   template &lt;class _Fp, __enable_if_t&lt;!is_same&lt;__decay_t&lt;_Fp&gt;, __policy_func&gt;::value, int&gt; = 0&gt;</span>
+<span id="L661"><span class="lineNum">     661</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __policy_func(_Fp&amp;&amp; __f) : __policy_(__policy::__create_empty()) {</span>
+<span id="L662"><span class="lineNum">     662</span>              :     typedef __default_alloc_func&lt;_Fp, _Rp(_ArgTypes...)&gt; _Fun;</span>
+<span id="L663"><span class="lineNum">     663</span>              : </span>
+<span id="L664"><span class="lineNum">     664</span>              :     if (__function::__not_null(__f)) {</span>
+<span id="L665"><span class="lineNum">     665</span>              :       __invoker_ = __invoker::template __create&lt;_Fun&gt;();</span>
+<span id="L666"><span class="lineNum">     666</span>              :       __policy_  = __policy::__create&lt;_Fun&gt;();</span>
+<span id="L667"><span class="lineNum">     667</span>              :       if (__use_small_storage&lt;_Fun&gt;()) {</span>
+<span id="L668"><span class="lineNum">     668</span>              :         ::new ((void*)&amp;__buf_.__small) _Fun(std::move(__f));</span>
+<span id="L669"><span class="lineNum">     669</span>              :       } else {</span>
+<span id="L670"><span class="lineNum">     670</span>              :         __builtin_new_allocator::__holder_t __hold = __builtin_new_allocator::__allocate_type&lt;_Fun&gt;(1);</span>
+<span id="L671"><span class="lineNum">     671</span>              :         __buf_.__large                             = ::new ((void*)__hold.get()) _Fun(std::move(__f));</span>
+<span id="L672"><span class="lineNum">     672</span>              :         (void)__hold.release();</span>
+<span id="L673"><span class="lineNum">     673</span>              :       }</span>
+<span id="L674"><span class="lineNum">     674</span>              :     }</span>
+<span id="L675"><span class="lineNum">     675</span>              :   }</span>
+<span id="L676"><span class="lineNum">     676</span>              : </span>
+<span id="L677"><span class="lineNum">     677</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_func(const __policy_func&amp; __f)</span>
+<span id="L678"><span class="lineNum">     678</span>              :       : __buf_(__f.__buf_), __invoker_(__f.__invoker_), __policy_(__f.__policy_) {</span>
+<span id="L679"><span class="lineNum">     679</span>              :     if (__policy_-&gt;__clone)</span>
+<span id="L680"><span class="lineNum">     680</span>              :       __buf_.__large = __policy_-&gt;__clone(__f.__buf_.__large);</span>
+<span id="L681"><span class="lineNum">     681</span>              :   }</span>
+<span id="L682"><span class="lineNum">     682</span>              : </span>
+<span id="L683"><span class="lineNum">     683</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_func(__policy_func&amp;&amp; __f)</span>
+<span id="L684"><span class="lineNum">     684</span>              :       : __buf_(__f.__buf_), __invoker_(__f.__invoker_), __policy_(__f.__policy_) {</span>
+<span id="L685"><span class="lineNum">     685</span>              :     if (__policy_-&gt;__destroy) {</span>
+<span id="L686"><span class="lineNum">     686</span>              :       __f.__policy_  = __policy::__create_empty();</span>
+<span id="L687"><span class="lineNum">     687</span>              :       __f.__invoker_ = __invoker();</span>
+<span id="L688"><span class="lineNum">     688</span>              :     }</span>
+<span id="L689"><span class="lineNum">     689</span>              :   }</span>
+<span id="L690"><span class="lineNum">     690</span>              : </span>
+<span id="L691"><span class="lineNum">     691</span>              :   _LIBCPP_HIDE_FROM_ABI ~__policy_func() {</span>
+<span id="L692"><span class="lineNum">     692</span>              :     if (__policy_-&gt;__destroy)</span>
+<span id="L693"><span class="lineNum">     693</span>              :       __policy_-&gt;__destroy(__buf_.__large);</span>
+<span id="L694"><span class="lineNum">     694</span>              :   }</span>
+<span id="L695"><span class="lineNum">     695</span>              : </span>
+<span id="L696"><span class="lineNum">     696</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_func&amp; operator=(__policy_func&amp;&amp; __f) {</span>
+<span id="L697"><span class="lineNum">     697</span>              :     *this          = nullptr;</span>
+<span id="L698"><span class="lineNum">     698</span>              :     __buf_         = __f.__buf_;</span>
+<span id="L699"><span class="lineNum">     699</span>              :     __invoker_     = __f.__invoker_;</span>
+<span id="L700"><span class="lineNum">     700</span>              :     __policy_      = __f.__policy_;</span>
+<span id="L701"><span class="lineNum">     701</span>              :     __f.__policy_  = __policy::__create_empty();</span>
+<span id="L702"><span class="lineNum">     702</span>              :     __f.__invoker_ = __invoker();</span>
+<span id="L703"><span class="lineNum">     703</span>              :     return *this;</span>
+<span id="L704"><span class="lineNum">     704</span>              :   }</span>
+<span id="L705"><span class="lineNum">     705</span>              : </span>
+<span id="L706"><span class="lineNum">     706</span>              :   _LIBCPP_HIDE_FROM_ABI __policy_func&amp; operator=(nullptr_t) {</span>
+<span id="L707"><span class="lineNum">     707</span>              :     const __policy* __p = __policy_;</span>
+<span id="L708"><span class="lineNum">     708</span>              :     __policy_           = __policy::__create_empty();</span>
+<span id="L709"><span class="lineNum">     709</span>              :     __invoker_          = __invoker();</span>
+<span id="L710"><span class="lineNum">     710</span>              :     if (__p-&gt;__destroy)</span>
+<span id="L711"><span class="lineNum">     711</span>              :       __p-&gt;__destroy(__buf_.__large);</span>
+<span id="L712"><span class="lineNum">     712</span>              :     return *this;</span>
+<span id="L713"><span class="lineNum">     713</span>              :   }</span>
+<span id="L714"><span class="lineNum">     714</span>              : </span>
+<span id="L715"><span class="lineNum">     715</span>              :   _LIBCPP_HIDE_FROM_ABI _Rp operator()(_ArgTypes&amp;&amp;... __args) const {</span>
+<span id="L716"><span class="lineNum">     716</span>              :     return __invoker_.__call_(std::addressof(__buf_), std::forward&lt;_ArgTypes&gt;(__args)...);</span>
+<span id="L717"><span class="lineNum">     717</span>              :   }</span>
+<span id="L718"><span class="lineNum">     718</span>              : </span>
+<span id="L719"><span class="lineNum">     719</span>              :   _LIBCPP_HIDE_FROM_ABI void swap(__policy_func&amp; __f) {</span>
+<span id="L720"><span class="lineNum">     720</span>              :     std::swap(__invoker_, __f.__invoker_);</span>
+<span id="L721"><span class="lineNum">     721</span>              :     std::swap(__policy_, __f.__policy_);</span>
+<span id="L722"><span class="lineNum">     722</span>              :     std::swap(__buf_, __f.__buf_);</span>
+<span id="L723"><span class="lineNum">     723</span>              :   }</span>
+<span id="L724"><span class="lineNum">     724</span>              : </span>
+<span id="L725"><span class="lineNum">     725</span>              :   _LIBCPP_HIDE_FROM_ABI explicit operator bool() const _NOEXCEPT { return !__policy_-&gt;__is_null; }</span>
+<span id="L726"><span class="lineNum">     726</span>              : </span>
+<span id="L727"><span class="lineNum">     727</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L728"><span class="lineNum">     728</span>              :   _LIBCPP_HIDE_FROM_ABI const std::type_info&amp; target_type() const _NOEXCEPT { return *__policy_-&gt;__type_info; }</span>
+<span id="L729"><span class="lineNum">     729</span>              : </span>
+<span id="L730"><span class="lineNum">     730</span>              :   template &lt;typename _Tp&gt;</span>
+<span id="L731"><span class="lineNum">     731</span>              :   _LIBCPP_HIDE_FROM_ABI const _Tp* target() const _NOEXCEPT {</span>
+<span id="L732"><span class="lineNum">     732</span>              :     if (__policy_-&gt;__is_null || typeid(_Tp) != *__policy_-&gt;__type_info)</span>
+<span id="L733"><span class="lineNum">     733</span>              :       return nullptr;</span>
+<span id="L734"><span class="lineNum">     734</span>              :     if (__policy_-&gt;__clone) // Out of line storage.</span>
+<span id="L735"><span class="lineNum">     735</span>              :       return reinterpret_cast&lt;const _Tp*&gt;(__buf_.__large);</span>
+<span id="L736"><span class="lineNum">     736</span>              :     else</span>
+<span id="L737"><span class="lineNum">     737</span>              :       return reinterpret_cast&lt;const _Tp*&gt;(&amp;__buf_.__small);</span>
+<span id="L738"><span class="lineNum">     738</span>              :   }</span>
+<span id="L739"><span class="lineNum">     739</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L740"><span class="lineNum">     740</span>              : };</span>
+<span id="L741"><span class="lineNum">     741</span>              : </span>
+<span id="L742"><span class="lineNum">     742</span>              : #  if defined(_LIBCPP_HAS_BLOCKS_RUNTIME)</span>
+<span id="L743"><span class="lineNum">     743</span>              : </span>
+<span id="L744"><span class="lineNum">     744</span>              : extern &quot;C&quot; void* _Block_copy(const void*);</span>
+<span id="L745"><span class="lineNum">     745</span>              : extern &quot;C&quot; void _Block_release(const void*);</span>
+<span id="L746"><span class="lineNum">     746</span>              : </span>
+<span id="L747"><span class="lineNum">     747</span>              : template &lt;class _Rp1, class... _ArgTypes1, class _Alloc, class _Rp, class... _ArgTypes&gt;</span>
+<span id="L748"><span class="lineNum">     748</span>              : class __func&lt;_Rp1 (^)(_ArgTypes1...), _Alloc, _Rp(_ArgTypes...)&gt; : public __base&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L749"><span class="lineNum">     749</span>              :   typedef _Rp1 (^__block_type)(_ArgTypes1...);</span>
+<span id="L750"><span class="lineNum">     750</span>              :   __block_type __f_;</span>
+<span id="L751"><span class="lineNum">     751</span>              : </span>
+<span id="L752"><span class="lineNum">     752</span>              : public:</span>
+<span id="L753"><span class="lineNum">     753</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __func(__block_type const&amp; __f)</span>
+<span id="L754"><span class="lineNum">     754</span>              : #    ifdef _LIBCPP_HAS_OBJC_ARC</span>
+<span id="L755"><span class="lineNum">     755</span>              :       : __f_(__f)</span>
+<span id="L756"><span class="lineNum">     756</span>              : #    else</span>
+<span id="L757"><span class="lineNum">     757</span>              :       : __f_(reinterpret_cast&lt;__block_type&gt;(__f ? _Block_copy(__f) : nullptr))</span>
+<span id="L758"><span class="lineNum">     758</span>              : #    endif</span>
+<span id="L759"><span class="lineNum">     759</span>              :   {</span>
+<span id="L760"><span class="lineNum">     760</span>              :   }</span>
+<span id="L761"><span class="lineNum">     761</span>              : </span>
+<span id="L762"><span class="lineNum">     762</span>              :   // [TODO] add &amp;&amp; to save on a retain</span>
+<span id="L763"><span class="lineNum">     763</span>              : </span>
+<span id="L764"><span class="lineNum">     764</span>              :   _LIBCPP_HIDE_FROM_ABI explicit __func(__block_type __f, const _Alloc&amp; /* unused */)</span>
+<span id="L765"><span class="lineNum">     765</span>              : #    ifdef _LIBCPP_HAS_OBJC_ARC</span>
+<span id="L766"><span class="lineNum">     766</span>              :       : __f_(__f)</span>
+<span id="L767"><span class="lineNum">     767</span>              : #    else</span>
+<span id="L768"><span class="lineNum">     768</span>              :       : __f_(reinterpret_cast&lt;__block_type&gt;(__f ? _Block_copy(__f) : nullptr))</span>
+<span id="L769"><span class="lineNum">     769</span>              : #    endif</span>
+<span id="L770"><span class="lineNum">     770</span>              :   {</span>
+<span id="L771"><span class="lineNum">     771</span>              :   }</span>
+<span id="L772"><span class="lineNum">     772</span>              : </span>
+<span id="L773"><span class="lineNum">     773</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual __base&lt;_Rp(_ArgTypes...)&gt;* __clone() const {</span>
+<span id="L774"><span class="lineNum">     774</span>              :     _LIBCPP_ASSERT_INTERNAL(</span>
+<span id="L775"><span class="lineNum">     775</span>              :         false,</span>
+<span id="L776"><span class="lineNum">     776</span>              :         &quot;Block pointers are just pointers, so they should always fit into &quot;</span>
+<span id="L777"><span class="lineNum">     777</span>              :         &quot;std::function's small buffer optimization. This function should &quot;</span>
+<span id="L778"><span class="lineNum">     778</span>              :         &quot;never be invoked.&quot;);</span>
+<span id="L779"><span class="lineNum">     779</span>              :     return nullptr;</span>
+<span id="L780"><span class="lineNum">     780</span>              :   }</span>
+<span id="L781"><span class="lineNum">     781</span>              : </span>
+<span id="L782"><span class="lineNum">     782</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void __clone(__base&lt;_Rp(_ArgTypes...)&gt;* __p) const {</span>
+<span id="L783"><span class="lineNum">     783</span>              :     ::new ((void*)__p) __func(__f_);</span>
+<span id="L784"><span class="lineNum">     784</span>              :   }</span>
+<span id="L785"><span class="lineNum">     785</span>              : </span>
+<span id="L786"><span class="lineNum">     786</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void destroy() _NOEXCEPT {</span>
+<span id="L787"><span class="lineNum">     787</span>              : #    ifndef _LIBCPP_HAS_OBJC_ARC</span>
+<span id="L788"><span class="lineNum">     788</span>              :     if (__f_)</span>
+<span id="L789"><span class="lineNum">     789</span>              :       _Block_release(__f_);</span>
+<span id="L790"><span class="lineNum">     790</span>              : #    endif</span>
+<span id="L791"><span class="lineNum">     791</span>              :     __f_ = 0;</span>
+<span id="L792"><span class="lineNum">     792</span>              :   }</span>
+<span id="L793"><span class="lineNum">     793</span>              : </span>
+<span id="L794"><span class="lineNum">     794</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void destroy_deallocate() _NOEXCEPT {</span>
+<span id="L795"><span class="lineNum">     795</span>              :     _LIBCPP_ASSERT_INTERNAL(</span>
+<span id="L796"><span class="lineNum">     796</span>              :         false,</span>
+<span id="L797"><span class="lineNum">     797</span>              :         &quot;Block pointers are just pointers, so they should always fit into &quot;</span>
+<span id="L798"><span class="lineNum">     798</span>              :         &quot;std::function's small buffer optimization. This function should &quot;</span>
+<span id="L799"><span class="lineNum">     799</span>              :         &quot;never be invoked.&quot;);</span>
+<span id="L800"><span class="lineNum">     800</span>              :   }</span>
+<span id="L801"><span class="lineNum">     801</span>              : </span>
+<span id="L802"><span class="lineNum">     802</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual _Rp operator()(_ArgTypes&amp;&amp;... __arg) {</span>
+<span id="L803"><span class="lineNum">     803</span>              :     return std::__invoke(__f_, std::forward&lt;_ArgTypes&gt;(__arg)...);</span>
+<span id="L804"><span class="lineNum">     804</span>              :   }</span>
+<span id="L805"><span class="lineNum">     805</span>              : </span>
+<span id="L806"><span class="lineNum">     806</span>              : #    ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L807"><span class="lineNum">     807</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual const void* target(type_info const&amp; __ti) const _NOEXCEPT {</span>
+<span id="L808"><span class="lineNum">     808</span>              :     if (__ti == typeid(__func::__block_type))</span>
+<span id="L809"><span class="lineNum">     809</span>              :       return &amp;__f_;</span>
+<span id="L810"><span class="lineNum">     810</span>              :     return (const void*)nullptr;</span>
+<span id="L811"><span class="lineNum">     811</span>              :   }</span>
+<span id="L812"><span class="lineNum">     812</span>              : </span>
+<span id="L813"><span class="lineNum">     813</span>              :   _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual const std::type_info&amp; target_type() const _NOEXCEPT {</span>
+<span id="L814"><span class="lineNum">     814</span>              :     return typeid(__func::__block_type);</span>
+<span id="L815"><span class="lineNum">     815</span>              :   }</span>
+<span id="L816"><span class="lineNum">     816</span>              : #    endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L817"><span class="lineNum">     817</span>              : };</span>
+<span id="L818"><span class="lineNum">     818</span>              : </span>
+<span id="L819"><span class="lineNum">     819</span>              : #  endif // _LIBCPP_HAS_EXTENSION_BLOCKS</span>
+<span id="L820"><span class="lineNum">     820</span>              : </span>
+<span id="L821"><span class="lineNum">     821</span>              : } // namespace __function</span>
+<span id="L822"><span class="lineNum">     822</span>              : </span>
+<span id="L823"><span class="lineNum">     823</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L824"><span class="lineNum">     824</span>              : class _LIBCPP_TEMPLATE_VIS function&lt;_Rp(_ArgTypes...)&gt;</span>
+<span id="L825"><span class="lineNum">     825</span>              :     : public __function::__maybe_derive_from_unary_function&lt;_Rp(_ArgTypes...)&gt;,</span>
+<span id="L826"><span class="lineNum">     826</span>              :       public __function::__maybe_derive_from_binary_function&lt;_Rp(_ArgTypes...)&gt; {</span>
+<span id="L827"><span class="lineNum">     827</span>              : #  ifndef _LIBCPP_ABI_OPTIMIZED_FUNCTION</span>
+<span id="L828"><span class="lineNum">     828</span>              :   typedef __function::__value_func&lt;_Rp(_ArgTypes...)&gt; __func;</span>
+<span id="L829"><span class="lineNum">     829</span>              : #  else</span>
+<span id="L830"><span class="lineNum">     830</span>              :   typedef __function::__policy_func&lt;_Rp(_ArgTypes...)&gt; __func;</span>
+<span id="L831"><span class="lineNum">     831</span>              : #  endif</span>
+<span id="L832"><span class="lineNum">     832</span>              : </span>
+<span id="L833"><span class="lineNum">     833</span>              :   __func __f_;</span>
+<span id="L834"><span class="lineNum">     834</span>              : </span>
+<span id="L835"><span class="lineNum">     835</span>              :   template &lt;class _Fp,</span>
+<span id="L836"><span class="lineNum">     836</span>              :             bool = _And&lt; _IsNotSame&lt;__remove_cvref_t&lt;_Fp&gt;, function&gt;, __invokable&lt;_Fp, _ArgTypes...&gt; &gt;::value&gt;</span>
+<span id="L837"><span class="lineNum">     837</span>              :   struct __callable;</span>
+<span id="L838"><span class="lineNum">     838</span>              :   template &lt;class _Fp&gt;</span>
+<span id="L839"><span class="lineNum">     839</span>              :   struct __callable&lt;_Fp, true&gt; {</span>
+<span id="L840"><span class="lineNum">     840</span>              :     static const bool value =</span>
+<span id="L841"><span class="lineNum">     841</span>              :         is_void&lt;_Rp&gt;::value || __is_core_convertible&lt;typename __invoke_of&lt;_Fp, _ArgTypes...&gt;::type, _Rp&gt;::value;</span>
+<span id="L842"><span class="lineNum">     842</span>              :   };</span>
+<span id="L843"><span class="lineNum">     843</span>              :   template &lt;class _Fp&gt;</span>
+<span id="L844"><span class="lineNum">     844</span>              :   struct __callable&lt;_Fp, false&gt; {</span>
+<span id="L845"><span class="lineNum">     845</span>              :     static const bool value = false;</span>
+<span id="L846"><span class="lineNum">     846</span>              :   };</span>
+<span id="L847"><span class="lineNum">     847</span>              : </span>
+<span id="L848"><span class="lineNum">     848</span>              :   template &lt;class _Fp&gt;</span>
+<span id="L849"><span class="lineNum">     849</span>              :   using _EnableIfLValueCallable = __enable_if_t&lt;__callable&lt;_Fp&amp;&gt;::value&gt;;</span>
+<span id="L850"><span class="lineNum">     850</span>              : </span>
+<span id="L851"><span class="lineNum">     851</span>              : public:</span>
+<span id="L852"><span class="lineNum">     852</span>              :   typedef _Rp result_type;</span>
+<span id="L853"><span class="lineNum">     853</span>              : </span>
+<span id="L854"><span class="lineNum">     854</span>              :   // construct/copy/destroy:</span>
+<span id="L855"><span class="lineNum">     855</span>              :   _LIBCPP_HIDE_FROM_ABI function() _NOEXCEPT {}</span>
+<span id="L856"><span class="lineNum">     856</span>              :   _LIBCPP_HIDE_FROM_ABI _LIBCPP_HIDE_FROM_ABI function(nullptr_t) _NOEXCEPT {}</span>
+<span id="L857"><span class="lineNum">     857</span>              :   _LIBCPP_HIDE_FROM_ABI function(const function&amp;);</span>
+<span id="L858"><span class="lineNum">     858</span>              :   _LIBCPP_HIDE_FROM_ABI function(function&amp;&amp;) _NOEXCEPT;</span>
+<span id="L859"><span class="lineNum">     859</span>              :   template &lt;class _Fp, class = _EnableIfLValueCallable&lt;_Fp&gt;&gt;</span>
+<span id="L860"><span class="lineNum">     860</span>              :   _LIBCPP_HIDE_FROM_ABI function(_Fp);</span>
+<span id="L861"><span class="lineNum">     861</span>              : </span>
+<span id="L862"><span class="lineNum">     862</span>              : #  if _LIBCPP_STD_VER &lt;= 14</span>
+<span id="L863"><span class="lineNum">     863</span>              :   template &lt;class _Alloc&gt;</span>
+<span id="L864"><span class="lineNum">     864</span>              :   _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&amp;) _NOEXCEPT {}</span>
+<span id="L865"><span class="lineNum">     865</span>              :   template &lt;class _Alloc&gt;</span>
+<span id="L866"><span class="lineNum">     866</span>              :   _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&amp;, nullptr_t) _NOEXCEPT {}</span>
+<span id="L867"><span class="lineNum">     867</span>              :   template &lt;class _Alloc&gt;</span>
+<span id="L868"><span class="lineNum">     868</span>              :   _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&amp;, const function&amp;);</span>
+<span id="L869"><span class="lineNum">     869</span>              :   template &lt;class _Alloc&gt;</span>
+<span id="L870"><span class="lineNum">     870</span>              :   _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&amp;, function&amp;&amp;);</span>
+<span id="L871"><span class="lineNum">     871</span>              :   template &lt;class _Fp, class _Alloc, class = _EnableIfLValueCallable&lt;_Fp&gt;&gt;</span>
+<span id="L872"><span class="lineNum">     872</span>              :   _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&amp; __a, _Fp __f);</span>
+<span id="L873"><span class="lineNum">     873</span>              : #  endif</span>
+<span id="L874"><span class="lineNum">     874</span>              : </span>
+<span id="L875"><span class="lineNum">     875</span>              :   _LIBCPP_HIDE_FROM_ABI function&amp; operator=(const function&amp;);</span>
+<span id="L876"><span class="lineNum">     876</span>              :   _LIBCPP_HIDE_FROM_ABI function&amp; operator=(function&amp;&amp;) _NOEXCEPT;</span>
+<span id="L877"><span class="lineNum">     877</span>              :   _LIBCPP_HIDE_FROM_ABI function&amp; operator=(nullptr_t) _NOEXCEPT;</span>
+<span id="L878"><span class="lineNum">     878</span>              :   template &lt;class _Fp, class = _EnableIfLValueCallable&lt;__decay_t&lt;_Fp&gt;&gt;&gt;</span>
+<span id="L879"><span class="lineNum">     879</span>              :   _LIBCPP_HIDE_FROM_ABI function&amp; operator=(_Fp&amp;&amp;);</span>
+<span id="L880"><span class="lineNum">     880</span>              : </span>
+<span id="L881"><span class="lineNum">     881</span>              :   _LIBCPP_HIDE_FROM_ABI ~function();</span>
+<span id="L882"><span class="lineNum">     882</span>              : </span>
+<span id="L883"><span class="lineNum">     883</span>              :   // function modifiers:</span>
+<span id="L884"><span class="lineNum">     884</span>              :   _LIBCPP_HIDE_FROM_ABI void swap(function&amp;) _NOEXCEPT;</span>
+<span id="L885"><span class="lineNum">     885</span>              : </span>
+<span id="L886"><span class="lineNum">     886</span>              : #  if _LIBCPP_STD_VER &lt;= 14</span>
+<span id="L887"><span class="lineNum">     887</span>              :   template &lt;class _Fp, class _Alloc&gt;</span>
+<span id="L888"><span class="lineNum">     888</span>              :   _LIBCPP_HIDE_FROM_ABI void assign(_Fp&amp;&amp; __f, const _Alloc&amp; __a) {</span>
+<span id="L889"><span class="lineNum">     889</span>              :     function(allocator_arg, __a, std::forward&lt;_Fp&gt;(__f)).swap(*this);</span>
+<span id="L890"><span class="lineNum">     890</span>              :   }</span>
+<span id="L891"><span class="lineNum">     891</span>              : #  endif</span>
+<span id="L892"><span class="lineNum">     892</span>              : </span>
+<span id="L893"><span class="lineNum">     893</span>              :   // function capacity:</span>
+<span id="L894"><span class="lineNum">     894</span>              :   _LIBCPP_HIDE_FROM_ABI explicit operator bool() const _NOEXCEPT { return static_cast&lt;bool&gt;(__f_); }</span>
+<span id="L895"><span class="lineNum">     895</span>              : </span>
+<span id="L896"><span class="lineNum">     896</span>              :   // deleted overloads close possible hole in the type system</span>
+<span id="L897"><span class="lineNum">     897</span>              :   template &lt;class _R2, class... _ArgTypes2&gt;</span>
+<span id="L898"><span class="lineNum">     898</span>              :   bool operator==(const function&lt;_R2(_ArgTypes2...)&gt;&amp;) const = delete;</span>
+<span id="L899"><span class="lineNum">     899</span>              : #  if _LIBCPP_STD_VER &lt;= 17</span>
+<span id="L900"><span class="lineNum">     900</span>              :   template &lt;class _R2, class... _ArgTypes2&gt;</span>
+<span id="L901"><span class="lineNum">     901</span>              :   bool operator!=(const function&lt;_R2(_ArgTypes2...)&gt;&amp;) const = delete;</span>
+<span id="L902"><span class="lineNum">     902</span>              : #  endif</span>
+<span id="L903"><span class="lineNum">     903</span>              : </span>
+<span id="L904"><span class="lineNum">     904</span>              : public:</span>
+<span id="L905"><span class="lineNum">     905</span>              :   // function invocation:</span>
+<span id="L906"><span class="lineNum">     906</span>              :   _LIBCPP_HIDE_FROM_ABI _Rp operator()(_ArgTypes...) const;</span>
+<span id="L907"><span class="lineNum">     907</span>              : </span>
+<span id="L908"><span class="lineNum">     908</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L909"><span class="lineNum">     909</span>              :   // function target access:</span>
+<span id="L910"><span class="lineNum">     910</span>              :   _LIBCPP_HIDE_FROM_ABI const std::type_info&amp; target_type() const _NOEXCEPT;</span>
+<span id="L911"><span class="lineNum">     911</span>              :   template &lt;typename _Tp&gt;</span>
+<span id="L912"><span class="lineNum">     912</span>              :   _LIBCPP_HIDE_FROM_ABI _Tp* target() _NOEXCEPT;</span>
+<span id="L913"><span class="lineNum">     913</span>              :   template &lt;typename _Tp&gt;</span>
+<span id="L914"><span class="lineNum">     914</span>              :   _LIBCPP_HIDE_FROM_ABI const _Tp* target() const _NOEXCEPT;</span>
+<span id="L915"><span class="lineNum">     915</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L916"><span class="lineNum">     916</span>              : };</span>
+<span id="L917"><span class="lineNum">     917</span>              : </span>
+<span id="L918"><span class="lineNum">     918</span>              : #  if _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L919"><span class="lineNum">     919</span>              : template &lt;class _Rp, class... _Ap&gt;</span>
+<span id="L920"><span class="lineNum">     920</span>              : function(_Rp (*)(_Ap...)) -&gt; function&lt;_Rp(_Ap...)&gt;;</span>
+<span id="L921"><span class="lineNum">     921</span>              : </span>
+<span id="L922"><span class="lineNum">     922</span>              : template &lt;class _Fp, class _Stripped = typename __strip_signature&lt;decltype(&amp;_Fp::operator())&gt;::type&gt;</span>
+<span id="L923"><span class="lineNum">     923</span>              : function(_Fp) -&gt; function&lt;_Stripped&gt;;</span>
+<span id="L924"><span class="lineNum">     924</span>              : #  endif // _LIBCPP_STD_VER &gt;= 17</span>
+<span id="L925"><span class="lineNum">     925</span>              : </span>
+<span id="L926"><span class="lineNum">     926</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L927"><span class="lineNum">     927</span>              : function&lt;_Rp(_ArgTypes...)&gt;::function(const function&amp; __f) : __f_(__f.__f_) {}</span>
+<span id="L928"><span class="lineNum">     928</span>              : </span>
+<span id="L929"><span class="lineNum">     929</span>              : #  if _LIBCPP_STD_VER &lt;= 14</span>
+<span id="L930"><span class="lineNum">     930</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L931"><span class="lineNum">     931</span>              : template &lt;class _Alloc&gt;</span>
+<span id="L932"><span class="lineNum">     932</span>              : function&lt;_Rp(_ArgTypes...)&gt;::function(allocator_arg_t, const _Alloc&amp;, const function&amp; __f) : __f_(__f.__f_) {}</span>
+<span id="L933"><span class="lineNum">     933</span>              : #  endif</span>
+<span id="L934"><span class="lineNum">     934</span>              : </span>
+<span id="L935"><span class="lineNum">     935</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L936"><span class="lineNum">     936</span>              : function&lt;_Rp(_ArgTypes...)&gt;::function(function&amp;&amp; __f) _NOEXCEPT : __f_(std::move(__f.__f_)) {}</span>
+<span id="L937"><span class="lineNum">     937</span>              : </span>
+<span id="L938"><span class="lineNum">     938</span>              : #  if _LIBCPP_STD_VER &lt;= 14</span>
+<span id="L939"><span class="lineNum">     939</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L940"><span class="lineNum">     940</span>              : template &lt;class _Alloc&gt;</span>
+<span id="L941"><span class="lineNum">     941</span>              : function&lt;_Rp(_ArgTypes...)&gt;::function(allocator_arg_t, const _Alloc&amp;, function&amp;&amp; __f) : __f_(std::move(__f.__f_)) {}</span>
+<span id="L942"><span class="lineNum">     942</span>              : #  endif</span>
+<span id="L943"><span class="lineNum">     943</span>              : </span>
+<span id="L944"><span class="lineNum">     944</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L945"><span class="lineNum">     945</span>              : template &lt;class _Fp, class&gt;</span>
+<span id="L946"><span class="lineNum">     946</span> <span class="tlaGNC">          14 : function&lt;_Rp(_ArgTypes...)&gt;::function(_Fp __f) : __f_(std::move(__f)) {}</span></span>
+<span id="L947"><span class="lineNum">     947</span>              : </span>
+<span id="L948"><span class="lineNum">     948</span>              : #  if _LIBCPP_STD_VER &lt;= 14</span>
+<span id="L949"><span class="lineNum">     949</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L950"><span class="lineNum">     950</span>              : template &lt;class _Fp, class _Alloc, class&gt;</span>
+<span id="L951"><span class="lineNum">     951</span>              : function&lt;_Rp(_ArgTypes...)&gt;::function(allocator_arg_t, const _Alloc&amp; __a, _Fp __f) : __f_(std::move(__f), __a) {}</span>
+<span id="L952"><span class="lineNum">     952</span>              : #  endif</span>
+<span id="L953"><span class="lineNum">     953</span>              : </span>
+<span id="L954"><span class="lineNum">     954</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L955"><span class="lineNum">     955</span>              : function&lt;_Rp(_ArgTypes...)&gt;&amp; function&lt;_Rp(_ArgTypes...)&gt;::operator=(const function&amp; __f) {</span>
+<span id="L956"><span class="lineNum">     956</span>              :   function(__f).swap(*this);</span>
+<span id="L957"><span class="lineNum">     957</span>              :   return *this;</span>
+<span id="L958"><span class="lineNum">     958</span>              : }</span>
+<span id="L959"><span class="lineNum">     959</span>              : </span>
+<span id="L960"><span class="lineNum">     960</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L961"><span class="lineNum">     961</span>              : function&lt;_Rp(_ArgTypes...)&gt;&amp; function&lt;_Rp(_ArgTypes...)&gt;::operator=(function&amp;&amp; __f) _NOEXCEPT {</span>
+<span id="L962"><span class="lineNum">     962</span>              :   __f_ = std::move(__f.__f_);</span>
+<span id="L963"><span class="lineNum">     963</span>              :   return *this;</span>
+<span id="L964"><span class="lineNum">     964</span>              : }</span>
+<span id="L965"><span class="lineNum">     965</span>              : </span>
+<span id="L966"><span class="lineNum">     966</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L967"><span class="lineNum">     967</span>              : function&lt;_Rp(_ArgTypes...)&gt;&amp; function&lt;_Rp(_ArgTypes...)&gt;::operator=(nullptr_t) _NOEXCEPT {</span>
+<span id="L968"><span class="lineNum">     968</span>              :   __f_ = nullptr;</span>
+<span id="L969"><span class="lineNum">     969</span>              :   return *this;</span>
+<span id="L970"><span class="lineNum">     970</span>              : }</span>
+<span id="L971"><span class="lineNum">     971</span>              : </span>
+<span id="L972"><span class="lineNum">     972</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L973"><span class="lineNum">     973</span>              : template &lt;class _Fp, class&gt;</span>
+<span id="L974"><span class="lineNum">     974</span>              : function&lt;_Rp(_ArgTypes...)&gt;&amp; function&lt;_Rp(_ArgTypes...)&gt;::operator=(_Fp&amp;&amp; __f) {</span>
+<span id="L975"><span class="lineNum">     975</span>              :   function(std::forward&lt;_Fp&gt;(__f)).swap(*this);</span>
+<span id="L976"><span class="lineNum">     976</span>              :   return *this;</span>
+<span id="L977"><span class="lineNum">     977</span>              : }</span>
+<span id="L978"><span class="lineNum">     978</span>              : </span>
+<span id="L979"><span class="lineNum">     979</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L980"><span class="lineNum">     980</span> <span class="tlaGNC">          14 : function&lt;_Rp(_ArgTypes...)&gt;::~function() {}</span></span>
+<span id="L981"><span class="lineNum">     981</span>              : </span>
+<span id="L982"><span class="lineNum">     982</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L983"><span class="lineNum">     983</span>              : void function&lt;_Rp(_ArgTypes...)&gt;::swap(function&amp; __f) _NOEXCEPT {</span>
+<span id="L984"><span class="lineNum">     984</span>              :   __f_.swap(__f.__f_);</span>
+<span id="L985"><span class="lineNum">     985</span>              : }</span>
+<span id="L986"><span class="lineNum">     986</span>              : </span>
+<span id="L987"><span class="lineNum">     987</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L988"><span class="lineNum">     988</span> <span class="tlaGNC">         119 : _Rp function&lt;_Rp(_ArgTypes...)&gt;::operator()(_ArgTypes... __arg) const {</span></span>
+<span id="L989"><span class="lineNum">     989</span> <span class="tlaGNC">         119 :   return __f_(std::forward&lt;_ArgTypes&gt;(__arg)...);</span></span>
+<span id="L990"><span class="lineNum">     990</span>              : }</span>
+<span id="L991"><span class="lineNum">     991</span>              : </span>
+<span id="L992"><span class="lineNum">     992</span>              : #  ifndef _LIBCPP_HAS_NO_RTTI</span>
+<span id="L993"><span class="lineNum">     993</span>              : </span>
+<span id="L994"><span class="lineNum">     994</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L995"><span class="lineNum">     995</span>              : const std::type_info&amp; function&lt;_Rp(_ArgTypes...)&gt;::target_type() const _NOEXCEPT {</span>
+<span id="L996"><span class="lineNum">     996</span>              :   return __f_.target_type();</span>
+<span id="L997"><span class="lineNum">     997</span>              : }</span>
+<span id="L998"><span class="lineNum">     998</span>              : </span>
+<span id="L999"><span class="lineNum">     999</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1000"><span class="lineNum">    1000</span>              : template &lt;typename _Tp&gt;</span>
+<span id="L1001"><span class="lineNum">    1001</span>              : _Tp* function&lt;_Rp(_ArgTypes...)&gt;::target() _NOEXCEPT {</span>
+<span id="L1002"><span class="lineNum">    1002</span>              :   return (_Tp*)(__f_.template target&lt;_Tp&gt;());</span>
+<span id="L1003"><span class="lineNum">    1003</span>              : }</span>
+<span id="L1004"><span class="lineNum">    1004</span>              : </span>
+<span id="L1005"><span class="lineNum">    1005</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1006"><span class="lineNum">    1006</span>              : template &lt;typename _Tp&gt;</span>
+<span id="L1007"><span class="lineNum">    1007</span>              : const _Tp* function&lt;_Rp(_ArgTypes...)&gt;::target() const _NOEXCEPT {</span>
+<span id="L1008"><span class="lineNum">    1008</span>              :   return __f_.template target&lt;_Tp&gt;();</span>
+<span id="L1009"><span class="lineNum">    1009</span>              : }</span>
+<span id="L1010"><span class="lineNum">    1010</span>              : </span>
+<span id="L1011"><span class="lineNum">    1011</span>              : #  endif // _LIBCPP_HAS_NO_RTTI</span>
+<span id="L1012"><span class="lineNum">    1012</span>              : </span>
+<span id="L1013"><span class="lineNum">    1013</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1014"><span class="lineNum">    1014</span>              : inline _LIBCPP_HIDE_FROM_ABI bool operator==(const function&lt;_Rp(_ArgTypes...)&gt;&amp; __f, nullptr_t) _NOEXCEPT {</span>
+<span id="L1015"><span class="lineNum">    1015</span>              :   return !__f;</span>
+<span id="L1016"><span class="lineNum">    1016</span>              : }</span>
+<span id="L1017"><span class="lineNum">    1017</span>              : </span>
+<span id="L1018"><span class="lineNum">    1018</span>              : #  if _LIBCPP_STD_VER &lt;= 17</span>
+<span id="L1019"><span class="lineNum">    1019</span>              : </span>
+<span id="L1020"><span class="lineNum">    1020</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1021"><span class="lineNum">    1021</span>              : inline _LIBCPP_HIDE_FROM_ABI bool operator==(nullptr_t, const function&lt;_Rp(_ArgTypes...)&gt;&amp; __f) _NOEXCEPT {</span>
+<span id="L1022"><span class="lineNum">    1022</span>              :   return !__f;</span>
+<span id="L1023"><span class="lineNum">    1023</span>              : }</span>
+<span id="L1024"><span class="lineNum">    1024</span>              : </span>
+<span id="L1025"><span class="lineNum">    1025</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1026"><span class="lineNum">    1026</span>              : inline _LIBCPP_HIDE_FROM_ABI bool operator!=(const function&lt;_Rp(_ArgTypes...)&gt;&amp; __f, nullptr_t) _NOEXCEPT {</span>
+<span id="L1027"><span class="lineNum">    1027</span>              :   return (bool)__f;</span>
+<span id="L1028"><span class="lineNum">    1028</span>              : }</span>
+<span id="L1029"><span class="lineNum">    1029</span>              : </span>
+<span id="L1030"><span class="lineNum">    1030</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1031"><span class="lineNum">    1031</span>              : inline _LIBCPP_HIDE_FROM_ABI bool operator!=(nullptr_t, const function&lt;_Rp(_ArgTypes...)&gt;&amp; __f) _NOEXCEPT {</span>
+<span id="L1032"><span class="lineNum">    1032</span>              :   return (bool)__f;</span>
+<span id="L1033"><span class="lineNum">    1033</span>              : }</span>
+<span id="L1034"><span class="lineNum">    1034</span>              : </span>
+<span id="L1035"><span class="lineNum">    1035</span>              : #  endif // _LIBCPP_STD_VER &lt;= 17</span>
+<span id="L1036"><span class="lineNum">    1036</span>              : </span>
+<span id="L1037"><span class="lineNum">    1037</span>              : template &lt;class _Rp, class... _ArgTypes&gt;</span>
+<span id="L1038"><span class="lineNum">    1038</span>              : inline _LIBCPP_HIDE_FROM_ABI void swap(function&lt;_Rp(_ArgTypes...)&gt;&amp; __x, function&lt;_Rp(_ArgTypes...)&gt;&amp; __y) _NOEXCEPT {</span>
+<span id="L1039"><span class="lineNum">    1039</span>              :   return __x.swap(__y);</span>
+<span id="L1040"><span class="lineNum">    1040</span>              : }</span>
+<span id="L1041"><span class="lineNum">    1041</span>              : </span>
+<span id="L1042"><span class="lineNum">    1042</span>              : _LIBCPP_END_NAMESPACE_STD</span>
+<span id="L1043"><span class="lineNum">    1043</span>              : </span>
+<span id="L1044"><span class="lineNum">    1044</span>              : #endif // _LIBCPP_CXX03_LANG</span>
+<span id="L1045"><span class="lineNum">    1045</span>              : </span>
+<span id="L1046"><span class="lineNum">    1046</span>              : _LIBCPP_POP_MACROS</span>
+<span id="L1047"><span class="lineNum">    1047</span>              : </span>
+<span id="L1048"><span class="lineNum">    1048</span>              : #endif // _LIBCPP___FUNCTIONAL_FUNCTION_H</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.3.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
